@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>분당튼튼운동센터 - 운동후기 갤러리</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    .review-container {
+      max-width: 1080px;
+      margin: 60px auto 40px auto;
+      padding: 0 14px;
+    }
+    .review-title {
+      font-size: 2.1rem;
+      font-weight: 900;
+      color: #42592b;
+      margin-bottom: 30px;
+      letter-spacing: -1px;
+      text-align: center;
+    }
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .review-img-box img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 9px;
+      box-shadow: 0 1px 8px rgba(99,100,70,0.04);
+      background: #eee;
+    }
+    .review-img-box:hover {
+      box-shadow: 0 8px 38px rgba(130,160,120,0.17);
+      border-color: #d4ecb2;
+    }
+    .review-img-box img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 9px;
+      box-shadow: 0 1px 8px rgba(99,100,70,0.04);
+      background: #eee;
+    }
+    @media (max-width: 600px) {
+      .review-title { font-size: 1.2rem; }
+      .review-img-box img { height: 140px; }
+    }
+    .back-home {
+      display: block;
+      margin: 0 auto 40px auto;
+      padding: 11px 32px;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 20px;
+      background: #f7ce46;
+      color: #333;
+      text-align: center;
+      text-decoration: none;
+      width: max-content;
+      box-shadow: 0 2px 12px rgba(180,180,120,0.07);
+      transition: background 0.2s;
+    }
+    .back-home:hover {
+      background: #ffe57c;
+      color: #222;
+    }
+    .img-modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0; top: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(24,24,24,0.85);
+      justify-content: center;
+      align-items: center;
+      transition: background .18s;
+    }
+  .img-modal-content {
+    max-width: 90vw;
+    max-height: 82vh;
+    border-radius: 12px;
+    box-shadow: 0 8px 40px rgba(30,40,30,0.25);
+    background: #fff;
+    object-fit: contain;
+  }
+  .img-modal-close {
+    position: absolute;
+    top: 36px; right: 56px;
+    color: #fff;
+    font-size: 3.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 10000;
+    text-shadow: 0 2px 16px #222;
+    transition: color .16s;
+  }
+  .img-modal-close:hover {
+    color: #f7ce46;
+  }
+  @media (max-width: 700px) {
+    .img-modal-content { max-width: 98vw; max-height: 66vh; }
+    .img-modal-close { top: 22px; right: 20px; font-size: 2.1rem; }
+  }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="images/logo.png" alt="로고">
+    </div>
+    <div class="nav-links">
+      <a href="index.html">HOME</a>
+      <a href="#">체험소개</a>
+      <a href="review.html" style="color:#a2bf4a;font-weight:700;">운동후기</a>
+    </div>
+  </nav>
+  <div class="review-container">
+    <div class="review-title">분당튼튼운동센터 운동후기</div>
+    <a href="index.html" class="back-home">← 메인으로 돌아가기</a>
+    <div class="review-grid">
+      <div class="review-img-box"><img src="images/reviews/review01.jpg" alt="운동후기1"></div>
+      <div class="review-img-box"><img src="images/reviews/review02.jpg" alt="운동후기2"></div>
+      <div class="review-img-box"><img src="images/reviews/review03.jpg" alt="운동후기3"></div>
+      <div class="review-img-box"><img src="images/reviews/review04.jpg" alt="운동후기4"></div>
+      <div class="review-img-box"><img src="images/reviews/review05.jpg" alt="운동후기5"></div>
+      <div class="review-img-box"><img src="images/reviews/review06.jpg" alt="운동후기6"></div>
+      <div class="review-img-box"><img src="images/reviews/review07.jpg" alt="운동후기7"></div>
+      <div class="review-img-box"><img src="images/reviews/review08.jpg" alt="운동후기8"></div>
+      <div class="review-img-box"><img src="images/reviews/review09.jpg" alt="운동후기9"></div>
+      <div class="review-img-box"><img src="images/reviews/review10.jpg" alt="운동후기10"></div>
+      <div class="review-img-box"><img src="images/reviews/review11.jpg" alt="운동후기11"></div>
+      <div class="review-img-box"><img src="images/reviews/review12.jpg" alt="운동후기12"></div>
+      <div class="review-img-box"><img src="images/reviews/review13.jpg" alt="운동후기13"></div>
+      <div class="review-img-box"><img src="images/reviews/review14.jpg" alt="운동후기14"></div>
+      <div class="review-img-box"><img src="images/reviews/review15.jpg" alt="운동후기15"></div>
+      <div class="review-img-box"><img src="images/reviews/review16.jpg" alt="운동후기16"></div>
+      <div class="review-img-box"><img src="images/reviews/review17.jpg" alt="운동후기17"></div>
+    </div>
+  </div>
+  <div id="img-modal" class="img-modal">
+  <span class="img-modal-close" id="img-modal-close">&times;</span>
+  <img class="img-modal-content" id="img-modal-img">
+</div>
+</body>
+</html>
+<script>
+  document.querySelectorAll('.review-img-box img').forEach(img => {
+    img.addEventListener('click', function() {
+      document.getElementById('img-modal-img').src = this.src;
+      document.getElementById('img-modal').style.display = "flex";
+    });
+  });
+  document.getElementById('img-modal-close').onclick = function() {
+    document.getElementById('img-modal').style.display = "none";
+    document.getElementById('img-modal-img').src = '';
+  };
+  document.getElementById('img-modal').onclick = function(e) {
+    if (e.target === this) {
+      this.style.display = "none";
+      document.getElementById('img-modal-img').src = '';
+    }
+  };
+</script>
