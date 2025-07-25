@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <title>분당튼튼운동센터 - 운동후기 갤러리</title>
@@ -12,6 +13,7 @@
       margin: 60px auto 40px auto;
       padding: 0 14px;
     }
+
     .review-title {
       font-size: 2.1rem;
       font-weight: 900;
@@ -20,35 +22,46 @@
       letter-spacing: -1px;
       text-align: center;
     }
+
     .review-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 24px;
     }
+
     .review-img-box img {
       width: 100%;
       height: 260px;
       object-fit: cover;
       border-radius: 9px;
-      box-shadow: 0 1px 8px rgba(99,100,70,0.04);
+      box-shadow: 0 1px 8px rgba(99, 100, 70, 0.04);
       background: #eee;
     }
+
     .review-img-box:hover {
-      box-shadow: 0 8px 38px rgba(130,160,120,0.17);
+      box-shadow: 0 8px 38px rgba(130, 160, 120, 0.17);
       border-color: #d4ecb2;
     }
+
     .review-img-box img {
       width: 100%;
       height: 260px;
       object-fit: cover;
       border-radius: 9px;
-      box-shadow: 0 1px 8px rgba(99,100,70,0.04);
+      box-shadow: 0 1px 8px rgba(99, 100, 70, 0.04);
       background: #eee;
     }
+
     @media (max-width: 600px) {
-      .review-title { font-size: 1.2rem; }
-      .review-img-box img { height: 140px; }
+      .review-title {
+        font-size: 1.2rem;
+      }
+
+      .review-img-box img {
+        height: 140px;
+      }
     }
+
     .back-home {
       display: block;
       margin: 0 auto 40px auto;
@@ -62,52 +75,70 @@
       text-align: center;
       text-decoration: none;
       width: max-content;
-      box-shadow: 0 2px 12px rgba(180,180,120,0.07);
+      box-shadow: 0 2px 12px rgba(180, 180, 120, 0.07);
       transition: background 0.2s;
     }
+
     .back-home:hover {
       background: #ffe57c;
       color: #222;
     }
+
     .img-modal {
       display: none;
       position: fixed;
       z-index: 9999;
-      left: 0; top: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(24,24,24,0.85);
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(24, 24, 24, 0.85);
       justify-content: center;
       align-items: center;
       transition: background .18s;
     }
-  .img-modal-content {
-    max-width: 90vw;
-    max-height: 82vh;
-    border-radius: 12px;
-    box-shadow: 0 8px 40px rgba(30,40,30,0.25);
-    background: #fff;
-    object-fit: contain;
-  }
-  .img-modal-close {
-    position: absolute;
-    top: 36px; right: 56px;
-    color: #fff;
-    font-size: 3.2rem;
-    font-weight: 600;
-    cursor: pointer;
-    z-index: 10000;
-    text-shadow: 0 2px 16px #222;
-    transition: color .16s;
-  }
-  .img-modal-close:hover {
-    color: #f7ce46;
-  }
-  @media (max-width: 700px) {
-    .img-modal-content { max-width: 98vw; max-height: 66vh; }
-    .img-modal-close { top: 22px; right: 20px; font-size: 2.1rem; }
-  }
+
+    .img-modal-content {
+      max-width: 90vw;
+      max-height: 82vh;
+      border-radius: 12px;
+      box-shadow: 0 8px 40px rgba(30, 40, 30, 0.25);
+      background: #fff;
+      object-fit: contain;
+    }
+
+    .img-modal-close {
+      position: absolute;
+      top: 36px;
+      right: 56px;
+      color: #fff;
+      font-size: 3.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 10000;
+      text-shadow: 0 2px 16px #222;
+      transition: color .16s;
+    }
+
+    .img-modal-close:hover {
+      color: #f7ce46;
+    }
+
+    @media (max-width: 700px) {
+      .img-modal-content {
+        max-width: 98vw;
+        max-height: 66vh;
+      }
+
+      .img-modal-close {
+        top: 22px;
+        right: 20px;
+        font-size: 2.1rem;
+      }
+    }
   </style>
 </head>
+
 <body>
   <nav class="navbar">
     <div class="logo">
@@ -115,7 +146,9 @@
     </div>
     <div class="nav-links">
       <a href="index.html">HOME</a>
-      <a href="#">체험소개</a>
+      <a href="#">원장 소개</a>
+      <a href="#">프로그램</a>
+      <a href="#">내부시설</a>
       <a href="review.html" style="color:#a2bf4a;font-weight:700;">운동후기</a>
     </div>
   </nav>
@@ -142,23 +175,24 @@
     </div>
   </div>
   <div id="img-modal" class="img-modal">
-  <span class="img-modal-close" id="img-modal-close">&times;</span>
-  <img class="img-modal-content" id="img-modal-img">
-</div>
+    <span class="img-modal-close" id="img-modal-close">&times;</span>
+    <img class="img-modal-content" id="img-modal-img">
+  </div>
 </body>
+
 </html>
 <script>
   document.querySelectorAll('.review-img-box img').forEach(img => {
-    img.addEventListener('click', function() {
+    img.addEventListener('click', function () {
       document.getElementById('img-modal-img').src = this.src;
       document.getElementById('img-modal').style.display = "flex";
     });
   });
-  document.getElementById('img-modal-close').onclick = function() {
+  document.getElementById('img-modal-close').onclick = function () {
     document.getElementById('img-modal').style.display = "none";
     document.getElementById('img-modal-img').src = '';
   };
-  document.getElementById('img-modal').onclick = function(e) {
+  document.getElementById('img-modal').onclick = function (e) {
     if (e.target === this) {
       this.style.display = "none";
       document.getElementById('img-modal-img').src = '';
