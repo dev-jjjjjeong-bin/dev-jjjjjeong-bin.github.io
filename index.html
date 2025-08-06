@@ -12,10 +12,12 @@
   <!-- 1. 네비게이션 -->
   <nav class="navbar">
     <div class="logo">
-      <img src="images/logo.png" alt="로고">
+      <a href="#home" id="logo-link">
+        <img src="images/logo.png" alt="로고">
+      </a>
     </div>
     <div class="nav-links">
-      <a href="index.html" style="color:#a2bf4a;font-weight:700;">HOME</a>
+      <a href="index.html">HOME</a>
       <a href="#director">원장 소개</a>
       <a href="#program">프로그램</a>
       <a href="#">내부시설</a>
@@ -23,12 +25,16 @@
     </div>
   </nav>
   <!-- 2. Intro -->
-  <section class="intro">
-    <div class="intro-title">분당튼튼운동센터</div>
+  <section class="intro" id="home">
+    <div class="intro-title">
+      <img src="images/logo-horizontal.png" alt="분당튼튼운동센터 로고" class="intro-logo">
+    </div>
     <div class="intro-subtitle">재활, 한 우물만 판다!</div>
     <div class="intro-desc">재활운동 외길 인생 손진석 원장의 전문 재활운동센터</div>
     <div class="intro-btns">
-      <button class="intro-btn">지금 상담받기</button>
+      <a href="https://map.naver.com/p/entry/place/2026927539?placePath=/ticket?entry=plt&from=map&fromPanelNum=1&additionalHeight=76&timestamp=202508061628&locale=ko&svcName=map_pcv5&searchType=place&lng=127.1394440&lat=37.3716281&c=14.56,0,0,0,dh"
+        class="intro-btn green" target="_blank" rel="noopener">체험 예약하기</a>
+      <a href="https://open.kakao.com/o/gv06NQIh" class="intro-btn yellow" target="_blank" rel="noopener">카카오톡 상담</a>
     </div>
     <div class="contact">
       <span class="icon">📍</span>경기도 성남시 분당구 불정로376번길 37 범한프라자 3층 302호<br>
@@ -37,19 +43,20 @@
     </div>
   </section>
   <!-- 원장 소개 섹션 -->
-  <section class="director" id="director">
+  <section class="director section-bg2" id="director">
     <div class="director-container">
       <img src="images/profile.png" class="director-photo" alt="손진석 원장 사진">
       <div class="director-info">
         <div class="director-name" style="margin-top:16px;"><strong>손진석 원장</strong></div>
-        <div class="director-title" style="font-size:1.23rem; color:#c6a537; margin-bottom:22px;">대한민국 엘리트 운동선수 출신 시니어 재활운동센터
+        <div class="director-title" style="font-size:1.23rem; color:#c6a537; margin-bottom:22px;">대한민국 엘리트 운동선수 출신 시니어
+          재활운동센터
           원장</div>
         <div class="director-bio">
           <div style="margin-bottom:22px; line-height:2; color:#444; font-size:1.14rem;">
             엘리트 운동선수로 활약하며 자신의 몸을 이해하고 다룰 줄 아는 법을 배웠습니다.<br>
             선수로서 겪은 부상경험은 재활운동 전문가로의 전환을 위한 단단한 초석이 되었고,<br>
             이후 시니어 재활운동센터의 원장으로 활동하며 인생 2막을 열었습니다.<br><br>
-            특히 시니어 고객들에게 필요한 정확한 '구조적' 자세와 안전한 '기능적' 운동법에 중점을 두어,<br>
+            특히 시니어분들에게 필요한 정확한 '구조적' 자세와 안전한 '기능적' 운동법에 중점을 두어,<br>
             부상을 방지하고 재활 효과를 극대화하는 데 집중합니다.
           </div>
         </div>
@@ -57,19 +64,27 @@
     </div>
   </section>
   <!-- 자격증/경력 섹션 -->
-  <section class="certs">
+  <section class="certs section-bg1">
     <div class="certs-title">전문 자격증 및 경력</div>
-    <div class="cert-list">
-      <div class="cert-item">보바스 병원<br>재활운동사</div>
-      <div class="cert-item">스포츠역학 석사</div>
-      <div class="cert-item">생활스포츠지도사<br>2급 승마</div>
-      <div class="cert-item">중·고령자 기능재활 전문가</div>
-      <div class="cert-item">시니어 재활운동 1급</div>
-      <div class="cert-item">기능성 운동 지도사</div>
-    </div>
+    <ul class="cert-list bullet-list">
+      <li>스포츠역학 석사</li>
+      <li>대한임상도수치료사 1급 (대한수기물리치료학회)</li>
+      <li>카이로프랙틱 교육이수 (576시간)</li>
+      <li>노인 건강교육 강사 (대한적십자)</li>
+      <li>승마 생활스포츠지도자 (문화체육관광부)</li>
+      <li>요가 지도자자격 (대한스포츠지도자협회)</li>
+      <li>스포츠마사지 자격 (한국체력건강관리협회)</li>
+      <li>보디빌딩 생활스포츠지도자 (문화체육관광부)</li>
+      <li>前) 카누 국가대표</li>
+      <li>前) 재활승마/마장마술/장애물비월 수석교관</li>
+      <li>前) 보바스기념병원 더헤리티지 재활운동사</li>
+      <li>前) 좋은운동센터 원장 (시니어재활운동센터)</li>
+      <li>前) 더뉴짐스 공동대표</li>
+      <li>現) 분당튼튼운동센터 대표</li>
+    </ul>
   </section>
   <!-- 센터/프로그램 소개 섹션 -->
-  <section class="program" id="program">
+  <section class="program section-bg2" id="program">
     <div class="program-inner">
       <div class="program-main-title">분당튼튼운동센터 프로그램</div>
       <div class="program-quote">
@@ -103,7 +118,7 @@
     </div>
   </section>
   <!-- 재활운동 4단계 섹션 -->
-  <section class="steps">
+  <section class="steps section-bg1">
     <div class="steps-title">통증 완화를 위한 재활운동 4단계</div>
     <div class="steps-desc">
       체계적인 재활과 운동치료 과정을 통해 건강하고 안정적인 상태로 회복
@@ -151,7 +166,9 @@
   <!-- 푸터/하단 안내 -->
   <footer class="footer">
     <div class="footer-inner">
-      <div class="footer-title">분당튼튼운동센터</div>
+      <div class="footer-title">
+        <img src="images/logo-remove-background.png" alt="분당튼튼운동센터 로고" class="footer-logo">
+      </div>
       <div class="footer-desc">상담문의 <span class="highlight">0507-1395-6535</span></div>
       <div class="footer-btns">
         <a href="https://open.kakao.com/o/gv06NQIh" class="footer-btn" target="_blank" rel="noopener">카카오톡 상담</a>
@@ -161,41 +178,53 @@
     </div>
   </footer>
   <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const navLinks = document.querySelectorAll('.nav-links a');
-  navLinks.forEach(link => {
-    link.addEventListener('click', function (e) {
-      // 외부 페이지 이동(a 태그에 href가 http 또는 .html 등) 제외
-      if (link.getAttribute('href') && link.getAttribute('href').startsWith('#')) {
-        e.preventDefault();
-
-        // 모든 링크 색상 리셋
-        navLinks.forEach(l => {
-          l.style.color = '';
-          l.style.fontWeight = '';
+    document.addEventListener("DOMContentLoaded", function () {
+      const navLinks = document.querySelectorAll('.nav-links a');
+      const sectionIds = ['home', 'director', 'program']; // 메뉴 순서대로
+      const nav = document.querySelector('.navbar');
+      const logoLink = document.getElementById('logo-link');
+      // 클릭 시 스크롤+색상 변경
+      navLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+          const href = link.getAttribute('href');
+          if (href && href.startsWith('#')) {
+            e.preventDefault();
+            // 스크롤 이동 (네비 높이만큼 보정)
+            const targetId = href.slice(1);
+            const target = document.getElementById(targetId);
+            if (target && nav) {
+              const offset = nav.offsetHeight || 0;
+              const targetTop = target.getBoundingClientRect().top + window.pageYOffset - offset;
+              window.scrollTo({ top: targetTop, behavior: 'smooth' });
+            }
+          }
         });
-
-        // 현재 클릭한 링크 강조
-        link.style.color = '#a2bf4a';
-        link.style.fontWeight = '700';
-
-        // 스크롤 이동(네비게이션 높이만큼 보정)
-        const targetId = link.getAttribute('href').replace('#', '');
-        const target = document.getElementById(targetId);
-        const nav = document.querySelector('.navbar');
-        if (target && nav) {
-          const offset = nav.offsetHeight || 0;
-          const targetTop = target.getBoundingClientRect().top + window.pageYOffset - offset;
-          window.scrollTo({
-            top: targetTop,
-            behavior: 'smooth'
-          });
-        }
-      }
+      });
+      // 스크롤 시 자동 active
+      window.addEventListener('scroll', function () {
+        let scrollPos = window.scrollY || window.pageYOffset;
+        const offset = nav ? nav.offsetHeight : 0;
+        let activeIndex = 0;
+        sectionIds.forEach((id, idx) => {
+          const sec = document.getElementById(id);
+          if (sec) {
+            const secTop = sec.offsetTop - offset - 2;
+            if (scrollPos >= secTop) activeIndex = idx;
+          }
+        });
+        navLinks.forEach((l, idx) => {
+          if (idx === activeIndex) {
+            l.classList.add('active');
+          } else {
+            l.classList.remove('active');
+          }
+        });
+      });
+      // 페이지 진입시 바로 적용
+      window.dispatchEvent(new Event('scroll'));
     });
-  });
-});
-</script>
+  </script>
+
 </body>
 
 </html>

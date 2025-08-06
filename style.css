@@ -88,6 +88,16 @@ body {
   margin-bottom: 18px;
 }
 
+.intro-logo {
+  height: 300px;
+  max-width: 90vw;
+  margin-bottom: 50px;
+  margin-top: -60px;
+  display: inline-block;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 14px rgba(32, 36, 38, 0.13));
+}
+
 .intro-desc {
   margin-bottom: 38px;
   font-size: 1.05rem;
@@ -108,15 +118,33 @@ body {
   border-radius: 32px;
   font-size: 1.2rem;
   font-weight: bold;
-  padding: 16px 32px;
+  padding: 16px 36px;
   margin: 0 5px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
   cursor: pointer;
   transition: background 0.18s, color 0.18s;
+  text-decoration: none;
+  display: inline-block;
 }
 
-.intro-btn:hover {
-  background: #ffe57c;
+.intro-btn.green {
+  background: #03c75a;
+  color: #222;
+}
+
+.intro-btn.yellow {
+  background: #ffeb3b;
+  color: #222;
+}
+
+.intro-btn.green:hover {
+  background: #019c43;
+  color: #fff;
+}
+
+.intro-btn.yellow:hover {
+  background: #fbc02d;
+  color: #fff;
 }
 
 .contact {
@@ -142,6 +170,11 @@ body {
 
   .intro-subtitle {
     font-size: 1.02rem;
+  }
+
+  .intro-logo {
+    height: 38px;
+    margin-bottom: 7px;
   }
 
   .intro-btn {
@@ -224,9 +257,9 @@ body {
 }
 
 .director-name {
-  font-size: 2.0rem;
-  font-weight: bold;
-  color: #263e19;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #42592b;
   margin-bottom: 12px;
 }
 
@@ -285,10 +318,10 @@ body {
 }
 
 .certs-title {
-  font-size: 1.5rem;
-  color: #263e19;
-  font-weight: bold;
-  margin-bottom: 30px;
+  font-size: 2.3rem;
+  color: #42592b;
+  font-weight: 900;
+  margin-bottom: 50px;
   letter-spacing: -1.5px;
 }
 
@@ -319,6 +352,47 @@ body {
   }
 }
 
+.bullet-list {
+  list-style-type: disc;
+  padding-left: 80px;
+  margin: 24px 0 0 0;
+  text-align: left;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  /* 리스트 영역 전체 좌측정렬 */
+  display: block;
+}
+
+.bullet-list li {
+  font-size: 1.08rem;
+  color: #212121;
+  margin-bottom: 6px;
+  /* 줄 간격(아래 여백) 더 작게 */
+  line-height: 1.37;
+  /* 줄바꿈 시 간격도 줄임 */
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: -0.2px;
+  font-weight: 500;
+  text-align: left;
+  /* 글씨도 강제 좌측정렬 */
+  word-break: keep-all;
+  /* 줄바꿈 시 단어 잘림 방지(한국어용) */
+}
+
+@media (max-width: 700px) {
+  .bullet-list {
+    padding-left: 13px;
+    font-size: 0.96rem;
+  }
+
+  .bullet-list li {
+    font-size: 0.98rem;
+    margin-bottom: 5px;
+    line-height: 1.32;
+  }
+}
+
 
 
 
@@ -340,7 +414,7 @@ body {
 }
 
 .program-main-title {
-  font-size: 2.7rem;
+  font-size: 2.5rem;
   color: #42592b;
   font-weight: 900;
   margin-bottom: 16px;
@@ -445,7 +519,7 @@ body {
 }
 
 .steps-title {
-  font-size: 2.3rem;
+  font-size: 2.5rem;
   font-weight: 900;
   color: #42592b;
   margin-bottom: 10px;
@@ -552,6 +626,12 @@ body {
   margin-bottom: 18px;
 }
 
+.footer-logo {
+  height: 90px;
+  margin-bottom: 7px;
+  margin-top: 3px;
+}
+
 .footer-btns {
   display: flex;
   justify-content: center;
@@ -589,7 +669,21 @@ body {
 
 
 
+.section-bg1 {
+  background: #e7efcc !important;
+  /* 연두 */
+}
+
+.section-bg2 {
+  background: #fff !important;
+  /* 흰색 */
+}
 
 html {
   scroll-behavior: smooth;
+}
+
+.nav-links a.active {
+  color: #a2bf4a !important;
+  font-weight: 700 !important;
 }
