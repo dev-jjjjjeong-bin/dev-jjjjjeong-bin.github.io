@@ -657,15 +657,6 @@ body {
   font-size: 1.08rem;
 }
 
-.footer-btn.secondary {
-  background: #fff;
-  color: #263e19;
-}
-
-.footer-btn:hover {
-  background: #ffe57c;
-}
-
 .footer-btn.footer-btn-green {
   background: #03c75a;
   color: #222;
