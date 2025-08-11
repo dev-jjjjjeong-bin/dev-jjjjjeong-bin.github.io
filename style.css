@@ -132,18 +132,8 @@ body {
   color: #222;
 }
 
-.intro-btn.yellow {
-  background: #ffeb3b;
-  color: #222;
-}
-
 .intro-btn.green:hover {
   background: #019c43;
-  color: #fff;
-}
-
-.intro-btn.yellow:hover {
-  background: #fbc02d;
   color: #fff;
 }
 
@@ -199,7 +189,7 @@ body {
 
 .director {
   background: #f5f7eb;
-  padding: 100px 0 100px 0;
+  padding: 100px 0;
   display: flex;
   justify-content: center;
 }
@@ -209,70 +199,63 @@ body {
   width: 100%;
   max-width: 1450px;
   margin: 0 auto;
-  gap: 0;
   align-items: center;
   justify-content: space-between;
-  padding-left: 0;
-  padding-right: 0;
+  gap: 40px;                 /* 이미지-글 간격 */
+  padding: 0 24px;           /* 양옆 기본 여백 */
+  box-sizing: border-box;
 }
 
+/* 이미지 */
 .director-photo {
-  width: 500px;
-  height: 400px;
+  width: min(520px, 42vw);
+  height: auto;              /* 비율 유지 */
+  aspect-ratio: 5 / 4;       /* 없으면 브라우저가 비율 추정 */
   object-fit: cover;
   border-radius: 26px;
   border: 4px solid #a2bf4a;
   box-shadow: 0 8px 32px rgba(163, 184, 93, 0.12);
   background: #fff;
-  margin-left: 50px;
-  margin-right: 0;
+  margin: 0;                 /* 좌우 마진 제거 */
 }
 
+/* 텍스트 영역 */
 .director-info {
   flex: 1;
-  text-align: right;
+  text-align: left;          /* 오른쪽 정렬 → 왼쪽 정렬 */
   align-self: flex-start;
-  padding-left: 60px;
-  padding-right: 40px;
-}
-
-@media (max-width: 900px) {
-  .director-container {
-    flex-direction: column;
-    align-items: center;
-    padding: 0 10px;
-  }
-
-  .director-info {
-    text-align: center;
-    padding: 0;
-  }
+  padding: 0 8px 0 8px;
+  max-width: 720px;          /* 줄 길이 제한(가독성) */
 }
 
 .director-title {
   font-size: 1.1rem;
   color: #a2bf4a;
   font-weight: 700;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .director-name {
-  font-size: 2.5rem;
+  font-size: clamp(1.8rem, 2.6vw, 2.5rem);
   font-weight: 900;
   color: #42592b;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
+/* 소개 본문: 문단 정리 */
 .director-bio {
   font-size: 1.06rem;
   color: #333;
+  line-height: 1.9;
+  word-break: keep-all;      /* 한국어 단어 뭉텅이 방지 */
 }
-
+.director-bio p {
+  margin: 0 0 14px 0;        /* 문단 간격 */
+}
 .director-bio ul {
   margin: 13px 0 10px 18px;
   padding: 0;
 }
-
 .director-bio li {
   font-size: 1.01rem;
   margin-bottom: 3px;
@@ -291,22 +274,44 @@ body {
   font-weight: bold;
 }
 
-@media (max-width: 700px) {
+/* ===== Responsive ===== */
+@media (max-width: 1100px) {
+  .director-container { gap: 28px; }
+  .director-info { max-width: 680px; }
+}
+
+@media (max-width: 900px) {
   .director-container {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: column;  /* 세로 배치 */
+    align-items: center;
     gap: 22px;
+    padding: 0 16px;
   }
-
   .director-photo {
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    max-width: 560px;
+    aspect-ratio: 5 / 4;
   }
-
+  .director-info {
+    align-self: stretch;
+    text-align: left;        /* 모바일도 왼쪽 정렬 유지 */
+    padding: 0;
+    max-width: 100%;
+  }
   .director-name {
-    font-size: 1.3rem;
+    font-size: clamp(1.6rem, 6vw, 2.1rem);
+  }
+  .director-bio { font-size: 1.02rem; line-height: 1.85; }
+}
+
+@media (max-width: 700px) {
+  .director-photo {
+    max-width: 100%;
+    border-width: 3px;
+    border-radius: 20px;
   }
 }
+
 
 
 
@@ -432,7 +437,7 @@ body {
 
 .program-descbox {
   background: #e8f5dc;
-  color: #426c2b;
+  color: #222;
   border-radius: 18px;
   padding: 32px 32px 32px 32px;
   margin-bottom: 44px;
@@ -482,14 +487,14 @@ body {
 
 .feature-title {
   font-size: 1.16rem;
-  color: #395c24;
+  color: #42592b;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   text-align: center;
 }
 
 .feature-desc {
-  color: #657b63;
+  color: #41511e;
   font-size: 1rem;
   text-align: center;
   line-height: 1.6;
@@ -527,8 +532,9 @@ body {
 }
 
 .steps-desc {
-  font-size: 1.18rem;
-  color: #839166;
+  font-size: 1.2rem;
+  color: #e3a528;
+  font-weight: 600;
   margin-bottom: 40px;
 }
 
@@ -658,6 +664,15 @@ body {
 
 .footer-btn:hover {
   background: #ffe57c;
+}
+
+.footer-btn.footer-btn-green {
+  background: #03c75a;
+  color: #222;
+}
+.footer-btn.footer-btn-green:hover {
+  background: #019c43;
+  color: #fff;
 }
 
 .footer-copy {
