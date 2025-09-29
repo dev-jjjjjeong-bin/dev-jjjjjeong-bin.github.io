@@ -53,6 +53,25 @@ body {
   color: #a2bf4a;
 }
 
+@media (max-width: 700px) {
+  .logo img {
+    height: 6vh;
+  }
+
+  .navbar {
+    flex-direction: column;
+    height: auto;
+    padding: 6px 6px;
+  }
+
+  .nav-links {
+    gap: 12px;
+    font-size: 0.85rem;
+    margin-top: 8px;
+  }
+
+}
+
 
 
 
@@ -156,7 +175,7 @@ body {
   align-items: center;
   gap: 8px;
   justify-content: center;
-  white-space: nowrap;        /* ← 한 줄 유지 */
+  white-space: nowrap;
 }
 
 .contact .icon {
@@ -171,6 +190,14 @@ body {
 }
 
 @media (max-width: 700px) {
+  .intro {
+    min-height: 60vh;
+    padding-top: 12vh;
+    padding-bottom: 10vh;
+    background-position: center top;
+    background-size: cover;
+  }
+
   .intro-title {
     font-size: 1.6rem;
   }
@@ -180,7 +207,7 @@ body {
   }
 
   .intro-logo {
-    height: 160px;            /* ← 조금 더 크게 */
+    height: 160px;
     margin-bottom: 18px;
     margin-top: 0;
   }
@@ -191,33 +218,40 @@ body {
   }
 
   .contact {
-    width: 92vw;
-    max-width: 500px;
-    font-size: 0.8rem;
+    container-type: inline-size;
+    width: clamp(280px, 92vw, 560px);
+    padding-left: 4vw;
+    padding-right: 4vw;
+    box-sizing: border-box;
   }
 
   .contact-row {
-    align-items: flex-start;
+    white-space: nowrap;
+    gap: 0.6em;
+    font-size: clamp(12px, 3.6cqw, 16px);
+  }
+
+  .contact-row:nth-child(1),
+  .contact-row:nth-child(2) {
+    font-size: clamp(11px, 3.6cqw, 15px);
   }
 
   .contact .icon {
     font-size: 1.15em;
     transform: translateY(3px);
   }
+}
 
-  .navbar {
-    flex-direction: column;
-    height: auto;
-    padding: 6px 6px;          /* ← 상하 여백 축소 */
-  }
+@supports not (container-type: inline-size) {
+  @media (max-width:700px) {
+    .contact-row {
+      font-size: clamp(12px, 3vw, 16px);
+    }
 
-  .logo img {
-    height: 60px;             /* ← 로고 크기 축소 */
-  }
-
-  .nav-links {
-    gap: 12px;
-    font-size: 0.85rem;       /* ← 메뉴 글씨 작게 */
+    .contact-row:nth-child(1),
+    .contact-row:nth-child(2) {
+      font-size: clamp(11px, 2.6vw, 15px);
+    }
   }
 }
 
@@ -240,37 +274,28 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 40px;
-  /* 이미지-글 간격 */
   padding: 0 24px;
-  /* 양옆 기본 여백 */
   box-sizing: border-box;
 }
 
-/* 이미지 */
 .director-photo {
   width: min(520px, 42vw);
   height: auto;
-  /* 비율 유지 */
   aspect-ratio: 5 / 4;
-  /* 없으면 브라우저가 비율 추정 */
   object-fit: cover;
   border-radius: 26px;
   border: 4px solid #a2bf4a;
   box-shadow: 0 8px 32px rgba(163, 184, 93, 0.12);
   background: #fff;
   margin: 0;
-  /* 좌우 마진 제거 */
 }
 
-/* 텍스트 영역 */
 .director-info {
   flex: 1;
   text-align: left;
-  /* 오른쪽 정렬 → 왼쪽 정렬 */
   align-self: flex-start;
   padding: 0 8px 0 8px;
   max-width: 720px;
-  /* 줄 길이 제한(가독성) */
 }
 
 .director-title {
@@ -278,6 +303,7 @@ body {
   color: #a2bf4a;
   font-weight: 700;
   margin-bottom: 10px;
+  white-space: nowrap;
 }
 
 .director-name {
@@ -287,18 +313,15 @@ body {
   margin-bottom: 14px;
 }
 
-/* 소개 본문: 문단 정리 */
 .director-bio {
   font-size: 1.06rem;
   color: #333;
   line-height: 1.9;
   word-break: keep-all;
-  /* 한국어 단어 뭉텅이 방지 */
 }
 
 .director-bio p {
   margin: 0 0 14px 0;
-  /* 문단 간격 */
 }
 
 .director-bio ul {
@@ -332,12 +355,13 @@ body {
   .director-info {
     max-width: 680px;
   }
+
+
 }
 
 @media (max-width: 900px) {
   .director-container {
     flex-direction: column;
-    /* 세로 배치 */
     align-items: center;
     gap: 22px;
     padding: 0 16px;
@@ -352,7 +376,6 @@ body {
   .director-info {
     align-self: stretch;
     text-align: left;
-    /* 모바일도 왼쪽 정렬 유지 */
     padding: 0;
     max-width: 100%;
   }
@@ -373,8 +396,17 @@ body {
     border-width: 3px;
     border-radius: 20px;
   }
+
+  .director-title {
+    font-size: clamp(12px, 4.3vw, 1.23rem) !important;
+  }
 }
 
+@media (max-width: 360px) {
+  .director-title {
+    font-size: clamp(10px, 4vw, 1.1rem) !important;
+  }
+}
 
 
 
@@ -412,14 +444,6 @@ body {
   font-weight: 500;
 }
 
-@media (max-width: 700px) {
-  .cert-list {
-    flex-direction: column;
-    gap: 10px 0;
-    align-items: center;
-  }
-}
-
 .bullet-list {
   list-style-type: disc;
   padding-left: 80px;
@@ -428,7 +452,6 @@ body {
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
-  /* 리스트 영역 전체 좌측정렬 */
   display: block;
 }
 
@@ -445,6 +468,12 @@ body {
 }
 
 @media (max-width: 700px) {
+  .cert-list {
+    flex-direction: column;
+    gap: 10px 0;
+    align-items: center;
+  }
+
   .bullet-list {
     padding-left: 13px;
     font-size: 0.96rem;
@@ -560,6 +589,11 @@ body {
 }
 
 @media (max-width: 900px) {
+  .program-quote {
+    font-size: clamp(10px, 4vw, 1.1rem) !important;
+    white-space: nowrap;
+  }
+
   .program-features {
     flex-direction: column;
     align-items: center;
@@ -595,6 +629,7 @@ body {
   color: #e3a528;
   font-weight: 600;
   margin-bottom: 40px;
+  white-space: nowrap;
 }
 
 .step-blocks {
@@ -651,6 +686,21 @@ body {
   font-size: 1.07rem;
   line-height: 1.7;
   padding-left: 8px;
+}
+
+@media (max-width: 700px) {
+  .steps-desc {
+    position: relative;
+    color: transparent;
+    white-space: normal;
+  }
+  .steps-desc::before {
+    content: "체계적인 재활과 운동치료 과정을 통해\A건강하고 안정적인 상태로 회복";
+    white-space: pre-line;
+    color: #e3a528;
+    display: block;
+    text-align: center;
+  }
 }
 
 @media (max-width: 900px) {
@@ -737,12 +787,10 @@ body {
 
 .section-bg1 {
   background: #e7efcc !important;
-  /* 연두 */
 }
 
 .section-bg2 {
   background: #fff !important;
-  /* 흰색 */
 }
 
 html {
@@ -752,4 +800,43 @@ html {
 .nav-links a.active {
   color: #a2bf4a !important;
   font-weight: 700 !important;
+}
+
+
+
+
+
+@media (max-width: 700px) {
+  :root {
+    --mobile-title-size: clamp(16px, 5.6vw, 26px);
+  }
+
+  .director-name,
+  .certs-title,
+  .program-main-title,
+  .steps-title {
+    font-size: var(--mobile-title-size) !important;
+    white-space: nowrap;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+}
+
+@media (max-width: 700px) {
+  :root {
+    --strap-size: clamp(10px, 4.2vw, 1.1rem);
+  }
+
+  .director-title {
+    font-size: var(--strap-size) !important;
+  }
+
+  .program-quote {
+    font-size: var(--strap-size) !important;
+  }
+
+  .steps-desc,
+  .steps-desc::before {
+    font-size: var(--strap-size) !important;
+  }
 }
