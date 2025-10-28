@@ -173,7 +173,7 @@
       <div class="review-img-box"><img src="images/reviews/review14.jpg" alt="운동후기14"></div>
       <div class="review-img-box"><img src="images/reviews/review15.jpg" alt="운동후기15"></div>
       <div class="review-img-box"><img src="images/reviews/review16.jpg" alt="운동후기16"></div>
-      <div class="review-img-box"><img src="images/reviews/review17.png" alt="운동후기17"></div>
+      <div class="review-img-box"><img src="images/reviews/review17.jpg" alt="운동후기17"></div>
       <div class="review-img-box"><img src="images/reviews/review18.png" alt="운동후기18"></div>
       <div class="review-img-box"><img src="images/reviews/review19.png" alt="운동후기19"></div>
       <div class="review-img-box"><img src="images/reviews/review20.png" alt="운동후기20"></div>
@@ -183,30 +183,119 @@
       <div class="review-img-box"><img src="images/reviews/review24.png" alt="운동후기24"></div>
       <div class="review-img-box"><img src="images/reviews/review25.png" alt="운동후기25"></div>
       <div class="review-img-box"><img src="images/reviews/review26.png" alt="운동후기26"></div>
+      <div class="review-img-box"><img src="images/reviews/review27.png" alt="운동후기27"></div>
+      <div class="review-img-box"><img src="images/reviews/review28.png" alt="운동후기28"></div>
+      <div class="review-img-box"><img src="images/reviews/review29.png" alt="운동후기29"></div>
+      <div class="review-img-box"><img src="images/reviews/review30.png" alt="운동후기30"></div>
+      <div class="review-img-box"><img src="images/reviews/review31.png" alt="운동후기31"></div>
+      <div class="review-img-box"><img src="images/reviews/review32.png" alt="운동후기32"></div>
+      <div class="review-img-box"><img src="images/reviews/review33.png" alt="운동후기33"></div>
+      <div class="review-img-box"><img src="images/reviews/review34.png" alt="운동후기34"></div>
+      <div class="review-img-box"><img src="images/reviews/review35.png" alt="운동후기35"></div>
+      <div class="review-img-box"><img src="images/reviews/review36.png" alt="운동후기36"></div>
+      <div class="review-img-box"><img src="images/reviews/review37.png" alt="운동후기37"></div>
+      <div class="review-img-box"><img src="images/reviews/review38.png" alt="운동후기38"></div>
+      <div class="review-img-box"><img src="images/reviews/review39.png" alt="운동후기39"></div>
+      <div class="review-img-box"><img src="images/reviews/review40.png" alt="운동후기40"></div>
+      <div class="review-img-box"><img src="images/reviews/review41.png" alt="운동후기41"></div>
+      <div class="review-img-box"><img src="images/reviews/review42.png" alt="운동후기42"></div>
     </div>
   </div>
   <div id="img-modal" class="img-modal">
     <span class="img-modal-close" id="img-modal-close">&times;</span>
     <img class="img-modal-content" id="img-modal-img">
+    <span class="img-modal-arrow left" id="img-prev">&#10094;</span>
+    <span class="img-modal-arrow right" id="img-next">&#10095;</span>
   </div>
 </body>
 
 </html>
 <script>
-  document.querySelectorAll('.review-img-box img').forEach(img => {
-    img.addEventListener('click', function () {
-      document.getElementById('img-modal-img').src = this.src;
-      document.getElementById('img-modal').style.display = "flex";
+  const images = Array.from(document.querySelectorAll('.review-img-box img'));
+  const modal = document.getElementById('img-modal');
+  const modalImg = document.getElementById('img-modal-img');
+  const closeBtn = document.getElementById('img-modal-close');
+  const prevBtn = document.getElementById('img-prev');
+  const nextBtn = document.getElementById('img-next');
+
+  let currentIndex = 0;
+
+  // 화살표 표시 상태 업데이트
+  function updateArrows() {
+    // 첫 번째 이미지에서는 왼쪽 화살표 숨김
+    if (currentIndex === 0) {
+      prevBtn.style.display = "none";
+    } else {
+      prevBtn.style.display = "block";
+    }
+
+    // 마지막 이미지에서는 오른쪽 화살표 숨김
+    if (currentIndex === images.length - 1) {
+      nextBtn.style.display = "none";
+    } else {
+      nextBtn.style.display = "block";
+    }
+  }
+
+  // 이미지 클릭 시 모달 열기
+  images.forEach((img, index) => {
+    img.addEventListener('click', () => {
+      currentIndex = index;
+      modalImg.src = img.src;
+      modal.style.display = "flex";
+      updateArrows();
     });
   });
-  document.getElementById('img-modal-close').onclick = function () {
-    document.getElementById('img-modal').style.display = "none";
-    document.getElementById('img-modal-img').src = '';
-  };
-  document.getElementById('img-modal').onclick = function (e) {
-    if (e.target === this) {
-      this.style.display = "none";
-      document.getElementById('img-modal-img').src = '';
+
+  // 닫기 버튼
+  closeBtn.addEventListener('click', () => {
+    modal.style.display = "none";
+    modalImg.src = '';
+  });
+
+  // 배경 클릭 시 닫기
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+      modalImg.src = '';
     }
-  };
+  });
+
+  // 이전 화살표
+  prevBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (currentIndex > 0) {
+      currentIndex--;
+      modalImg.src = images[currentIndex].src;
+      updateArrows();
+    }
+  });
+
+  // 다음 화살표
+  nextBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (currentIndex < images.length - 1) {
+      currentIndex++;
+      modalImg.src = images[currentIndex].src;
+      updateArrows();
+    }
+  });
+
+  // 키보드 방향키도 지원 (← → 닫기 ESC)
+  document.addEventListener('keydown', (e) => {
+    if (modal.style.display === "flex") {
+      if (e.key === "ArrowLeft" && currentIndex > 0) {
+        currentIndex--;
+        modalImg.src = images[currentIndex].src;
+        updateArrows();
+      } else if (e.key === "ArrowRight" && currentIndex < images.length - 1) {
+        currentIndex++;
+        modalImg.src = images[currentIndex].src;
+        updateArrows();
+      } else if (e.key === "Escape") {
+        modal.style.display = "none";
+        modalImg.src = '';
+      }
+    }
+  });
 </script>
