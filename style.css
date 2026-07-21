@@ -391,14 +391,51 @@ body {
 }
 
 @media (max-width: 700px) {
+  .director {
+    padding: 64px 0 56px;
+  }
+
+  .director-container {
+    gap: 18px;
+    padding: 0 12px;
+  }
+
   .director-photo {
-    max-width: 100%;
+    width: 100%;
+    max-width: 320px;
     border-width: 3px;
-    border-radius: 20px;
+    border-radius: 22px;
+    box-shadow: 0 10px 24px rgba(163, 184, 93, 0.16);
+  }
+
+  .director-info {
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(162, 191, 74, 0.22);
+    border-radius: 24px;
+    padding: 20px 16px 18px;
+    box-shadow: 0 8px 20px rgba(38, 62, 25, 0.06);
+    text-align: center;
+  }
+
+  .director-name {
+    margin-bottom: 8px;
+    font-size: clamp(1.45rem, 5.6vw, 1.8rem);
   }
 
   .director-title {
-    font-size: clamp(12px, 4.3vw, 1.23rem) !important;
+    font-size: clamp(12px, 4.3vw, 1.05rem) !important;
+    white-space: normal;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+
+  .director-bio {
+    font-size: 0.96rem;
+    line-height: 1.75;
+  }
+
+  .director-bio p {
+    margin-bottom: 10px;
   }
 }
 
@@ -898,5 +935,181 @@ html {
   }
   .img-modal-arrow.right {
     right: 16px;
+  }
+}
+
+
+
+/* ==================================================
+   손진석 대표원장 소개 - 모바일 화면만 수정
+   데스크톱 화면에는 적용되지 않음
+================================================== */
+
+@media screen and (max-width: 700px) {
+
+  /* 원장 소개 전체 영역 */
+  .director {
+    padding: 55px 16px 65px;
+    background: #ffffff !important;
+  }
+
+  /* 사진과 소개글을 세로로 배치 */
+  .director-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* 원장 사진 */
+  .director-photo {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: calc(100% - 20px);
+    max-width: 390px;
+    height: auto;
+    aspect-ratio: 5 / 4;
+    margin: 0 auto;
+    object-fit: cover;
+    object-position: center;
+    border: 3px solid #a2bf4a;
+    border-radius: 24px;
+    background: #ffffff;
+    box-shadow: 0 14px 30px rgba(38, 62, 25, 0.16);
+  }
+
+  /* 원장 소개 카드 */
+  .director-info {
+    width: 100%;
+    max-width: 430px;
+    margin-top: -14px;
+    padding: 38px 20px 25px;
+    box-sizing: border-box;
+    align-self: auto;
+    text-align: left;
+    background: #ffffff;
+    border: 1px solid rgba(162, 191, 74, 0.3);
+    border-radius: 0 0 24px 24px;
+    box-shadow: 0 13px 30px rgba(38, 62, 25, 0.08);
+  }
+
+  /* 대표원장 이름 */
+  .director-name {
+    position: relative;
+    margin-top: 0 !important;
+    margin-bottom: 8px;
+    padding-bottom: 0;
+    color: #42592b;
+    font-size: clamp(1.55rem, 6.6vw, 1.9rem) !important;
+    font-weight: 900;
+    line-height: 1.3;
+    letter-spacing: -0.045em;
+    text-align: center;
+    white-space: normal;
+  }
+
+  /* 직함 */
+  .director-title {
+    margin-bottom: 22px !important;
+    padding-bottom: 19px;
+    color: #c6a537 !important;
+    font-size: clamp(0.9rem, 4vw, 1.02rem) !important;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: -0.02em;
+    text-align: center;
+    white-space: normal;
+    border-bottom: 1px solid #e3e9d5;
+  }
+
+  /* 소개글을 감싼 기존 인라인 스타일 초기화 */
+  .director-bio > div {
+    margin-bottom: 0 !important;
+    color: #444444 !important;
+    font-size: 0.95rem !important;
+    line-height: 1.85 !important;
+    text-align: left;
+  }
+
+  /* 소개 문단 */
+  .director-bio {
+    color: #444444;
+    font-size: 0.95rem;
+    line-height: 1.85;
+    text-align: left;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .director-bio p {
+    position: relative;
+    margin: 0 0 17px;
+    padding-left: 13px;
+  }
+
+  .director-bio p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* 각 문단 앞 포인트 */
+  .director-bio p::before {
+    content: "";
+    position: absolute;
+    top: 0.78em;
+    left: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #a2bf4a;
+  }
+
+  /*
+    HTML에 작성된 <br>을 모바일에서만 무효화
+    문장이 화면 너비에 맞춰 자연스럽게 줄바꿈됨
+  */
+  .director-bio br {
+    display: none;
+  }
+}
+
+
+/* 폭이 매우 작은 모바일 */
+@media screen and (max-width: 380px) {
+
+  .director {
+    padding: 48px 12px 58px;
+  }
+
+  .director-photo {
+    width: calc(100% - 12px);
+    border-radius: 20px;
+  }
+
+  .director-info {
+    padding: 35px 16px 22px;
+    border-radius: 0 0 20px 20px;
+  }
+
+  .director-name {
+    font-size: 1.48rem !important;
+  }
+
+  .director-title {
+    font-size: 0.87rem !important;
+  }
+
+  .director-bio,
+  .director-bio > div {
+    font-size: 0.9rem !important;
+    line-height: 1.8 !important;
+  }
+
+  .director-bio p {
+    padding-left: 12px;
   }
 }
