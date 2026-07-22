@@ -941,7 +941,7 @@ html {
 
 
 /* ==================================================
-   손진석 대표원장 소개 - 모바일 화면만 수정
+   손진석 대표원장 소개 - 모바일 전용 디자인
    데스크톱 화면에는 적용되지 않음
 ================================================== */
 
@@ -1117,7 +1117,7 @@ html {
 
 
 /* ==================================================
-   전문 자격증 및 경력 - 모바일 화면만 수정
+   전문 자격증 및 경력 - 모바일 전용 디자인
    데스크톱 화면에는 적용되지 않음
 ================================================== */
 
@@ -1297,5 +1297,261 @@ html {
     padding-top: 6px;
     padding-bottom: 6px;
     line-height: 1.15;
+  }
+}
+
+
+
+/* ==================================================
+   분당튼튼운동센터 프로그램 - 모바일 전용 디자인
+   데스크톱 화면에는 적용되지 않음
+================================================== */
+
+@media screen and (max-width: 700px) {
+
+  /* 프로그램 전체 영역 */
+  .program {
+    display: block;
+    padding: 52px 14px 58px;
+    box-sizing: border-box;
+    background: #ffffff;
+  }
+
+  .program-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  /* 메인 제목 */
+  .program-main-title {
+    position: relative;
+    width: 100%;
+    margin: 0 auto 10px;
+    padding: 0;
+    color: #42592b;
+    font-size: clamp(1.4rem, 6vw, 1.8rem) !important;
+    font-weight: 900;
+    line-height: 1.3;
+    letter-spacing: -0.045em;
+    text-align: center;
+    white-space: normal !important;
+    word-break: keep-all;
+  }
+
+  /* 제목 아래 문구 */
+  .program-quote {
+    width: 100%;
+    margin: 0 auto 23px;
+    color: #d99b20;
+    font-size: clamp(0.82rem, 3.7vw, 1rem) !important;
+    font-weight: 700;
+    line-height: 1.45;
+    letter-spacing: -0.025em;
+    text-align: center;
+    white-space: normal !important;
+    word-break: keep-all;
+  }
+
+  /* 프로그램 소개 영역 */
+  .program-descbox {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto 24px;
+    padding: 17px 18px;
+    box-sizing: border-box;
+
+    background: #f1f7e9;
+    border: 1px solid rgba(162, 191, 74, 0.24);
+    border-radius: 16px;
+    box-shadow: none;
+
+    color: #394333;
+    font-size: clamp(0.86rem, 3.6vw, 0.96rem);
+    font-weight: 500;
+    line-height: 1.45;
+    letter-spacing: -0.025em;
+    text-align: left;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  /* HTML에 들어간 강제 줄바꿈은 모바일에서 해제 */
+  .program-descbox br {
+    display: none;
+  }
+
+  /* 프로그램 카드 목록 */
+  .program-features {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 11px;
+
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+
+    overflow: visible;
+  }
+
+  /* 개별 프로그램 카드 */
+  .feature-box {
+    position: relative;
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr);
+    grid-template-areas:
+      "icon title"
+      "icon desc";
+    column-gap: 14px;
+    row-gap: 4px;
+    align-items: center;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 17px 17px;
+    box-sizing: border-box;
+
+    background: #ffffff;
+    border: 1px solid rgba(120, 153, 107, 0.3);
+    border-radius: 17px;
+    box-shadow: 0 5px 16px rgba(38, 62, 25, 0.06);
+  }
+
+  /* 모바일에서는 호버 효과 제거 */
+  .feature-box:hover {
+    box-shadow: 0 5px 16px rgba(38, 62, 25, 0.06);
+  }
+
+  /* 아이콘 */
+  .feature-icon {
+    grid-area: icon;
+    align-self: center;
+    width: 48px;
+    height: 48px;
+    margin: 0;
+    object-fit: contain;
+  }
+
+  /* 프로그램명 */
+  .feature-title {
+    grid-area: title;
+    align-self: end;
+    margin: 0;
+    padding: 0;
+
+    color: #42592b;
+    font-size: clamp(0.98rem, 4.2vw, 1.08rem);
+    font-weight: 800;
+    line-height: 1.3;
+    letter-spacing: -0.035em;
+    text-align: left;
+    word-break: keep-all;
+  }
+
+  /* 프로그램 설명 */
+  .feature-desc {
+    grid-area: desc;
+    align-self: start;
+    margin: 0;
+    padding: 0;
+
+    color: #536047;
+    font-size: clamp(0.78rem, 3.35vw, 0.9rem);
+    font-weight: 500;
+    line-height: 1.38 !important;
+    letter-spacing: -0.025em;
+    text-align: left !important;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .feature-desc br {
+    display: none;
+  }
+}
+
+
+/* 폭이 작은 휴대폰 */
+@media screen and (max-width: 380px) {
+
+  .program {
+    padding: 46px 11px 52px;
+  }
+
+  .program-main-title {
+    font-size: clamp(1.25rem, 6.5vw, 1.5rem) !important;
+  }
+
+  .program-quote {
+    margin-bottom: 20px;
+    font-size: clamp(0.76rem, 3.65vw, 0.88rem) !important;
+  }
+
+  .program-descbox {
+    margin-bottom: 20px;
+    padding: 15px 14px;
+    border-radius: 14px;
+    font-size: 0.84rem;
+    line-height: 1.4;
+  }
+
+  .program-features {
+    gap: 9px;
+  }
+
+  .feature-box {
+    grid-template-columns: 45px minmax(0, 1fr);
+    column-gap: 11px;
+    padding: 14px 13px;
+    border-radius: 15px;
+  }
+
+  .feature-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .feature-title {
+    font-size: 0.94rem;
+    line-height: 1.25;
+  }
+
+  .feature-desc {
+    font-size: 0.76rem;
+    line-height: 1.32 !important;
+  }
+}
+
+
+/* 화면이 넓은 휴대폰 */
+@media screen and (min-width: 500px) and (max-width: 700px) {
+
+  .program {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .program-inner {
+    max-width: 570px;
+  }
+
+  .feature-box {
+    grid-template-columns: 60px minmax(0, 1fr);
+    column-gap: 16px;
+    padding: 19px 21px;
+  }
+
+  .feature-icon {
+    width: 52px;
+    height: 52px;
   }
 }
