@@ -1113,3 +1113,189 @@ html {
     padding-left: 12px;
   }
 }
+
+
+
+/* ==================================================
+   전문 자격증 및 경력 - 모바일 화면만 수정
+   데스크톱 화면에는 적용되지 않음
+================================================== */
+
+@media screen and (max-width: 700px) {
+
+  /* 전체 영역 */
+  .certs {
+    padding: 52px 16px 56px;
+    box-sizing: border-box;
+  }
+
+  /* 제목 */
+  .certs-title {
+    position: relative;
+    margin: 0 auto 27px;
+    padding-bottom: 14px;
+    color: #42592b;
+    font-size: clamp(1.45rem, 6vw, 1.8rem) !important;
+    font-weight: 900;
+    line-height: 1.3;
+    letter-spacing: -0.04em;
+    text-align: center;
+
+    /* 기존 모바일 공통 설정 해제 */
+    white-space: normal !important;
+    word-break: keep-all;
+  }
+
+  /* 제목 아래 짧은 선 */
+  .certs-title::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 40px;
+    height: 3px;
+    border-radius: 999px;
+    background: #a2bf4a;
+    transform: translateX(-50%);
+  }
+
+  /* 자격증 목록 전체 박스 */
+  .cert-list {
+    display: block;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 5px 18px;
+    box-sizing: border-box;
+    list-style: none;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(162, 191, 74, 0.25);
+    border-radius: 18px;
+    box-shadow: 0 7px 22px rgba(38, 62, 25, 0.06);
+  }
+
+  /* 각 목록 항목 */
+  .cert-list > li,
+  .cert-item {
+    position: relative;
+    margin: 0;
+    padding: 7px 4px 7px 21px;
+    box-sizing: border-box;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+
+    color: #34452a;
+    font-size: clamp(0.88rem, 3.7vw, 0.98rem);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    text-align: left;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  /* 항목 사이 구분선 */
+  .cert-list > li:not(:last-child),
+  .cert-item:not(:last-child) {
+    border-bottom: 1px solid rgba(66, 89, 43, 0.12);
+  }
+
+  /* 작은 목록 포인트 */
+  .cert-list > li::before,
+  .cert-item::before {
+    content: "";
+    position: absolute;
+    top: 1.32em;
+    left: 3px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #a2bf4a;
+  }
+
+  /* 경력 목록이 별도로 존재하는 경우 */
+  .bullet-list {
+    display: block;
+    width: 100%;
+    max-width: 480px;
+    margin: 14px auto 0;
+    padding: 5px 18px;
+    box-sizing: border-box;
+    list-style: none;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(162, 191, 74, 0.2);
+    border-radius: 18px;
+  }
+
+  .bullet-list li {
+    position: relative;
+    margin: 0;
+    padding: 7px 4px 7px 21px;
+    box-sizing: border-box;
+
+    color: #30362c;
+    font-size: clamp(0.86rem, 3.6vw, 0.96rem);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    text-align: left;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .bullet-list li:not(:last-child) {
+    border-bottom: 1px solid rgba(66, 89, 43, 0.1);
+  }
+
+  .bullet-list li::before {
+    content: "";
+    position: absolute;
+    top: 1.28em;
+    left: 3px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #78996b;
+  }
+
+  /* 모바일에서 강제 줄바꿈 제거 */
+  .certs br {
+    display: none;
+  }
+}
+
+
+/* 폭이 작은 휴대폰 */
+@media screen and (max-width: 380px) {
+
+  .certs {
+    padding: 46px 12px 50px;
+  }
+
+  .certs-title {
+    margin-bottom: 23px;
+    font-size: clamp(1.3rem, 6.8vw, 1.55rem) !important;
+  }
+
+  .cert-list,
+  .bullet-list {
+    padding-right: 14px;
+    padding-left: 14px;
+    border-radius: 15px;
+  }
+
+  .cert-list > li,
+  .cert-item {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    line-height: 1.15;
+  }
+
+  .bullet-list li {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    line-height: 1.15;
+  }
+}
