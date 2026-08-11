@@ -1,4 +1,19 @@
 /* ==================================================
+   Intro 설명 문구 - 좁은 화면 전용 줄바꿈
+================================================== */
+
+@media screen and (max-width: 650px) {
+  .intro-desc {
+    text-align: center;
+    word-break: keep-all;
+  }
+
+  .intro-desc-break {
+    display: inline;
+  }
+}
+
+/* ==================================================
    원장 소개 - 모바일 전용 디자인
    데스크톱 화면에는 적용되지 않음
 ================================================== */
@@ -344,6 +359,112 @@
 }
 
 /* ==================================================
+   분당튼튼운동센터 프로그램 - 태블릿 전용 디자인
+================================================== */
+
+@media screen and (min-width: 701px) and (max-width: 1100px) {
+  .program {
+    padding: 64px 34px 70px;
+    box-sizing: border-box;
+  }
+
+  .program-inner {
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .program-main-title {
+    font-size: 2.1rem;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .program-quote {
+    margin-bottom: 26px;
+    font-size: 1.05rem;
+    text-align: center;
+  }
+
+  .program-descbox {
+    max-width: 820px;
+    margin-bottom: 36px;
+    padding: 25px 30px;
+
+    font-size: 1rem;
+    line-height: 1.65;
+    text-align: center;
+
+    word-break: keep-all;
+  }
+
+  .program-descbox br {
+    display: none;
+  }
+
+  /* 4개 카드를 2 × 2로 배치 */
+  .program-features {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+
+    overflow: visible;
+  }
+
+  .feature-box {
+    width: 100%;
+    min-width: 0;
+    min-height: 245px;
+    padding: 27px 24px 25px;
+    box-sizing: border-box;
+
+    border-radius: 19px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .feature-icon {
+    width: 54px;
+    height: 54px;
+    margin-bottom: 16px;
+  }
+
+  .feature-title {
+    margin-bottom: 13px;
+
+    font-size: 1.08rem;
+    line-height: 1.35;
+    text-align: center;
+
+    word-break: keep-all;
+  }
+
+  .feature-desc {
+    margin: 0;
+
+    color: #536047;
+    font-size: 0.91rem;
+    line-height: 1.55;
+
+    text-align: center;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  /* 데스크톱용 강제 줄바꿈 제거 */
+  .feature-desc br {
+    display: none;
+  }
+}
+
+/* ==================================================
    분당튼튼운동센터 프로그램 - 모바일 전용 디자인
    데스크톱 화면에는 적용되지 않음
 ================================================== */
@@ -415,7 +536,7 @@
     font-weight: 500;
     line-height: 1.45;
     letter-spacing: -0.025em;
-    text-align: left;
+    text-align: center;
     word-break: keep-all;
     overflow-wrap: break-word;
   }
@@ -856,5 +977,172 @@
 
   .step-content {
     font-size: 0.86rem;
+  }
+}
+
+/* ==================================================
+   개인별 맞춤 운동 프로그램 안내 - 모바일 전용 디자인
+   데스크톱 화면에는 적용되지 않음
+================================================== */
+
+@media screen and (max-width: 900px) {
+  .personal-programs-desc {
+    width: 100%;
+    max-width: 620px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 18px;
+    padding-left: 18px;
+    box-sizing: border-box;
+
+    text-align: center;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  /* 데스크톱용 강제 줄바꿈을 태블릿/모바일에서는 해제 */
+  .personal-programs-desc br {
+    display: none;
+  }
+
+  .personal-program-grid-two,
+  .personal-program-grid-three {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .personal-programs {
+    padding: 50px 14px 56px;
+  }
+
+  .personal-programs-inner {
+    max-width: 540px;
+  }
+
+  .personal-programs-title {
+    font-size: clamp(1.4rem, 6vw, 1.75rem);
+    line-height: 1.3;
+    white-space: normal;
+    word-break: keep-all;
+  }
+
+  .personal-programs-desc {
+    width: 100%;
+    max-width: 480px;
+    margin: 10px auto 28px;
+    padding: 0 12px;
+    box-sizing: border-box;
+
+    font-size: clamp(0.8rem, 3.5vw, 0.94rem);
+    line-height: 1.6;
+    letter-spacing: -0.025em;
+    text-align: center;
+
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .personal-program-group + .personal-program-group {
+    margin-top: 30px;
+  }
+
+  .personal-program-group-title {
+    margin-bottom: 12px;
+    padding-left: 12px;
+    font-size: 0.98rem;
+  }
+
+  .personal-program-group-title::before {
+    width: 3px;
+  }
+
+  .personal-program-grid-two,
+  .personal-program-grid-three {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .personal-program-card {
+    min-height: 0;
+    padding: 17px 17px 15px;
+    border-radius: 16px;
+    box-shadow: 0 5px 16px rgba(38, 62, 25, 0.055);
+  }
+
+  .personal-program-card:hover {
+    transform: none;
+    border-color: rgba(120, 153, 107, 0.26);
+    box-shadow: 0 5px 16px rgba(38, 62, 25, 0.055);
+  }
+
+  .personal-program-card-title {
+    font-size: clamp(0.96rem, 4vw, 1.05rem);
+    line-height: 1.35;
+  }
+
+  .personal-program-card-desc {
+    margin-top: 7px;
+    font-size: clamp(0.78rem, 3.3vw, 0.88rem);
+    line-height: 1.5;
+  }
+
+  .personal-program-duration {
+    gap: 6px;
+    margin-top: 10px;
+    font-size: 0.72rem;
+  }
+
+  .personal-program-trainers {
+    gap: 5px;
+    padding-top: 13px;
+  }
+
+  .personal-program-label {
+    font-size: 0.7rem;
+  }
+
+  .personal-program-trainer {
+    padding: 5px 8px;
+    font-size: 0.72rem;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .personal-programs {
+    padding: 44px 10px 50px;
+  }
+
+  .personal-programs-title {
+    font-size: clamp(1.25rem, 6.3vw, 1.5rem);
+  }
+
+  .personal-programs-desc {
+    max-width: 340px;
+    margin-bottom: 24px;
+    padding-right: 8px;
+    padding-left: 8px;
+
+    font-size: 0.78rem;
+    line-height: 1.6;
+    letter-spacing: -0.03em;
+  }
+
+  .personal-program-card {
+    padding: 15px 14px 14px;
+    border-radius: 14px;
+  }
+
+  .personal-program-card-title {
+    font-size: 0.92rem;
+  }
+
+  .personal-program-card-desc {
+    font-size: 0.76rem;
+    line-height: 1.48;
+  }
+
+  .personal-program-duration {
+    font-size: 0.68rem;
   }
 }
