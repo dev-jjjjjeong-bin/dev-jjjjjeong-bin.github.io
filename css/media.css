@@ -1,0 +1,437 @@
+/* ==================================================
+   언론보도 페이지
+================================================== */
+
+.media-page {
+  min-height: calc(100vh - 110px);
+  background: #ffffff;
+}
+
+/* ==================================================
+   언론보도 상단 소개
+================================================== */
+
+.media-hero {
+  padding: 78px 24px 52px;
+  text-align: center;
+  background: linear-gradient(180deg, #f4f7e9 0%, #ffffff 100%);
+}
+
+.media-hero-inner {
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+/* 메인으로 돌아가기 */
+.media-home-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  margin-bottom: 22px;
+  padding: 10px 20px;
+
+  border-radius: 999px;
+  background: #f7ce46;
+
+  color: #333333;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+
+  text-decoration: none;
+
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s,
+    background-color 0.18s;
+}
+
+.media-home-link:hover {
+  transform: translateY(-2px);
+
+  background: #f5c933;
+  box-shadow: 0 5px 14px rgba(95, 78, 18, 0.12);
+}
+
+/* PRESS & MEDIA */
+.media-hero-eyebrow {
+  margin-bottom: 10px;
+
+  color: #93ad49;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+/* 언론보도 제목 */
+.media-hero-title {
+  margin: 0;
+
+  color: #42592b;
+  font-size: clamp(2rem, 4.2vw, 3rem);
+  font-weight: 900;
+  line-height: 1.25;
+  letter-spacing: -0.055em;
+
+  word-break: keep-all;
+}
+
+/* 언론보도 설명 */
+.media-hero-desc {
+  width: 100%;
+  max-width: 720px;
+
+  margin: 17px auto 0;
+  padding: 0 16px;
+  box-sizing: border-box;
+
+  color: #68735f;
+  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+  font-weight: 500;
+  line-height: 1.75;
+  letter-spacing: -0.02em;
+
+  text-align: center;
+
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* ==================================================
+   기사 목록
+================================================== */
+
+.media-list-section {
+  padding: 18px 24px 84px;
+}
+
+.media-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+
+  width: 100%;
+  max-width: 980px;
+
+  margin: 0 auto;
+}
+
+/* ==================================================
+   기사 카드
+================================================== */
+
+.media-card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  min-height: 270px;
+  padding: 30px 30px 26px;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid rgba(120, 153, 107, 0.48);
+  border-radius: 22px;
+
+  box-shadow: 0 8px 26px rgba(38, 62, 25, 0.065);
+
+  text-decoration: none;
+
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s,
+    border-color 0.18s;
+}
+
+.media-card::after {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 76px;
+  height: 76px;
+
+  background: linear-gradient(225deg, rgba(162, 191, 74, 0.18), rgba(162, 191, 74, 0));
+
+  pointer-events: none;
+}
+
+.media-card:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(120, 153, 107, 0.72);
+
+  box-shadow: 0 14px 34px rgba(38, 62, 25, 0.11);
+}
+
+/* ==================================================
+   기사 카드 상단
+================================================== */
+
+.media-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.media-outlet {
+  color: #42592b;
+
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.media-date {
+  flex: 0 0 auto;
+
+  color: #96a08e;
+
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* 카드 구분선 */
+.media-card-divider {
+  width: 38px;
+  height: 3px;
+
+  margin: 22px 0 19px;
+
+  border-radius: 999px;
+
+  background: #a2bf4a;
+}
+
+/* ==================================================
+   기사 제목 및 설명
+================================================== */
+
+.media-card-title {
+  color: #37482b;
+
+  font-size: 1.08rem;
+  font-weight: 800;
+  line-height: 1.5;
+  letter-spacing: -0.03em;
+
+  word-break: keep-all;
+}
+
+.media-card-desc {
+  margin-top: 10px;
+
+  color: #68735f;
+
+  font-size: 0.9rem;
+  line-height: 1.65;
+  letter-spacing: -0.02em;
+
+  word-break: keep-all;
+}
+
+/* 기사 원문 보기 */
+.media-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: auto;
+  padding-top: 22px;
+
+  color: #78996b;
+
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+/* ==================================================
+   태블릿
+   900px 이하
+================================================== */
+
+@media screen and (max-width: 900px) {
+  .media-hero {
+    padding: 62px 24px 44px;
+  }
+
+  .media-hero-desc {
+    max-width: 620px;
+
+    padding: 0 20px;
+
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .media-list {
+    max-width: 760px;
+    gap: 18px;
+  }
+
+  .media-card {
+    min-height: 255px;
+
+    padding: 26px 24px 23px;
+  }
+}
+
+/* ==================================================
+   모바일
+   700px 이하
+================================================== */
+
+@media screen and (max-width: 700px) {
+  .media-page {
+    min-height: 0;
+  }
+
+  /* 상단 소개 */
+  .media-hero {
+    padding: 48px 16px 36px;
+  }
+
+  .media-home-link {
+    gap: 6px;
+
+    margin-bottom: 18px;
+    padding: 9px 17px;
+
+    font-size: 0.72rem;
+  }
+
+  .media-hero-eyebrow {
+    font-size: 0.68rem;
+  }
+
+  .media-hero-title {
+    font-size: clamp(1.65rem, 7vw, 2.05rem);
+  }
+
+  .media-hero-desc {
+    width: 100%;
+    max-width: 420px;
+
+    margin: 14px auto 0;
+    padding: 0 12px;
+
+    box-sizing: border-box;
+
+    font-size: clamp(0.82rem, 3.6vw, 0.92rem);
+    line-height: 1.7;
+    letter-spacing: -0.025em;
+
+    text-align: center;
+
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  /* 모바일에서는 데스크톱용 강제 줄바꿈 해제 */
+  .media-hero-desc-break {
+    display: none;
+  }
+
+  /* 기사 목록 */
+  .media-list-section {
+    padding: 10px 14px 58px;
+  }
+
+  .media-list {
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+    max-width: 520px;
+  }
+
+  /* 기사 카드 */
+  .media-card {
+    min-height: 0;
+
+    padding: 22px 20px 19px;
+
+    border-radius: 18px;
+  }
+
+  .media-outlet {
+    font-size: 1.07rem;
+  }
+
+  .media-date {
+    font-size: 0.72rem;
+  }
+
+  .media-card-divider {
+    margin: 17px 0 15px;
+  }
+
+  .media-card-title {
+    font-size: 0.98rem;
+  }
+
+  .media-card-desc {
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+
+  .media-card-link {
+    padding-top: 17px;
+
+    font-size: 0.8rem;
+  }
+}
+
+/* ==================================================
+   작은 모바일
+   380px 이하
+================================================== */
+
+@media screen and (max-width: 380px) {
+  .media-hero {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .media-home-link {
+    margin-bottom: 16px;
+    padding: 8px 15px;
+
+    font-size: 0.7rem;
+  }
+
+  .media-hero-desc {
+    max-width: 330px;
+
+    padding: 0 6px;
+
+    font-size: 0.8rem;
+    line-height: 1.65;
+    letter-spacing: -0.03em;
+  }
+
+  .media-list-section {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .media-card {
+    padding: 20px 16px 17px;
+
+    border-radius: 16px;
+  }
+
+  .media-card-top {
+    align-items: flex-start;
+    flex-direction: column;
+
+    gap: 4px;
+  }
+}
