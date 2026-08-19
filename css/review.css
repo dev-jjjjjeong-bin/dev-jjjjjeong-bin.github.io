@@ -1,0 +1,557 @@
+/* ==================================================
+   운동후기 페이지
+================================================== */
+
+.review-page {
+  min-height: calc(100vh - 110px);
+  background: #ffffff;
+}
+
+/* ==================================================
+   운동후기 상단 소개
+   언론보도 페이지와 동일한 UI 구성
+================================================== */
+
+.review-hero {
+  padding: 78px 24px 52px;
+
+  text-align: center;
+
+  background: linear-gradient(180deg, #f4f7e9 0%, #ffffff 100%);
+}
+
+.review-hero-inner {
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+/* HOME 버튼 */
+.review-home-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  margin-bottom: 22px;
+  padding: 10px 20px;
+
+  border-radius: 999px;
+  background: #f7ce46;
+
+  color: #333333;
+
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+
+  text-decoration: none;
+
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s,
+    background-color 0.18s;
+}
+
+.review-home-link:hover {
+  transform: translateY(-2px);
+
+  background: #f5c933;
+
+  box-shadow: 0 5px 14px rgba(95, 78, 18, 0.12);
+}
+
+/* MEMBER REVIEWS */
+.review-hero-eyebrow {
+  margin-bottom: 10px;
+
+  color: #93ad49;
+
+  font-size: 0.8rem;
+  font-weight: 800;
+
+  letter-spacing: 0.14em;
+}
+
+/* 운동후기 제목 */
+.review-hero-title {
+  margin: 0;
+
+  color: #42592b;
+
+  font-size: clamp(2rem, 4.2vw, 3rem);
+  font-weight: 900;
+
+  line-height: 1.25;
+  letter-spacing: -0.055em;
+
+  word-break: keep-all;
+}
+
+/* 운동후기 설명 */
+.review-hero-desc {
+  width: 100%;
+  max-width: 720px;
+
+  margin: 17px auto 0;
+  padding: 0 16px;
+
+  box-sizing: border-box;
+
+  color: #68735f;
+
+  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+  font-weight: 500;
+
+  line-height: 1.75;
+  letter-spacing: -0.02em;
+
+  text-align: center;
+
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* ==================================================
+   운동후기 목록
+================================================== */
+
+.review-list-section {
+  padding: 18px 24px 84px;
+}
+
+.review-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 24px;
+
+  width: 100%;
+  max-width: 1080px;
+
+  margin: 0 auto;
+}
+
+/* ==================================================
+   후기 이미지
+================================================== */
+
+.review-img-box {
+  min-width: 0;
+
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s;
+}
+
+.review-img-box img {
+  display: block;
+
+  width: 100%;
+  height: 260px;
+
+  object-fit: cover;
+
+  border-radius: 9px;
+
+  background: #eeeeee;
+
+  box-shadow: 0 1px 8px rgba(99, 100, 70, 0.04);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.review-img-box:hover {
+  transform: translateY(-3px);
+}
+
+.review-img-box:hover img {
+  box-shadow: 0 8px 38px rgba(130, 160, 120, 0.17);
+}
+
+/* ==================================================
+   네이버 플레이스 후기 더보기
+================================================== */
+
+.review-more {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  max-width: 1080px;
+
+  margin: 46px auto 0;
+}
+
+.review-more-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 310px;
+  padding: 19px 34px 18px;
+
+  box-sizing: border-box;
+
+  background: #f5f8eb;
+
+  border: 1px solid rgba(120, 153, 107, 0.45);
+  border-radius: 20px;
+
+  box-shadow: 0 7px 22px rgba(38, 62, 25, 0.06);
+
+  text-align: center;
+  text-decoration: none;
+
+  transition:
+    transform 0.18s,
+    border-color 0.18s,
+    box-shadow 0.18s,
+    background-color 0.18s;
+}
+
+.review-more-link:hover {
+  transform: translateY(-3px);
+
+  background: #f8faf2;
+  border-color: rgba(120, 153, 107, 0.7);
+
+  box-shadow: 0 12px 28px rgba(38, 62, 25, 0.1);
+}
+
+.review-more-label {
+  margin-bottom: 5px;
+
+  color: #8a967e;
+
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+
+  letter-spacing: -0.02em;
+}
+
+.review-more-title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  color: #526b3a;
+
+  font-size: 0.98rem;
+  font-weight: 800;
+  line-height: 1.4;
+
+  letter-spacing: -0.03em;
+
+  word-break: keep-all;
+}
+
+.review-more-title span {
+  color: #93ad49;
+
+  font-size: 1.05rem;
+
+  transition: transform 0.18s;
+}
+
+.review-more-link:hover .review-more-title span {
+  transform: translateX(3px);
+}
+
+/* ==================================================
+   이미지 확대 모달
+================================================== */
+
+.img-modal {
+  display: none;
+
+  position: fixed;
+
+  z-index: 9999;
+
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(24, 24, 24, 0.85);
+
+  transition: background 0.18s;
+}
+
+.img-modal-content {
+  max-width: 90vw;
+  max-height: 82vh;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  box-shadow: 0 8px 40px rgba(30, 40, 30, 0.25);
+
+  object-fit: contain;
+}
+
+/* 닫기 버튼 */
+.img-modal-close {
+  position: absolute;
+
+  top: 36px;
+  right: 56px;
+
+  z-index: 10000;
+
+  color: #ffffff;
+
+  font-size: 3.2rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  text-shadow: 0 2px 16px #222222;
+
+  transition: color 0.16s;
+}
+
+.img-modal-close:hover {
+  color: #f7ce46;
+}
+
+/* ==================================================
+   태블릿
+   900px 이하
+================================================== */
+
+@media screen and (max-width: 900px) {
+  .review-hero {
+    padding: 62px 24px 44px;
+  }
+
+  .review-hero-desc {
+    max-width: 620px;
+
+    padding: 0 20px;
+
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .review-list-section {
+    padding: 16px 20px 70px;
+  }
+
+  .review-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    max-width: 760px;
+
+    gap: 18px;
+  }
+
+  .review-img-box img {
+    height: 240px;
+  }
+
+  .review-more {
+    max-width: 760px;
+
+    margin-top: 38px;
+  }
+}
+
+/* ==================================================
+   모바일
+   700px 이하
+================================================== */
+
+@media screen and (max-width: 700px) {
+  .review-page {
+    min-height: 0;
+  }
+
+  /* 상단 소개 */
+  .review-hero {
+    padding: 48px 16px 36px;
+  }
+
+  .review-home-link {
+    gap: 6px;
+
+    margin-bottom: 18px;
+
+    padding: 9px 17px;
+
+    font-size: 0.72rem;
+  }
+
+  .review-hero-eyebrow {
+    font-size: 0.68rem;
+  }
+
+  .review-hero-title {
+    font-size: clamp(1.65rem, 7vw, 2.05rem);
+  }
+
+  .review-hero-desc {
+    width: 100%;
+    max-width: 420px;
+
+    margin: 14px auto 0;
+
+    padding: 0 12px;
+
+    box-sizing: border-box;
+
+    font-size: clamp(0.82rem, 3.6vw, 0.92rem);
+
+    line-height: 1.7;
+    letter-spacing: -0.025em;
+
+    text-align: center;
+
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  /* 모바일에서는 데스크톱 강제 줄바꿈 해제 */
+  .review-hero-desc-break {
+    display: none;
+  }
+
+  /* 후기 목록 */
+  .review-list-section {
+    padding: 10px 14px 58px;
+  }
+
+  .review-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+
+    max-width: 520px;
+  }
+
+  .review-img-box img {
+    height: 180px;
+
+    border-radius: 9px;
+  }
+
+  /* 네이버 후기 더보기 */
+  .review-more {
+    max-width: 520px;
+
+    margin-top: 30px;
+  }
+
+  .review-more-link {
+    width: 100%;
+    min-width: 0;
+
+    padding: 17px 20px 16px;
+
+    border-radius: 17px;
+  }
+
+  .review-more-label {
+    font-size: 0.7rem;
+  }
+
+  .review-more-title {
+    font-size: 0.9rem;
+  }
+
+  /* 이미지 확대 모달 */
+  .img-modal-content {
+    max-width: 98vw;
+    max-height: 66vh;
+  }
+
+  .img-modal-close {
+    top: 22px;
+    right: 20px;
+
+    font-size: 2.1rem;
+  }
+}
+
+/* ==================================================
+   작은 모바일
+   480px 이하
+================================================== */
+
+@media screen and (max-width: 480px) {
+  .review-list-section {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .review-grid {
+    gap: 8px;
+  }
+
+  .review-img-box img {
+    height: 150px;
+  }
+
+  .review-more {
+    margin-top: 26px;
+  }
+}
+
+/* ==================================================
+   매우 작은 모바일
+   380px 이하
+================================================== */
+
+@media screen and (max-width: 380px) {
+  .review-hero {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .review-home-link {
+    margin-bottom: 16px;
+
+    padding: 8px 15px;
+
+    font-size: 0.7rem;
+  }
+
+  .review-hero-desc {
+    max-width: 330px;
+
+    padding: 0 6px;
+
+    font-size: 0.8rem;
+
+    line-height: 1.65;
+    letter-spacing: -0.03em;
+  }
+
+  .review-img-box img {
+    height: 135px;
+  }
+
+  .review-more-link {
+    padding: 15px 14px 14px;
+
+    border-radius: 15px;
+  }
+
+  .review-more-title {
+    font-size: 0.85rem;
+  }
+}
