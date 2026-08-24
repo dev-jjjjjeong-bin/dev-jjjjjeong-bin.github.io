@@ -1295,3 +1295,51 @@ html {
     gap: 4px;
   }
 }
+/* ==================================================
+   프로그램 및 서비스 이용 안내
+================================================== */
+
+/* 푸터 바로 위 공식 안내 영역 */
+.service-notice {
+  padding: 28px 24px 30px;
+  box-sizing: border-box;
+  background: #ffffff;
+}
+
+.service-notice-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 20px 24px;
+  box-sizing: border-box;
+  background: #f7f9f1;
+  border: 1px solid rgba(120, 153, 107, 0.28);
+  border-radius: 16px;
+}
+
+.service-notice-label {
+  flex: 0 0 auto;
+  padding-top: 1px;
+  color: #42592b;
+  font-size: 0.86rem;
+  font-weight: 800;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.service-notice-text {
+  color: #65705d;
+  font-size: 0.86rem;
+  font-weight: 500;
+  line-height: 1.65;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+}
+
+.service-notice-text strong {
+  color: #526b3a;
+  font-weight: 700;
+}
