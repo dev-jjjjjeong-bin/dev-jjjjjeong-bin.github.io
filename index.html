@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ko">
   <head>
     <!-- Google tag (gtag.js) -->
@@ -17,8 +18,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="css/common.css" />
     <link rel="stylesheet" href="css/index.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
+
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/conditioning.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <script src="js/single-line-fit.js" defer></script>
   </head>
 
   <body>
@@ -26,7 +30,7 @@
     <nav class="navbar">
       <div class="logo">
         <a href="#home" id="logo-link">
-          <img src="images/logo.png" alt="로고" />
+          <img src="images/logo.png" alt="로고" width="6255" height="1823" decoding="async" />
         </a>
       </div>
       <div class="nav-links">
@@ -34,14 +38,14 @@
         <a href="#director">원장 소개</a>
         <a href="#program">프로그램</a>
         <a href="review.html">운동후기</a>
-        <a href="media.html">언론보도</a>
+        <a href="news.html">센터 소식</a>
       </div>
     </nav>
 
     <!-- 2. Intro -->
     <section class="intro" id="home">
       <div class="intro-title">
-        <img src="images/logo-horizontal.png" alt="분당튼튼운동센터 로고" class="intro-logo" />
+        <img src="images/logo-horizontal.png" alt="분당튼튼운동센터 로고" class="intro-logo" width="3794" height="3423" decoding="async" />
       </div>
 
       <div class="intro-subtitle">재활, 경험이 만든 실력</div>
@@ -61,20 +65,43 @@
         </a>
       </div>
 
-      <div class="contact">
-        <div class="contact-row">
-          <span class="icon">📍</span>
-          경기도 성남시 분당구 불정로376번길 37 범한프라자 3층 302호
+      <div class="contact" data-fit-group>
+        <div class="contact-row" data-fit-line>
+          <span class="single-line-text"><span class="icon">📍</span>
+          경기도 성남시 분당구 불정로376번길 37 범한프라자 3층 302호</span>
         </div>
 
-        <div class="contact-row">
-          <span class="icon">🕒</span>
-          평일 09:00-21:00 | 토요일 09:00-13:00 | 일요일·공휴일 휴무
+        <div class="contact-row" data-fit-line>
+          <span class="single-line-text"><span class="icon">🕒</span>
+          평일 09:00-21:00 | 토요일 09:00-13:00 | 일요일·공휴일 휴무</span>
         </div>
 
-        <div class="contact-row">
-          <span class="icon">📞</span>
-          031-778-6535
+        <div class="contact-row" data-fit-line>
+          <span class="single-line-text"><span class="icon">📞</span>
+          031-778-6535</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 국가대표 선수 컨디셔닝 활동 -->
+    <section class="conditioning-feature" aria-labelledby="conditioning-title">
+      <div class="conditioning-feature-inner">
+        <div class="conditioning-feature-heading">
+          <p class="conditioning-eyebrow">2026 아이치·나고야 아시안게임</p>
+          <h2 id="conditioning-title">카누 슬라럼 국가대표 선수들의<br /> 컨디셔닝을 함께했습니다</h2>
+        </div>
+        <figure class="conditioning-feature-photo">
+          <img src="images/conditioning/team.jpg" width="1600" height="1200" loading="lazy" decoding="async"
+            alt="카누와 분당튼튼운동센터 응원 현수막을 배경으로 함께한 단체 기념사진" />
+          <figcaption>카누 슬라럼 국가대표 선수단 컨디셔닝 현장</figcaption>
+        </figure>
+        <div class="conditioning-feature-copy">
+          <p>분당튼튼운동센터는 2026 아이치·나고야 아시안게임에 출전한 대한민국 카누 슬라럼 국가대표 선수들의 <span class="reading-phrase">컨디셔닝을 진행했습니다.</span></p>
+          <p>
+            <span class="reading-line">선수들과 함께한 <span class="reading-phrase">현장 경험을 바탕으로,</span></span>
+            <span class="reading-line">일상에서도 한 사람 한 사람의 몸 상태와 <span class="reading-phrase">운동 목적을</span> <span class="reading-phrase">세심하게 살피겠습니다.</span></span>
+          </p>
+          <a class="conditioning-button" href="activities.html">컨디셔닝 이야기 보기 <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
@@ -84,7 +111,7 @@
       <div class="director-list">
         <!-- 손진석 대표원장 -->
         <div class="director-container" id="director-sohn">
-          <img src="images/profile_sohn.png" class="director-photo" alt="손진석 원장 사진" />
+          <img src="images/profile_sohn.png" class="director-photo" alt="손진석 원장 사진" width="1836" height="2475" decoding="async" loading="lazy" />
 
           <div class="director-info">
             <div class="director-name" style="margin-top: 16px">
@@ -103,12 +130,12 @@
                 </p>
 
                 <p>
-                  학문적 전문성과 풍부한 현장 경험을 바탕으로 시니어 재활운동센터를 운영하며,<br />
+                  학문적 전문성과 풍부한 <span class="reading-phrase">현장 경험을 바탕으로</span> 시니어 재활운동센터를 운영하며,<br />
                   개인별 맞춤 재활운동을 지도해 왔습니다.
                 </p>
 
                 <p>
-                  특히 시니어분들에게 필요한 ‘구조적’ 자세와 안전한 ‘기능적’ 운동에 중점을 두어,<br />
+                  특히 시니어분들에게 필요한 ‘구조적’ 자세와 안전한 ‘기능적’ 운동에 <span class="reading-phrase">중점을 두어,</span><br />
                   부상 예방과 재활 효과의 극대화를 위해 힘쓰고 있습니다.
                 </p>
               </div>
@@ -133,19 +160,19 @@
                 </p>
 
                 <p>
-                  운동처방사 자격을 바탕으로 척추전문병원 운동처방실에서 근무하며,<br />
+                  운동처방사 <span class="reading-phrase">자격을 바탕으로</span> 척추전문병원 운동처방실에서 근무하며,<br />
                   수술 전·후 재활운동을 지도해 왔습니다.
                 </p>
 
                 <p>
-                  노인·만성질환자·임산부 등 다양한 대상의 운동지도 경험을 바탕으로,<br />
+                  노인·만성질환자·임산부 등 다양한 대상의 <span class="reading-phrase">운동지도 경험을 바탕으로,</span><br />
                   개인의 신체 상태와 특성에 맞춘 안전하고 체계적인 맞춤형 운동을 지도하고 있습니다.
                 </p>
               </div>
             </div>
           </div>
 
-          <img src="images/profile_yun.png" class="director-photo" alt="윤수진 원장 사진" />
+          <img src="images/profile_yun.png" class="director-photo" alt="윤수진 원장 사진" width="1023" height="1537" decoding="async" loading="lazy" />
         </div>
       </div>
     </section>
@@ -154,19 +181,19 @@
     <section class="certs section-bg1">
       <div class="certs-title">전문 자격증 및 경력</div>
 
-      <div class="certs-switcher">
+      <div class="certs-switcher" data-fit-size-scope>
         <input type="radio" name="cert-director" id="cert-sohn" class="cert-toggle" checked />
 
         <input type="radio" name="cert-director" id="cert-yun" class="cert-toggle" />
 
         <!-- 원장 선택 탭 -->
-        <div class="cert-tabs" role="tablist" aria-label="원장별 전문 자격증 및 경력">
-          <label for="cert-sohn" class="cert-tab" role="tab">
+        <div class="cert-tabs" role="group" aria-label="원장별 전문 자격증 및 경력">
+          <label for="cert-sohn" class="cert-tab">
             <span class="cert-tab-name">손진석</span>
             <span class="cert-tab-role">대표원장</span>
           </label>
 
-          <label for="cert-yun" class="cert-tab" role="tab">
+          <label for="cert-yun" class="cert-tab">
             <span class="cert-tab-name">윤수진</span>
             <span class="cert-tab-role">원장</span>
           </label>
@@ -202,6 +229,7 @@
                 <div class="cert-column-title">주요 경력</div>
 
                 <ul class="cert-list">
+                  <li data-fit-line><span class="single-line-text">2026 아이치·나고야 아시안게임 카누 국가대표 컨디셔닝</span></li>
                   <li>前) 재활승마 지도자</li>
                   <li>前) 보바스 재활병원 재활운동사</li>
                   <li>前) 좋은운동센터 원장 (시니어재활운동센터)</li>
@@ -254,17 +282,17 @@
     <section class="media-preview section-bg2">
       <div class="media-preview-inner">
         <div class="media-preview-copy">
-          <div class="media-preview-eyebrow">PRESS &amp; MEDIA</div>
-          <div class="media-preview-title">언론에 소개된 분당튼튼운동센터</div>
+          <div class="media-preview-eyebrow">NEWS &amp; STORIES</div>
+          <div class="media-preview-title">분당튼튼운동센터의 소식</div>
           <div class="media-preview-desc">
-            분당튼튼운동센터의 전문성과 현장 이야기를 소개한 언론 보도를 확인해보세요.
+            국가대표 선수 컨디셔닝 활동과 언론에 소개된 센터 이야기를 만나보세요.
           </div>
           <div class="media-preview-meta">
-            <span>베스트타임즈 · 2026.06.17</span>
-            <span>더모스트타임즈 · 2025.09.26</span>
+            <span>외부 활동 · 국가대표 선수 컨디셔닝</span>
+            <span>언론보도 · 센터의 전문성과 철학</span>
           </div>
         </div>
-        <a href="media.html" class="media-preview-button">언론보도 보기 <span aria-hidden="true">→</span></a>
+        <a href="news.html" class="media-preview-button">센터 소식 보기 <span aria-hidden="true">→</span></a>
       </div>
     </section>
 
@@ -282,7 +310,7 @@
 
         <div class="program-features">
           <div class="feature-box">
-            <img src="images/analysis.png" class="feature-icon" alt="신체 분석 아이콘" />
+            <img src="images/analysis.png" class="feature-icon" alt="신체 분석 아이콘" width="512" height="512" decoding="async" />
 
             <div class="feature-title">전신 근기능 평가</div>
 
@@ -296,7 +324,7 @@
           </div>
 
           <div class="feature-box">
-            <img src="images/personalTraining.png" class="feature-icon" alt="맞춤형 재활운동 아이콘" />
+            <img src="images/personalTraining.png" class="feature-icon" alt="맞춤형 재활운동 아이콘" width="512" height="512" decoding="async" />
 
             <div class="feature-title">1:1 맞춤형 재활운동</div>
 
@@ -309,7 +337,7 @@
           </div>
 
           <div class="feature-box">
-            <img src="images/4steps.png" class="feature-icon" alt="4단계 프로그램 아이콘" />
+            <img src="images/4steps.png" class="feature-icon" alt="4단계 프로그램 아이콘" width="512" height="512" decoding="async" />
 
             <div class="feature-title">체계적인 4단계 프로그램</div>
 
@@ -322,7 +350,7 @@
           </div>
 
           <div class="feature-box">
-            <img src="images/expert.png" class="feature-icon" alt="전문가의 케어 아이콘" />
+            <img src="images/expert.png" class="feature-icon" alt="전문가의 케어 아이콘" width="512" height="512" decoding="async" />
 
             <div class="feature-title">재활 전문가의 케어</div>
 
@@ -350,8 +378,8 @@
           </div>
 
           <div class="step-content">
-            뭉치고 유착된 근육과 주변 조직을 부드럽게 이완합니다.<br />
-            도수관리와 스트레칭을 통해 통증을 줄이고 편안한 움직임을 준비합니다.
+            <span class="reading-line">뭉치고 유착된 근육과 주변 조직을 부드럽게 이완합니다.</span>
+            <span class="reading-line">도수관리와 스트레칭을 통해 통증을 줄이고 편안한 움직임을 준비합니다.</span>
           </div>
         </div>
 
@@ -362,8 +390,8 @@
           </div>
 
           <div class="step-content">
-            움직임이 제한된 관절의 유연성과 가동 범위를 확보합니다.<br />
-            단계적인 운동을 통해 관절이 자연스럽고 원활하게 움직이도록 돕습니다.
+            <span class="reading-line">움직임이 제한된 관절의 유연성과 가동 범위를 확보합니다.</span>
+            <span class="reading-line">단계적인 운동을 통해 관절이 자연스럽고 원활하게 움직이도록 돕습니다.</span>
           </div>
         </div>
 
@@ -374,8 +402,8 @@
           </div>
 
           <div class="step-content">
-            관절을 안정적으로 지지할 수 있도록 필요한 근육을 강화합니다.<br />
-            근력과 균형 능력을 함께 높여 반복되는 불편함과 부상 위험을 줄입니다.
+            <span class="reading-line">관절을 안정적으로 지지할 수 있도록 필요한 근육을 강화합니다.</span>
+            <span class="reading-line">근력과 균형 능력을 함께 높여 반복되는 불편함과 부상 위험을 줄입니다.</span>
           </div>
         </div>
 
@@ -386,8 +414,8 @@
           </div>
 
           <div class="step-content">
-            몸 전체의 근육과 관절이 조화롭게 움직이도록 훈련합니다.<br />
-            일상생활과 스포츠 활동에서 더욱 자연스럽고 효율적인 움직임을 완성합니다.
+            <span class="reading-line">몸 전체의 근육과 관절이 조화롭게 움직이도록 훈련합니다.</span>
+            <span class="reading-line">일상생활과 스포츠 활동에서 더욱 자연스럽고 효율적인 움직임을 완성합니다.</span>
           </div>
         </div>
       </div>
@@ -398,8 +426,8 @@
       <div class="personal-programs-inner">
         <div class="personal-programs-title">개인별 맞춤 운동 프로그램 안내</div>
         <div class="personal-programs-desc">
-          상담 및 전신 근기능 평가를 바탕으로 개인에게 적합한 프로그램을 안내하며,<br />
-          동일한 프로그램이라도 신체 상태와 목적에 따라 수업 내용을 개별적으로 구성합니다.
+          <span class="personal-programs-desc-line">상담 및 전신 근기능 평가를 바탕으로 개인에게 적합한 프로그램을 안내하며,</span>
+          <span class="personal-programs-desc-line">동일한 프로그램이라도 신체 상태와 <span class="reading-phrase">목적에 따라</span> <span class="reading-phrase">수업 내용을</span> <span class="reading-phrase">개별적으로 구성합니다.</span></span>
         </div>
 
         <!-- ① 기능 회복 · 컨디셔닝 운동 -->
@@ -419,8 +447,7 @@
               </div>
               <div class="personal-program-trainers">
                 <span class="personal-program-label">담당 원장</span>
-                <span class="personal-program-trainer" data-director-target="director-sohn">손진석 대표원장</span>
-                <span class="personal-program-trainer" data-director-target="director-yun">윤수진 원장</span>
+                <button type="button" class="personal-program-trainer" data-director-target="director-yun">윤수진 원장</button>
               </div>
             </article>
 
@@ -437,7 +464,7 @@
               </div>
               <div class="personal-program-trainers">
                 <span class="personal-program-label">담당 원장</span>
-                <span class="personal-program-trainer" data-director-target="director-yun">윤수진 원장</span>
+                <button type="button" class="personal-program-trainer" data-director-target="director-yun">윤수진 원장</button>
               </div>
             </article>
           </div>
@@ -460,8 +487,8 @@
               </div>
               <div class="personal-program-trainers">
                 <span class="personal-program-label">담당 원장</span>
-                <span class="personal-program-trainer" data-director-target="director-sohn">손진석 대표원장</span>
-                <span class="personal-program-trainer" data-director-target="director-yun">윤수진 원장</span>
+                <button type="button" class="personal-program-trainer" data-director-target="director-sohn">손진석 대표원장</button>
+                <button type="button" class="personal-program-trainer" data-director-target="director-yun">윤수진 원장</button>
               </div>
             </article>
 
@@ -478,8 +505,8 @@
               </div>
               <div class="personal-program-trainers">
                 <span class="personal-program-label">담당 원장</span>
-                <span class="personal-program-trainer" data-director-target="director-sohn">손진석 대표원장</span>
-                <span class="personal-program-trainer" data-director-target="director-yun">윤수진 원장</span>
+                <button type="button" class="personal-program-trainer" data-director-target="director-sohn">손진석 대표원장</button>
+                <button type="button" class="personal-program-trainer" data-director-target="director-yun">윤수진 원장</button>
               </div>
             </article>
 
@@ -496,7 +523,7 @@
               </div>
               <div class="personal-program-trainers">
                 <span class="personal-program-label">담당 원장</span>
-                <span class="personal-program-trainer" data-director-target="director-sohn">손진석 대표원장</span>
+                <button type="button" class="personal-program-trainer" data-director-target="director-sohn">손진석 대표원장</button>
               </div>
             </article>
           </div>
@@ -519,7 +546,7 @@
               </div>
               <div class="personal-program-trainers">
                 <span class="personal-program-label">담당 원장</span>
-                <span class="personal-program-trainer" data-director-target="director-sohn">손진석 대표원장</span>
+                <button type="button" class="personal-program-trainer" data-director-target="director-sohn">손진석 대표원장</button>
               </div>
             </article>
 
@@ -536,7 +563,7 @@
               </div>
               <div class="personal-program-trainers">
                 <span class="personal-program-label">담당 원장</span>
-                <span class="personal-program-trainer" data-director-target="director-sohn">손진석 대표원장</span>
+                <button type="button" class="personal-program-trainer" data-director-target="director-sohn">손진석 대표원장</button>
               </div>
             </article>
           </div>
@@ -559,7 +586,7 @@
     <footer class="footer">
       <div class="footer-inner">
         <div class="footer-title">
-          <img src="images/logo-remove-background.png" alt="분당튼튼운동센터 로고" class="footer-logo" />
+          <img src="images/logo-remove-background.png" alt="분당튼튼운동센터 로고" class="footer-logo" width="6104" height="1779" decoding="async" />
         </div>
 
         <div class="footer-desc">상담문의 <span class="highlight">031-778-6535</span></div>
@@ -575,7 +602,7 @@
           </a>
         </div>
 
-        <div class="footer-copy">Copyright &copy; 2025 분당튼튼운동센터 All rights reserved.</div>
+        <div class="footer-copy">&copy; 분당튼튼운동센터</div>
       </div>
     </footer>
 
@@ -585,11 +612,24 @@
         const sectionIds = ["home", "director", "program"]; // 메뉴 순서대로
         const nav = document.querySelector(".navbar");
         const logoLink = document.getElementById("logo-link");
+        const getNavOffset = () => nav && getComputedStyle(nav).position === "sticky" ? nav.offsetHeight : 0;
+        const getScrollBehavior = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+
+        // 메뉴가 여러 줄이 되어도 이동한 본문이 상단 메뉴에 가리지 않도록 합니다.
+        const updateAnchorOffset = () => {
+          document.documentElement.style.setProperty("--anchor-offset", `${getNavOffset() + 16}px`);
+        };
+        updateAnchorOffset();
+        if (typeof ResizeObserver !== "undefined") {
+          new ResizeObserver(updateAnchorOffset).observe(nav);
+        } else {
+          window.addEventListener("resize", updateAnchorOffset);
+        }
 
         // 로고 클릭 시 맨 위로
         logoLink.addEventListener("click", function (e) {
           e.preventDefault();
-          window.scrollTo({ top: 0, behavior: "smooth" });
+          window.scrollTo({ top: 0, behavior: getScrollBehavior() });
         });
 
         // 메뉴 클릭 시 스크롤+색상 변경
@@ -604,13 +644,13 @@
               const target = document.getElementById(targetId);
 
               if (target && nav) {
-                const offset = nav.offsetHeight || 0;
+                const offset = getNavOffset();
 
                 const targetTop = target.getBoundingClientRect().top + window.pageYOffset - offset;
 
                 window.scrollTo({
                   top: targetTop,
-                  behavior: "smooth",
+                  behavior: getScrollBehavior(),
                 });
               }
             }
@@ -628,14 +668,14 @@
             const target = document.getElementById(targetId);
 
             if (target) {
-              const offset = nav ? nav.offsetHeight : 0;
+              const offset = getNavOffset();
               const extraSpace = 24;
 
               const targetTop = target.getBoundingClientRect().top + window.pageYOffset - offset - extraSpace;
 
               window.scrollTo({
                 top: targetTop,
-                behavior: "smooth",
+                behavior: getScrollBehavior(),
               });
             }
           });
@@ -644,7 +684,7 @@
         // 스크롤 시 자동 active
         window.addEventListener("scroll", function () {
           let scrollPos = window.scrollY || window.pageYOffset;
-          const offset = nav ? nav.offsetHeight : 0;
+          const offset = getNavOffset();
           let activeIndex = 0;
 
           sectionIds.forEach((id, idx) => {
@@ -667,6 +707,51 @@
             }
           });
         });
+
+        // 카드 전체와 내부 네 영역을 각각 맞춰 모든 분류의 구성 위치를 통일합니다.
+        const programs = document.querySelector(".personal-programs-inner");
+        const programCards = Array.from(programs.querySelectorAll(".personal-program-card"));
+        const programGrid = programs.querySelector(".personal-program-grid");
+        const cardAreas = [
+          [".personal-program-card-title", "--program-title-height"],
+          [".personal-program-card-desc", "--program-desc-height"],
+          [".personal-program-duration", "--program-duration-height"],
+          [".personal-program-trainers", "--program-trainers-height"],
+        ];
+        let cardSizeFrame;
+        const matchProgramCardHeights = () => {
+          cancelAnimationFrame(cardSizeFrame);
+          cardSizeFrame = requestAnimationFrame(() => {
+            programs.style.setProperty("--program-card-height", "0px");
+            cardAreas.forEach(([, property]) => programs.style.setProperty(property, "0px"));
+            const columns = getComputedStyle(programGrid).gridTemplateColumns.trim().split(/\s+/).length;
+            // 한 열인 작은 화면에서는 불필요한 빈 공간 없이 내용에 맞춥니다.
+            if (columns > 1) {
+              const areaHeights = cardAreas.map(([selector, property]) => [
+                property,
+                Math.max(...programCards.map(card => card.querySelector(selector).offsetHeight)),
+              ]);
+              areaHeights.forEach(([property, height]) => programs.style.setProperty(property, `${height}px`));
+              const tallest = Math.max(...programCards.map(card => card.offsetHeight));
+              programs.style.setProperty("--program-card-height", `${tallest}px`);
+            }
+          });
+        };
+        matchProgramCardHeights();
+        window.addEventListener("resize", matchProgramCardHeights);
+        if (typeof ResizeObserver !== "undefined") {
+          let previousWidth = -1;
+          new ResizeObserver(([entry]) => {
+            if (entry.contentRect.width !== previousWidth) {
+              previousWidth = entry.contentRect.width;
+              matchProgramCardHeights();
+            }
+          }).observe(programs);
+        }
+        if (document.fonts) {
+          document.fonts.ready.then(matchProgramCardHeights);
+          document.fonts.addEventListener("loadingdone", matchProgramCardHeights);
+        }
 
         window.dispatchEvent(new Event("scroll"));
       });
