@@ -70,6 +70,16 @@
       <!-- 운동후기 목록 -->
       <section class="review-list-section">
         <div class="review-grid">
+          <button type="button" class="review-img-box" aria-label="감사 메시지와 선물 사진 크게 보기">
+            <img src="images/reviews/jeongbin/review00-1.jpeg" alt="감사와 존경의 손글씨 메시지와 함께 놓인 선물" width="1284" height="1272" decoding="async" loading="lazy" />
+          </button>
+
+          <button type="button" class="review-img-box review-img-group" aria-label="책에 담긴 손글씨와 책 표지, 사진 2장 크게 보기"
+            data-review-extra-src="images/reviews/jeongbin/review00-2.jpeg" data-review-extra-alt="손글씨 메시지가 담긴 책 더 해빙의 표지">
+            <img src="images/reviews/jeongbin/review00-3.jpeg" alt="손진석 선생님께 전하는 응원과 존경의 손글씨가 담긴 책" width="1284" height="1283" decoding="async" loading="lazy" />
+            <span class="review-photo-count" aria-hidden="true">사진 2장</span>
+          </button>
+
           <button type="button" class="review-img-box" aria-label="운동후기1 크게 보기">
             <img src="images/reviews/review01.jpg" alt="운동후기1" width="720" height="375" decoding="async" loading="lazy" />
           </button>
@@ -285,14 +295,17 @@
       </div>
     </footer>
 
-    <!-- 이미지 확대: 긴 후기는 스크롤해서 읽을 수 있습니다. -->
+    <!-- 사진 전체를 중앙에 표시하고, 확대 시 스크롤하여 읽습니다. -->
     <dialog id="img-modal" class="img-modal" aria-label="운동후기 크게 보기">
       <div class="img-modal-toolbar">
         <button type="button" id="img-zoom" class="img-modal-zoom" aria-pressed="false">확대해서 보기</button>
         <button type="button" id="img-modal-close" class="img-modal-close" autofocus>닫기 ×</button>
       </div>
-      <div id="img-modal-viewport" class="img-modal-viewport" tabindex="0" role="region" aria-label="확대된 후기 이미지. 스크롤하여 읽을 수 있습니다.">
-        <img class="img-modal-content" id="img-modal-img" alt="확대된 운동후기" />
+      <div id="img-modal-viewport" class="img-modal-viewport" tabindex="0" role="region" aria-label="후기 사진. 확대해서 보기 버튼을 누르면 스크롤하여 자세히 읽을 수 있습니다.">
+        <div class="img-modal-canvas">
+          <img class="img-modal-content" id="img-modal-img" alt="확대된 운동후기" />
+        </div>
+        <p id="img-modal-status" class="img-modal-status" role="status" hidden></p>
       </div>
       <div class="img-modal-toolbar">
         <button type="button" id="img-prev" class="img-modal-arrow" aria-label="이전 후기">← 이전</button>

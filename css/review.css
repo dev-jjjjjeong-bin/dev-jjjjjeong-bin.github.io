@@ -555,3 +555,19 @@
     font-size: 0.85rem;
   }
 }
+/* 같은 책의 손글씨와 표지는 하나의 카드에서 이어서 확인합니다. */
+.review-img-group { position: relative; }
+.review-photo-count {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  padding: 4px 8px;
+  border: 1px solid rgba(255, 255, 255, .65);
+  border-radius: 999px;
+  background: #354b28;
+  color: #fff;
+  font-size: .75rem;
+  font-weight: 700;
+  line-height: 1.5;
+  pointer-events: none;
+}

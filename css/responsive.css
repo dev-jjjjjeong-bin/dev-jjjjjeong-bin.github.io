@@ -221,28 +221,72 @@ a:focus-visible, button:focus-visible { outline: 3px solid #715c22; outline-offs
 .review-more-label { font-size: .875rem; color: #58644f; }
 .review-more-title { font-size: 1rem; line-height: 1.7; }
 
-/* 긴 후기: 너비 맞춤 + 세로 스크롤. 원본 확대 시에만 내부 가로 스크롤. */
+/* 기본 보기는 사진 전체를 중앙에, 확대 보기는 스크롤 가능한 원본 비율로 표시합니다. */
 .img-modal {
-  position: fixed; inset: 0; width: 100%; height: 100%; height: 100dvh;
-  max-width: none; max-height: none; margin: 0; border: 0;
-  padding: max(.75rem, env(safe-area-inset-top)) max(.75rem, env(safe-area-inset-right)) max(.75rem, env(safe-area-inset-bottom)) max(.75rem, env(safe-area-inset-left));
-  background: #182015; color: #fff; flex-direction: column; gap: .75rem; overflow: hidden;
+  position: fixed; inset: 0; display: none;
+  width: calc(100% - 2rem); height: calc(100vh - 2rem); height: calc(100dvh - 2rem);
+  max-width: 76rem; max-height: 64rem; margin: auto; padding: 1rem;
+  border: 1px solid #57624f; border-radius: 1.25rem;
+  background: #182015; color: #fff; overflow: hidden;
+  grid-template-rows: auto minmax(0, 1fr) auto; gap: .75rem;
+  align-items: stretch; justify-content: stretch;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .3);
 }
-.img-modal[open] { display: flex; }
-.img-modal::backdrop { background: rgba(0, 0, 0, .85); }
-.img-modal-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .5rem; width: 100%; flex-shrink: 0; }
+.img-modal[open] { display: grid; }
+.img-modal::backdrop { background: rgba(12, 17, 10, .8); }
+.img-modal-toolbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: .5rem; width: 100%; min-width: 0;
+}
+.img-modal-toolbar:first-child { justify-content: space-between; }
 .img-modal-close, .img-modal-arrow, .img-modal-zoom {
   position: static; inset: auto; transform: none; min-width: 44px; min-height: 44px;
   border: 1px solid #72846a; border-radius: .65rem; background: #293c21; color: #fff;
-  padding: .5rem .8rem; font-size: 1rem; line-height: 1.5; text-shadow: none; cursor: pointer;
+  padding: .5rem .8rem; font-size: .9375rem; line-height: 1.5;
+  text-shadow: none; cursor: pointer; touch-action: manipulation;
 }
-.img-modal-arrow:disabled { opacity: .45; cursor: default; }
-.img-modal-close:hover, .img-modal-arrow:hover, .img-modal-zoom:hover { background: #405834; color: #fff; }
-.img-modal-viewport { width: min(100%, 68rem); min-height: 0; flex: 1 1 auto; overflow: auto; overscroll-behavior: contain; background: #10170e; }
-.img-modal-content { display: block; width: auto; max-width: 100%; max-height: none; height: auto; margin: 0 auto; border-radius: 0; object-fit: contain; }
-.img-modal-viewport.is-zoomed .img-modal-content { max-width: none; margin: 0; }
-.img-modal-count { min-width: 4rem; text-align: center; font-size: .9375rem; }
+.img-modal button:disabled { opacity: .45; cursor: default; }
+@media (hover: hover) {
+  .img-modal button:not(:disabled):hover { background: #405834; color: #fff; }
+}
+.img-modal button:focus-visible, .img-modal-viewport:focus-visible {
+  outline: 2px solid #d5e5ba; outline-offset: 2px;
+}
+.img-modal-viewport {
+  position: relative; width: 100%; height: 100%; min-width: 0; min-height: 0;
+  overflow: auto; overscroll-behavior: contain; border-radius: .65rem;
+  background: #10170e;
+}
+.img-modal-canvas {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; height: 100%; min-width: 100%; min-height: 100%;
+}
+.img-modal-content {
+  display: block; flex: 0 0 auto; width: 100%; height: 100%;
+  max-width: 100%; max-height: 100%; margin: 0; border-radius: 0;
+  object-fit: contain; object-position: center; background: transparent; box-shadow: none;
+}
+.img-modal-viewport.is-zoomed .img-modal-canvas { width: max-content; height: auto; }
+.img-modal-viewport.is-zoomed .img-modal-content {
+  width: var(--review-zoom-width); height: auto; max-width: none; max-height: none;
+}
+.img-modal-viewport.is-loading .img-modal-content,
+.img-modal-viewport.has-error .img-modal-content { visibility: hidden; }
+.img-modal-status {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  padding: 1rem; margin: 0; text-align: center; font-size: .9375rem; color: #e2e9dc;
+}
+.img-modal-status[hidden] { display: none; }
+.img-modal-count { min-width: 4.5rem; text-align: center; font-size: .875rem; font-variant-numeric: tabular-nums; }
 html.review-modal-open { overflow: hidden; }
+@media (max-width: 600px), (max-height: 500px) {
+  .img-modal {
+    width: 100%; height: 100vh; height: 100dvh; max-width: none; max-height: none;
+    border: 0; border-radius: 0; gap: .5rem;
+    padding: max(.5rem, env(safe-area-inset-top)) max(.5rem, env(safe-area-inset-right)) max(.5rem, env(safe-area-inset-bottom)) max(.5rem, env(safe-area-inset-left));
+  }
+  .img-modal-close, .img-modal-arrow, .img-modal-zoom { font-size: .8125rem; padding: .5rem .65rem; }
+}
 
 .footer { padding: 3rem var(--page-gutter) 1.5rem; }
 .footer-inner { max-width: 48rem; }
