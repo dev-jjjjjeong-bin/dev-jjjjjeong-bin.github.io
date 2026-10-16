@@ -228,24 +228,37 @@ a:focus-visible, button:focus-visible { outline: 3px solid #715c22; outline-offs
   max-width: 76rem; max-height: 64rem; margin: auto; padding: 1rem;
   border: 1px solid #57624f; border-radius: 1.25rem;
   background: #182015; color: #fff; overflow: hidden;
-  grid-template-rows: auto minmax(0, 1fr) auto; gap: .75rem;
-  align-items: stretch; justify-content: stretch;
+  flex-direction: column; gap: .75rem;
+  align-items: stretch; justify-content: flex-start;
+  box-sizing: border-box; min-width: 0; min-height: 0;
   box-shadow: 0 24px 80px rgba(0, 0, 0, .3);
 }
-.img-modal[open] { display: grid; }
+.img-modal[open] { display: flex; }
 .img-modal::backdrop { background: rgba(12, 17, 10, .8); }
 .img-modal-toolbar {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
   gap: .5rem; width: 100%; min-width: 0;
+  flex: 0 0 auto; position: relative; z-index: 1; background: #182015;
 }
 .img-modal-toolbar:first-child { justify-content: space-between; }
+/* Reserve space for navigation independently of image size and zoom. */
+.img-modal-navigation {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center; column-gap: .75rem;
+  padding-top: .75rem; border-top: 1px solid #405039;
+}
+.img-modal-navigation .img-modal-arrow { width: 100%; max-width: 10rem; }
+.img-modal-navigation #img-prev { justify-self: end; }
+.img-modal-navigation #img-next { justify-self: start; }
+
 .img-modal-close, .img-modal-arrow, .img-modal-zoom {
   position: static; inset: auto; transform: none; min-width: 44px; min-height: 44px;
+  display: inline-flex; align-items: center; justify-content: center; white-space: nowrap;
   border: 1px solid #72846a; border-radius: .65rem; background: #293c21; color: #fff;
   padding: .5rem .8rem; font-size: .9375rem; line-height: 1.5;
   text-shadow: none; cursor: pointer; touch-action: manipulation;
 }
-.img-modal button:disabled { opacity: .45; cursor: default; }
+.img-modal button:disabled { opacity: .6; cursor: default; }
 @media (hover: hover) {
   .img-modal button:not(:disabled):hover { background: #405834; color: #fff; }
 }
@@ -253,10 +266,19 @@ a:focus-visible, button:focus-visible { outline: 3px solid #715c22; outline-offs
   outline: 2px solid #d5e5ba; outline-offset: 2px;
 }
 .img-modal-viewport {
-  position: relative; width: 100%; height: 100%; min-width: 0; min-height: 0;
+  position: relative; flex: 1 1 0; width: 100%; max-width: 100%; height: 0; min-width: 0; min-height: 0;
   overflow: auto; overscroll-behavior: contain; border-radius: .65rem;
   background: #10170e;
 }
+/* Only the image handles pinch and pan; dialog controls keep their normal size. */
+.img-modal-viewport { touch-action: none; }
+.review-img-box, .review-img-box img, .img-modal-viewport, .img-modal-content {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.review-img-box img, .img-modal-content { -webkit-user-drag: none; }
+
 .img-modal-canvas {
   display: flex; align-items: center; justify-content: center;
   width: 100%; height: 100%; min-width: 100%; min-height: 100%;
