@@ -177,14 +177,13 @@ a:focus-visible, button:focus-visible { outline: 3px solid #715c22; outline-offs
 .news-activity-copy h3 { font-size: clamp(1.25rem, 1.1rem + .4vw, 1.5rem); line-height: 1.65; }
 .news-activity-copy > p:not(.conditioning-eyebrow) { font-size: var(--body-size); line-height: 1.85; }
 .media-list-section, .review-list-section { padding: 1rem var(--page-gutter) var(--section-space); }
-.media-list { max-width: 64rem; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); align-items: start; }
+.media-list { max-width: 64rem; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); align-items: stretch; grid-auto-rows: 1fr; }
 .media-list-section > .news-section-title { max-width: 64rem; }
 .media-card { min-height: 0; padding: clamp(1.25rem, 3vw, 2rem); }
-.media-card-top { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: .5rem 1rem; }
-.media-outlet { font-size: 1.125rem; }
-.media-date { font-size: .9375rem; color: #5e6b52; }
-.media-card-title { font-size: 1.125rem; line-height: 1.7; }
-.media-card-desc { font-size: 1rem; line-height: 1.85; color: #56624d; }
+.media-card-top { flex-direction: row; flex-wrap: wrap; align-items: center; gap: .5rem .75rem; }
+.media-date { font-size: .8125rem; color: #65705c; }
+.media-card-title { font-size: 1.125rem; line-height: 1.6; }
+.media-card-desc { font-size: .9375rem; line-height: 1.75; color: #56624d; }
 .media-card-link { font-size: .9375rem; color: #4f683d; }
 
 /* 원본 비율을 지켜 인물·서명·후기 문구가 잘리지 않도록 표시 */
@@ -335,7 +334,8 @@ html.review-modal-open { overflow: hidden; }
   .news-category-links { padding-bottom: 1.75rem; }
   .news-activities { padding-bottom: 2rem; }
   .media-list { gap: 1rem; }
-  .media-card-divider { margin-block: .875rem; }
+  .media-card-top { margin-bottom: 1rem; }
+  .media-card-desc { margin-bottom: 1.25rem; }
   .media-card-link { padding-top: .875rem; }
   .conditioning-feature-inner { gap: 1.125rem; }
   .conditioning-feature-copy p { margin-bottom: .75rem; }
@@ -393,4 +393,12 @@ html.review-modal-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+/* 기사 카드는 넓은 화면에서 두 열, 좁은 화면에서는 한 열로 표시합니다. */
+@media (min-width: 768px) {
+  .media-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  .media-list { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; }
 }

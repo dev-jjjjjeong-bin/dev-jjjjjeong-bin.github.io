@@ -122,135 +122,90 @@
    기사 카드
 ================================================== */
 
+/* 날짜, 제목, 원문 링크를 일정한 순서로 보여주는 기사 카드 */
 .media-card {
   position: relative;
-
   display: flex;
   flex-direction: column;
-
-  min-height: 270px;
-  padding: 30px 30px 26px;
-  box-sizing: border-box;
-  overflow: hidden;
-
-  background: #ffffff;
-
-  border: 1px solid rgba(120, 153, 107, 0.48);
-  border-radius: 22px;
-
-  box-shadow: 0 8px 26px rgba(38, 62, 25, 0.065);
-
+  min-width: 0;
+  padding: 28px;
+  color: #37482b;
+  background: linear-gradient(155deg, #ffffff 65%, #f7f9f0);
+  border: 1.5px solid #bac8ac;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(38, 62, 25, .045);
   text-decoration: none;
-
-  transition:
-    transform 0.18s,
-    box-shadow 0.18s,
-    border-color 0.18s;
+  transition: box-shadow .18s ease, border-color .18s ease;
 }
-
-.media-card::after {
-  content: "";
-
-  position: absolute;
-  top: 0;
-  right: 0;
-
-  width: 76px;
-  height: 76px;
-
-  background: linear-gradient(225deg, rgba(162, 191, 74, 0.18), rgba(162, 191, 74, 0));
-
-  pointer-events: none;
+.media-card::after { content: none; }
+@media (hover: hover) and (pointer: fine) {
+  .media-card:hover {
+    border-color: #789365;
+    box-shadow: 0 12px 28px rgba(38, 62, 25, .10);
+  }
 }
-
-.media-card:hover {
-  transform: translateY(-4px);
-
-  border-color: rgba(120, 153, 107, 0.72);
-
-  box-shadow: 0 14px 34px rgba(38, 62, 25, 0.11);
-}
-
-/* ==================================================
-   기사 카드 상단
-================================================== */
-
+.media-card:focus-visible { outline: 3px solid #617d43; outline-offset: 4px; }
 .media-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.media-topic {
+  display: inline-flex;
+  padding: 5px 10px;
+  border-radius: 7px;
+  background: #edf2e3;
+  color: #4c6438;
+  font-size: .8125rem;
+  font-weight: 700;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.media-date { color: #65705c; font-size: .8125rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.media-card-title {
+  margin: 0;
+  color: #354b28;
+  font-size: 1.125rem;
+  font-weight: 800;
+  line-height: 1.6;
+  letter-spacing: -.025em;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.media-card-desc {
+  margin: 14px 0 24px;
+  color: #5e6856;
+  font-size: .9375rem;
+  line-height: 1.75;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.media-card-link {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
-}
-
-.media-outlet {
-  color: #42592b;
-
-  font-size: 1.2rem;
-  font-weight: 900;
-  letter-spacing: -0.04em;
-}
-
-.media-date {
-  flex: 0 0 auto;
-
-  color: #96a08e;
-
-  font-size: 0.8rem;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #e1e7d8;
+  color: #4a6237;
+  font-size: .875rem;
   font-weight: 700;
 }
-
-/* 카드 구분선 */
-.media-card-divider {
-  width: 38px;
-  height: 3px;
-
-  margin: 22px 0 19px;
-
-  border-radius: 999px;
-
-  background: #a2bf4a;
-}
-
-/* ==================================================
-   기사 제목 및 설명
-================================================== */
-
-.media-card-title {
-  color: #37482b;
-
-  font-size: 1.08rem;
-  font-weight: 800;
-  line-height: 1.5;
-  letter-spacing: -0.03em;
-
-  word-break: keep-all;
-}
-
-.media-card-desc {
-  margin-top: 10px;
-
-  color: #68735f;
-
-  font-size: 0.9rem;
-  line-height: 1.65;
-  letter-spacing: -0.02em;
-
-  word-break: keep-all;
-}
-
-/* 기사 원문 보기 */
-.media-card-link {
+.media-card-link span {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-
-  margin-top: auto;
-  padding-top: 22px;
-
-  color: #78996b;
-
-  font-size: 0.86rem;
-  font-weight: 800;
+  justify-content: center;
+  flex: 0 0 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #edf2e3;
+}
+@media (prefers-reduced-motion: reduce) {
+  .media-card { transition: none; }
+  .media-card:hover { transform: none; }
 }
 
 /* ==================================================
@@ -361,17 +316,11 @@
     border-radius: 18px;
   }
 
-  .media-outlet {
-    font-size: 1.07rem;
-  }
 
   .media-date {
     font-size: 0.72rem;
   }
 
-  .media-card-divider {
-    margin: 17px 0 15px;
-  }
 
   .media-card-title {
     font-size: 0.98rem;
@@ -434,4 +383,10 @@
 
     gap: 4px;
   }
+}
+/* 카드 전체에서 제목과 요약의 시작 위치를 맞춥니다. */
+@media (min-width: 768px) {
+  .media-card-top { min-height: var(--media-top-height, 0px); flex-shrink: 0; }
+  .media-card-title { min-height: var(--media-title-height, 0px); flex-shrink: 0; }
+  .media-card-desc { min-height: var(--media-desc-height, 0px); flex-shrink: 0; }
 }
