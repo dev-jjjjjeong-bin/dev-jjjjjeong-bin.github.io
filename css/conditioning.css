@@ -123,3 +123,14 @@
   .conditioning-lead { font-size: .96rem; }
   .conditioning-story-outro { padding-top: 36px; }
 }
+
+/* 외부 활동도 언론보도와 동일한 카드 구조를 사용합니다. */
+.activity-card .activity-card-image {
+  display: block; width: 100%; height: auto; aspect-ratio: 16 / 10;
+  object-fit: contain; background: #eef1e8;
+  border-radius: .75rem; margin: 0 0 1.25rem;
+}
+.news-category-links a[aria-current="page"], .news-category-links a.is-active {
+  color: #fff; background: #42592b;
+}
+.awards-story .conditioning-story-cover { max-width: 960px; }
