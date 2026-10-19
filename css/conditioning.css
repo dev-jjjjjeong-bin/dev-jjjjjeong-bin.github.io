@@ -134,3 +134,20 @@
   color: #fff; background: #42592b;
 }
 .awards-story .conditioning-story-cover { max-width: 960px; }
+
+/* 원본 사진은 유지하고, 여백이 많은 세로 사진의 표시 구도만 조정합니다. */
+.activity-card .activity-card-image.nordic-card-image {
+  object-fit: cover; object-position: 50% 43%;
+}
+.nordic-story .conditioning-story-cover { max-width: 960px; }
+.nordic-story .conditioning-story-cover .nordic-landscape,
+.nordic-story .conditioning-gallery .nordic-landscape {
+  width: 100%; height: auto; aspect-ratio: 4 / 3;
+  object-fit: cover; object-position: 50% 46%;
+}
+.nordic-story .nordic-portrait-figure { width: min(100%, 36rem); justify-self: center; }
+.nordic-story .conditioning-gallery .nordic-portrait {
+  width: 100%; height: auto; aspect-ratio: 4 / 5;
+  object-fit: cover; object-position: 50% 40%;
+}
+.nordic-story .conditioning-facts > div { grid-template-columns: 5rem minmax(0, 1fr); }
