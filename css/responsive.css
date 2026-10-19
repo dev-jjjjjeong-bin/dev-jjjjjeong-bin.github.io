@@ -56,6 +56,8 @@ a:focus-visible, button:focus-visible { outline: 3px solid #715c22; outline-offs
 .reading-line { display: block; text-wrap: pretty; }
 .reading-line + .reading-line { margin-top: .2em; }
 .reading-phrase { display: inline-block; max-width: 100%; white-space: normal; text-wrap: wrap; }
+/* 전·후 등 짧은 의미 단위만 보호하고 긴 문장 전체는 자연스럽게 줄바꿈합니다. */
+.keep-together { white-space: nowrap; word-break: keep-all; overflow-wrap: normal; }
 .director-bio p, .program-descbox, .feature-desc, .step-content,
 .personal-program-card-desc, .conditioning-feature-copy p, .conditioning-story-body p,
 .conditioning-story-outro > p:not(.conditioning-eyebrow),
@@ -177,13 +179,19 @@ a:focus-visible, button:focus-visible { outline: 3px solid #715c22; outline-offs
 .media-preview + .media-preview { padding-top: clamp(1rem, 2vw, 1.5rem); }
 .media-preview-inner { max-width: 75rem; padding: clamp(1rem, 3vw, 2rem); flex-wrap: wrap; gap: 1.5rem; }
 .media-preview-copy { flex: 1 1 28rem; }
+.media-preview-separator { margin-inline-end: .75em; }
 .media-preview-title { font-size: clamp(1.25rem, 1.1rem + .6vw, 1.6rem); }
 .media-preview-eyebrow, .media-preview-meta { font-size: .875rem; color: #59684a; }
 .media-preview-button { min-width: 0; min-height: 44px; max-width: 100%; font-size: 1rem; }
 .service-notice { padding: var(--section-space) var(--page-gutter); }
-.service-notice-inner { max-width: 75rem; padding: 1.25rem; flex-wrap: wrap; gap: .5rem 1.25rem; }
+.service-notice-inner { display: grid; grid-template-columns: max-content minmax(0, 1fr); max-width: 75rem; padding: 1.25rem; gap: .75rem 1.25rem; align-items: start; }
 .service-notice-label { font-size: .9375rem; }
-.service-notice-text { min-width: 0; flex: 1 1 30rem; font-size: 1rem; line-height: 1.85; }
+/* 안내문은 마지막 줄의 길이를 맞추지 않고 오른쪽 가용 폭까지 채웁니다. */
+.service-notice-text {
+  width: 100%; min-width: 0; margin: 0; font-size: 1rem; line-height: 1.7;
+  color: #535f4a; text-align: left; text-wrap: wrap;
+  word-break: keep-all; overflow-wrap: anywhere;
+}
 
 /* 모든 하위 페이지의 공통 헤더 */
 .media-hero, .review-hero { padding: var(--section-space) var(--page-gutter) 2.5rem; }
@@ -453,7 +461,11 @@ html.review-modal-open { overflow: hidden; }
   .conditioning-feature figcaption, .conditioning-story figcaption { margin-top: .5rem; }
   .conditioning-story-outro { padding-top: 1.75rem; }
   .media-preview-copy { flex-basis: auto; }
+  .media-preview-meta { flex-direction: column; align-items: center; gap: .375rem; }
+  .media-preview-separator { display: none; }
   .media-preview-inner { align-items: stretch; gap: 1rem; }
+  .service-notice-inner { grid-template-columns: minmax(0, 1fr); padding: 1rem; }
+  .service-notice-text { line-height: 1.7; }
   .footer-desc { margin-bottom: .875rem; line-height: 1.6; }
   .footer-btns { margin-bottom: 1.25rem; }
   .media-hero-desc-break, .review-hero-desc-break { display: none; }
