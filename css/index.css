@@ -1343,3 +1343,10 @@ html {
   color: #526b3a;
   font-weight: 700;
 }
+
+/* 연두색 섹션에서는 흰색 카드로 내용 영역을 구분합니다. */
+.media-preview.section-bg1 .media-preview-inner,
+.service-notice.section-bg1 .service-notice-inner {
+  background: #ffffff;
+  border-color: #bac8ac;
+}

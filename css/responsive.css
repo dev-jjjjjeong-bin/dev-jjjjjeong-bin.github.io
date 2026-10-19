@@ -37,6 +37,8 @@ a:focus-visible, button:focus-visible { outline: 3px solid #715c22; outline-offs
 .intro-subtitle { font-size: clamp(1.2rem, 1rem + .65vw, 1.65rem); line-height: 1.6; }
 .intro-desc { max-width: 42rem; font-size: var(--body-size); line-height: 1.8; margin-bottom: 1.5rem; }
 .intro-subtitle, .intro-desc { text-wrap: balance; }
+.program-quote, .steps-desc { max-width: 48rem; margin-inline: auto; text-wrap: balance; }
+.footer-desc { text-wrap: balance; }
 .intro-desc-break { display: none; }
 .intro-btns, .footer-btns { flex-wrap: wrap; max-width: 100%; }
 .intro-btn, .footer-btn { min-height: 44px; max-width: 100%; margin-inline: 0; font-size: 1.0625rem; line-height: 1.6; }
@@ -82,11 +84,29 @@ a:focus-visible, button:focus-visible { outline: 3px solid #715c22; outline-offs
 .director, .certs, .program, .steps, .personal-programs, .conditioning-feature { padding: var(--section-space) var(--page-gutter); }
 .director-list, .program-inner, .personal-programs-inner { width: 100%; max-width: 75rem; padding: 0; margin-inline: auto; }
 .director-container { gap: clamp(1.5rem, 3vw, 3rem); min-width: 0; }
-.director-info { min-width: 0; max-width: 44rem; }
-.director-photo { width: min(42%, 32rem); max-width: 100%; height: auto; aspect-ratio: auto; object-fit: contain; }
+.director-info { min-width: 0; max-width: 44rem; align-self: center; text-align: center; }
+/* 손진석 대표원장 원본 비율을 두 사진의 공통 표시 크기로 사용합니다. */
+.director-photo {
+  width: min(42%, 32rem); max-width: 100%; height: auto; flex-shrink: 0;
+  aspect-ratio: 1836 / 2475; object-fit: cover; object-position: center;
+}
 .director-title { font-size: 1.0625rem !important; color: #805e14 !important; white-space: normal; line-height: 1.7; }
-.director-bio > div { font-size: var(--body-size) !important; line-height: 1.85 !important; }
-.director-bio p { font-size: inherit; line-height: inherit; }
+/* 이름·직함·소개 문단을 같은 중심축에 놓고 문단별 읽기 폭을 제한합니다. */
+.director-name { margin-top: 0; margin-bottom: .5rem; text-align: center; }
+.director-title { margin-bottom: 1.25rem !important; text-align: center; text-wrap: balance; }
+.director-bio { width: 100%; max-width: 36em; margin-inline: auto; text-align: center; }
+.director-bio > div {
+  margin: 0 !important; color: #444;
+  font-size: var(--body-size) !important; line-height: 1.75 !important;
+  text-align: inherit;
+}
+.director-bio p {
+  margin: 0; padding: 0; font-size: inherit; line-height: inherit;
+  text-align: center; text-wrap: balance;
+}
+.director-bio p + p { margin-top: 1em; }
+.director-bio p::before { content: none; }
+.director-bio .reading-phrase { display: inline; }
 .director-bio br, .program-descbox br, .feature-desc br, .step-content br { display: none; }
 
 /* 자격과 경력 */
@@ -115,14 +135,15 @@ a:focus-visible, button:focus-visible { outline: 3px solid #715c22; outline-offs
 }
 
 /* 고정 폭/가로 스크롤 카드 대신 유동적인 격자 */
-.program-descbox { padding: clamp(1.1rem, 3vw, 2rem); }
+.program-descbox { max-width: 54rem; margin-inline: auto; padding: clamp(1.1rem, 3vw, 2rem); text-wrap: balance; }
 .program-features {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
   width: 100%; max-width: 75rem; gap: 1.25rem; overflow: visible; align-items: stretch;
 }
 .feature-box { width: 100%; min-width: 0; min-height: 0; padding: 1.5rem; }
 .feature-icon { width: 3.5rem; height: 3.5rem; object-fit: contain; }
-.feature-title { font-size: 1.125rem; line-height: 1.65; margin-bottom: 1rem; }
+.feature-title { font-size: 1.125rem; line-height: 1.65; margin-bottom: 1rem; text-wrap: balance; }
+.feature-desc { width: 100%; max-width: 24em; margin-inline: auto; text-align: center; text-wrap: balance; }
 .step-blocks { width: 100%; max-width: 60rem; gap: 1.25rem; }
 .step-block { width: 100%; min-width: 0; padding: clamp(1rem, 3vw, 2rem); }
 .step-header { flex-wrap: wrap; gap: .65rem 1rem; }
@@ -150,13 +171,16 @@ a:focus-visible, button:focus-visible { outline: 3px solid #715c22; outline-offs
 .personal-program-duration-label, .personal-program-label { color: #58644f; }
 .personal-program-label { font-size: .875rem; }
 .personal-program-trainer { min-height: 44px; max-width: 100%; border: 0; font-size: .9375rem; line-height: 1.6; white-space: normal; cursor: pointer; }
-.media-preview { padding: 2rem var(--page-gutter); }
+/* 배경이 바뀌는 경계는 위쪽 섹션과 동일한 여백, 같은 배경의 두 카드는 좁은 간격을 사용합니다. */
+.media-preview { padding: var(--section-space) var(--page-gutter); }
+.media-preview[aria-labelledby="review-preview-title"] { padding-bottom: 0; }
+.media-preview + .media-preview { padding-top: clamp(1rem, 2vw, 1.5rem); }
 .media-preview-inner { max-width: 75rem; padding: clamp(1rem, 3vw, 2rem); flex-wrap: wrap; gap: 1.5rem; }
 .media-preview-copy { flex: 1 1 28rem; }
 .media-preview-title { font-size: clamp(1.25rem, 1.1rem + .6vw, 1.6rem); }
 .media-preview-eyebrow, .media-preview-meta { font-size: .875rem; color: #59684a; }
 .media-preview-button { min-width: 0; min-height: 44px; max-width: 100%; font-size: 1rem; }
-.service-notice { padding: 1.5rem var(--page-gutter); }
+.service-notice { padding: var(--section-space) var(--page-gutter); }
 .service-notice-inner { max-width: 75rem; padding: 1.25rem; flex-wrap: wrap; gap: .5rem 1.25rem; }
 .service-notice-label { font-size: .9375rem; }
 .service-notice-text { min-width: 0; flex: 1 1 30rem; font-size: 1rem; line-height: 1.85; }
@@ -181,8 +205,10 @@ a:focus-visible, button:focus-visible { outline: 3px solid #715c22; outline-offs
 .media-list-section > .news-section-title { max-width: 64rem; }
 .media-card { min-height: 0; padding: clamp(1.25rem, 3vw, 2rem); }
 .media-card-top { flex-direction: row; flex-wrap: wrap; align-items: center; gap: .5rem .75rem; }
+.media-topic, .media-date { max-width: 100%; white-space: normal; }
+.media-date time { display: inline-block; }
 .media-date { font-size: .8125rem; color: #65705c; }
-.media-card-title { font-size: 1.125rem; line-height: 1.6; }
+.media-card-title { font-size: 1.125rem; line-height: 1.6; text-wrap: balance; }
 .media-card-desc { font-size: .9375rem; line-height: 1.75; color: #56624d; }
 .media-card-link { font-size: .9375rem; color: #4f683d; }
 
@@ -197,7 +223,17 @@ a:focus-visible, button:focus-visible { outline: 3px solid #715c22; outline-offs
 .conditioning-gallery { grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 2rem; align-items: start; }
 .conditioning-gallery img, .conditioning-gallery .conditioning-portrait { width: 100%; height: auto; aspect-ratio: auto; object-fit: contain; }
 .conditioning-gallery .portrait-figure { grid-column: 1 / -1; width: min(100%, 32rem); justify-self: center; }
-.conditioning-feature figcaption, .conditioning-story figcaption { font-size: .9375rem; line-height: 1.8; }
+.conditioning-feature figcaption, .conditioning-story figcaption {
+  max-width: 44em; margin-inline: auto; font-size: .9375rem; line-height: 1.7;
+  text-align: center; text-wrap: balance;
+}
+.conditioning-story-body, .conditioning-story-outro { max-width: 44rem; }
+.conditioning-story-body p { margin-block: 0 1em; }
+.conditioning-story-body h2 { text-wrap: balance; }
+.conditioning-story-outro { text-align: center; }
+.conditioning-story-outro > p:not(.conditioning-eyebrow) { text-wrap: balance; }
+.conditioning-story-outro .reading-line { display: inline; }
+.conditioning-story-outro .reading-line + .reading-line { margin: 0; }
 .conditioning-facts > div { grid-template-columns: 4rem minmax(0, 1fr); gap: 1rem; font-size: 1rem; }
 .conditioning-photo-link { display: block; border-radius: 18px; }
 .review-grid {
@@ -326,7 +362,7 @@ html.review-modal-open { overflow: hidden; }
 }
 @media (max-width: 48rem) {
   :root {
-    --body-size: clamp(.875rem, .675rem + 1.1vw, 1rem);
+    --body-size: clamp(.9375rem, .875rem + .25vw, 1rem);
     --section-space: clamp(2.25rem, 5vw, 3rem);
   }
   body { font-size: var(--body-size); line-height: 1.6; }
@@ -343,9 +379,11 @@ html.review-modal-open { overflow: hidden; }
   .conditioning-story-outro > p:not(.conditioning-eyebrow), .conditioning-lead,
   .media-hero-desc, .review-hero-desc,
   .news-activity-copy > p:not(.conditioning-eyebrow) { line-height: 1.6; }
-  .reading-line + .reading-line { margin-top: .125em; }
-  .director-bio > div { line-height: 1.65 !important; margin-bottom: 0 !important; }
-  .director-bio p { margin-bottom: .5rem; }
+  /* 좁은 화면에서는 구절을 묶거나 수동으로 끊지 않고 가용 폭에 맞춰 흐르게 합니다. */
+  .reading-phrase, .reading-line { display: inline; }
+  .reading-line + .reading-line { margin-top: 0; }
+  .director-bio > div { line-height: 1.75 !important; }
+  .director-bio p { margin-bottom: 0; }
   .program-quote, .steps-desc, .personal-programs-desc { line-height: 1.6; }
   .program-quote, .steps-desc { margin-bottom: 1.5rem; }
   .program-descbox { margin-bottom: 1.5rem; }
@@ -382,8 +420,8 @@ html.review-modal-open { overflow: hidden; }
   .contact .contact-row, .contact .contact-row:nth-child(n) { line-height: 1.5; }
   .director-list { gap: 2rem; }
   .director-container + .director-container { padding-top: 2rem; }
-  .director-info { padding: 1.25rem; }
-  .director-bio { text-align: left; }
+  .director-info { padding: 1.5rem clamp(1.125rem, 4vw, 1.75rem); }
+  .director-bio { text-align: center; }
   .director-photo { width: min(100%, 22rem); }
   .personal-programs-desc { margin: .875rem auto 1.5rem; }
   .personal-programs-desc-line + .personal-programs-desc-line { margin-top: .375rem; }
@@ -416,7 +454,6 @@ html.review-modal-open { overflow: hidden; }
   .conditioning-story-outro { padding-top: 1.75rem; }
   .media-preview-copy { flex-basis: auto; }
   .media-preview-inner { align-items: stretch; gap: 1rem; }
-  .service-notice { padding-block: 1.25rem; }
   .footer-desc { margin-bottom: .875rem; line-height: 1.6; }
   .footer-btns { margin-bottom: 1.25rem; }
   .media-hero-desc-break, .review-hero-desc-break { display: none; }
@@ -426,7 +463,7 @@ html.review-modal-open { overflow: hidden; }
   :root { --page-gutter: 1rem; --section-space: 2.25rem; }
   .intro { padding-top: 1.5rem; }
   .intro-desc { max-width: 19rem; }
-  .director-info { padding: 1rem; }
+  .director-info { padding: 1.5rem 1.125rem; }
   .cert-tabs { width: 100%; }
   .cert-tab { flex-direction: column; align-items: center; padding: .65rem .5rem; }
   .cert-panel { padding: 1rem; }
