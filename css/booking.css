@@ -25,6 +25,10 @@
 .booking-page input:disabled,.booking-page select:disabled { background:#f4f5f1; color:#6d7367; }
 .booking-page :focus-visible { outline:3px solid #819d4b; outline-offset:3px; }
 .field-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:16px; }
+.field-row > div { min-width:0; }
+.booking-page .field-row input[type=date], .booking-page .field-row select { width:100%; max-width:100%; height:50px; min-height:50px; padding:12px; line-height:24px; }
+.booking-page .field-row input[type=date]::-webkit-date-and-time-value { min-height:24px; text-align:left; }
+
 .field-help { font-size:12px; margin:8px 0 0; color:#697260; }
 .product-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
 .booking-page .product-option { display:flex; align-items:flex-start; gap:10px; margin:0; padding:16px; border:1px solid #cbd5bd; border-radius:14px; font-weight:400; cursor:pointer; }
@@ -122,3 +126,25 @@
 #admin-login > p { font-size:14px; color:#697260; }
 #admin-login .booking-button.full { margin-top:16px; }
 #admin-account-email { overflow-wrap:anywhere; word-break:normal; }
+
+/* Pre-visit questions: roomy touch targets, compact responsive choices. */
+.booking-page textarea { display:block; width:100%; min-width:0; padding:12px; border:1px solid #c6cfba; border-radius:10px; background:#fff; color:#34432d; font:inherit; font-size:16px; line-height:1.6; resize:vertical; }
+.booking-page textarea:disabled { background:#f4f5f1; color:#6d7367; }
+.booking-page .intake-heading { margin-top:28px; }
+.required-mark, .optional-mark { display:inline-block; margin-left:5px; font-size:12px; font-weight:500; }
+.required-mark { color:#42592b; }
+.optional-mark { color:#697260; }
+.booking-page .intake-question { margin:26px 0; }
+.intake-question legend { padding:0; font-size:15px; font-weight:700; line-height:1.6; }
+.intake-options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:12px; }
+.booking-page .intake-option { display:flex; align-items:center; gap:9px; min-width:0; min-height:46px; margin:0; padding:10px; border:1px solid #d5ddc7; border-radius:10px; font-weight:400; line-height:1.5; cursor:pointer; }
+.intake-option:has(input:checked) { background:#f0f5e6; border-color:#647d3f; }
+.intake-option input { width:18px; height:18px; margin:0; flex-shrink:0; accent-color:#42592b; }
+.intake-option span { overflow-wrap:anywhere; word-break:keep-all; }
+.booking-page .character-count { text-align:right; margin-top:6px; }
+.admin-intake { padding:14px; margin:16px 0; background:#f7f8f1; border-radius:10px; font-size:14px; }
+.admin-intake summary { color:#42592b; cursor:pointer; font-weight:700; }
+.admin-intake dl { margin-bottom:0; }
+.admin-intake dt { font-weight:700; margin-top:14px; }
+.admin-intake dd { margin:4px 0 0; white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.65; }
+@media(max-width:380px) { .intake-options { grid-template-columns:1fr; } }

@@ -7,7 +7,7 @@ export function check(condition, message, status = 400) {
 export function phoneNumber(value) {
   check(typeof value === "string" && value.length <= 30, "전화번호를 확인해 주세요.");
   const phone = value.replace(/[\s()-]/g, "").replace(/^\+82/, "0");
-  check(/^(?:010\d{8}|01[16789]\d{7,8})$/.test(phone), "휴대전화번호를 정확히 입력해 주세요.");
+  check(/^(?:010\d{8}|01[16789]\d{7,8})$/.test(phone), "전화번호를 정확히 입력해 주세요.");
   return phone;
 }
 export function appointment(input, now = Date.now()) {

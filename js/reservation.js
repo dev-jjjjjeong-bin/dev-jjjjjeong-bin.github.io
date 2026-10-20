@@ -1,3 +1,5 @@
+import { genders, intakeGroups } from "./booking-intake.js";
+import { setupPhone } from "./booking-phone.js";
 import { api, statuses, node, message, scheduleLabel, setupDates, loadChallenge } from "./booking-shared.js";
 import { products } from "./booking-products.js";
 const create = document.querySelector("#create-form");
@@ -20,12 +22,44 @@ for (const product of products) {
   label.append(radio, copy); document.querySelector("#booking-products").append(label);
 }
 
+// Keep multi-select questions accessible and require at least one answer per group.
+const validateGroup = group => {
+  const inputs = [...create.querySelectorAll(`input[name="${group.name}"]`)];
+  inputs[0].setCustomValidity(inputs.some(input => input.checked) ? "" : "한 가지 이상 선택해 주세요.");
+};
+for (const [value, label] of genders) create.elements.gender.add(new Option(label, value));
+create.elements.birthDate.max = new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10);
+for (const group of intakeGroups) {
+  const options = document.querySelector(`#${group.name}-options`);
+  for (const [value, text] of group.choices) {
+    const label = node("label", undefined, "intake-option");
+    const input = document.createElement("input");
+    input.type = "checkbox"; input.name = group.name; input.value = value;
+    input.addEventListener("change", () => {
+      if (input.checked) {
+        for (const other of options.querySelectorAll("input")) {
+          if (other !== input && (value === "none" || other.value === "none")) other.checked = false;
+        }
+      }
+      validateGroup(group);
+    });
+    label.append(input, node("span", text)); options.append(label);
+  }
+  validateGroup(group);
+}
+const requestCount = document.querySelector("#requests-count");
+const updateCount = () => { requestCount.textContent = `${create.elements.requests.value.length}/500`; };
+create.elements.requests.addEventListener("input", updateCount);
+create.addEventListener("reset", () => queueMicrotask(() => { intakeGroups.forEach(validateGroup); updateCount(); }));
+setupPhone(create.elements.phone);
+setupPhone(lookup.elements.phone);
+
 function renderChallenge(name) {
   if (!config?.ready || !window.turnstile) return;
   tokens[name] = "";
   if (widget[name] !== undefined) { window.turnstile.reset(widget[name]); return; }
   widget[name] = window.turnstile.render(`#${name}-challenge`, {
-    sitekey: config.turnstileSiteKey, size: "flexible",
+    sitekey: config.turnstileSiteKey, size: "flexible", appearance: "interaction-only",
     callback: token => { tokens[name] = token; },
     "expired-callback": () => { tokens[name] = ""; },
     "error-callback": () => { tokens[name] = ""; },
@@ -64,7 +98,17 @@ setupDates(create.elements.date, create.elements.time);
 setupDates(changeForm.elements.date, changeForm.elements.time);
 create.addEventListener("submit", event => {
   event.preventDefault();
-  const data = Object.fromEntries(new FormData(create));
+  const formData = new FormData(create);
+  const data = {
+    name: formData.get("name"), phone: formData.get("phone"), productId: formData.get("productId"),
+    date: formData.get("date"), time: formData.get("time"),
+    intake: {
+      birthDate: formData.get("birthDate"), gender: formData.get("gender"),
+      visitPurpose: formData.get("visitPurpose"), requests: formData.get("requests"),
+      ...Object.fromEntries(intakeGroups.map(group => [group.name, formData.getAll(group.name)])),
+    },
+    healthConsent: create.elements.healthConsent.checked,
+  };
   const fingerprint = JSON.stringify(data);
   if (fingerprint !== submittedFingerprint) { requestId = crypto.randomUUID(); submittedFingerprint = fingerprint; }
   submit(create, "create", async challenge => {

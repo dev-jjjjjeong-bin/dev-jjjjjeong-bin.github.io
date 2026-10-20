@@ -1,3 +1,4 @@
+import { validateIntake } from "./intake.js";
 import { appointment, phoneNumber, publicBooking, requestChange, adminDecision, check, HttpError } from "./domain.js";
 import { Firestore, fingerprint } from "./firestore.js";
 import { products } from "../js/booking-products.js";
@@ -104,11 +105,13 @@ export async function handle(request, env, dependencies = {}) {
     if (path.endsWith("/create")) {
       const product = products.find(p => p.id === input.productId);
       check(product, "상담·체험 상품을 선택해 주세요.");
-      check(typeof input.name === "string" && input.name.trim().length >= 2 && input.name.trim().length <= 40, "이름은 2~40자로 입력해 주세요.");
+      check(typeof input.name === "string" && input.name.trim().length >= 2 && input.name.trim().length <= 40, "성함은 2~40자로 입력해 주세요.");
       check(input.consent === true, "개인정보 수집·이용에 동의해 주세요.");
       check(typeof input.requestId === "string" && /^[a-f0-9-]{36}$/.test(input.requestId), "신청 화면을 새로 열어 주세요.");
       const id = await fingerprint(env.PHONE_HASH_SECRET, `request:${phone}:${input.requestId}`);
       if (await db.get("bookings", id)) return json({ ok: true }); // Retry after an interrupted response.
+      check(input.healthConsent === true, "건강 관련 정보 수집·이용에 동의해 주세요.");
+      const intake = validateIntake(input.intake);
       const schedule = appointment(input);
       await rateLimit(db, env, `create:${phoneHash}`, 5, 86400000);
       const existing = await db.query("bookings", { field: "phoneHash", value: phoneHash, limit: 100 });
@@ -116,7 +119,8 @@ export async function handle(request, env, dependencies = {}) {
         "이미 같은 일시로 신청되어 있습니다. 예약 조회에서 확인해 주세요.", 409);
       await db.save("bookings", id, { ...schedule, productId: product.id, price: product.price, duration: product.duration,
         phone, phoneHash, name: input.name.trim(), status: "pending", change: null,
-        consentVersion: "2026-10-20", createdAt: new Date().toISOString() });
+        intake, healthConsent: true, healthConsentVersion: "2026-10-20-intake-v1",
+        consentVersion: "2026-10-20-intake-v1", createdAt: new Date().toISOString() });
       return json({ ok: true }, 201);
     }
     check(typeof input.id === "string" && /^[\w-]{10,80}$/.test(input.id), "예약을 다시 조회해 주세요.");

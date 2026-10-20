@@ -1,3 +1,4 @@
+import { intakeRows } from "./booking-intake.js";
 import { api, node, message, statuses, scheduleLabel } from "./booking-shared.js";
 import { products, productLabel } from "./booking-products.js";
 const output = document.querySelector("#admin-records");
@@ -31,6 +32,15 @@ function render() {
     const contact = node("p", `${record.name} · `);
     const phone = node("a", record.phone); phone.href = `tel:${record.phone}`; contact.append(phone); card.append(contact);
     card.append(node("p", `신청: ${new Date(record.createdAt).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })}`, "field-help"));
+    if (record.intake) {
+      const details = node("details", undefined, "admin-intake");
+      details.append(node("summary", "사전 상담 정보 보기"));
+      const list = node("dl");
+      for (const [label, value] of intakeRows(record.intake)) {
+        list.append(node("dt", label), node("dd", value || "미입력"));
+      }
+      details.append(list); card.append(details);
+    }
     const actions = node("div", undefined, "button-row");
     let options = [];
     if (record.change) {

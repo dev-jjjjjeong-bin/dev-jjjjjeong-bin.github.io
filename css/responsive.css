@@ -16,19 +16,35 @@ button, input { font: inherit; }
 [id] { scroll-margin-top: var(--anchor-offset); }
 a:focus-visible, button:focus-visible { outline: 3px solid #715c22; outline-offset: 4px; }
 
-/* 상단은 계속 고정하되, 휴대폰에서는 로고와 한 줄 메뉴로 높이를 줄입니다. */
-.navbar { position: sticky; top: 0; height: auto; min-height: 6.5rem; gap: .75rem 2rem; padding: .75rem var(--page-gutter); flex-wrap: wrap; }
-.logo { min-width: 0; flex: 0 1 auto; }
+/* 예약 버튼은 넓은 화면에서는 메뉴 오른쪽, 좁은 화면에서는 로고 옆에 놓습니다. */
+.navbar { position: sticky; top: 0; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "logo links booking"; height: auto; min-height: 6.5rem; gap: .5rem clamp(.75rem, 2vw, 2rem); padding: .75rem var(--page-gutter); }
+.logo { grid-area: logo; min-width: 0; }
 .logo a { display: flex; max-width: 100%; }
-.logo img { width: auto; height: 4.5rem; max-width: 12rem; margin: 0; object-fit: contain; }
+.logo img { width: 12rem; height: auto; max-width: 100%; margin: 0; object-fit: contain; }
 .nav-links {
-  min-width: 0; width: auto; max-width: 100%; flex: 1 1 28rem;
-  justify-content: flex-end; flex-wrap: wrap; gap: .25rem clamp(.25rem, 1.4vw, 1.5rem);
+  grid-area: links; min-width: 0; width: auto; max-width: 100%;
+  justify-content: flex-end; flex-wrap: nowrap; gap: .25rem clamp(.25rem, 1.4vw, 1.5rem);
   margin: 0; font-size: 1rem; white-space: normal;
 }
 .nav-links a { display: inline-flex; align-items: center; justify-content: center; min-width: 0; min-height: 44px; padding: .4rem .55rem; text-align: center; }
 .navbar .nav-links a.active, .navbar .nav-links a[style] { color: #42592b !important; }
 .nav-links a:hover { color: #42592b; text-decoration: underline; text-underline-offset: .3em; }
+
+/* 별도 링크로 두어 기존 메뉴의 활성화 처리와 분리합니다. */
+.nav-booking {
+  grid-area: booking; justify-self: end; display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: .65rem 1.25rem; border: 1px solid #42592b; border-radius: 999px;
+  background: #42592b; color: #fff; font-size: 1rem; font-weight: 700; line-height: 1.5;
+  text-decoration: none; white-space: nowrap; transition: background .2s, box-shadow .2s;
+}
+.nav-booking:hover { background: #30431f; color: #fff; }
+.nav-booking[aria-current="page"] { box-shadow: 0 0 0 3px #42592b26; }
+@media (max-width: 64rem) {
+  .navbar { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "logo booking" "links links"; min-height: 0; }
+  .nav-links { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); justify-self: center; width: 100%; max-width: 40rem; gap: 0; }
+  .nav-links a { padding-inline: .125rem; }
+  .nav-booking { padding: .6rem 1rem; font-size: .9375rem; }
+}
 
 /* 첫 화면과 연락처 */
 .intro { min-height: 0; padding: var(--section-space) var(--page-gutter); }
@@ -408,7 +424,7 @@ html.review-modal-open { overflow: hidden; }
   .media-date, .media-card-link { font-size: .8125rem; line-height: 1.5; }
   .footer-copy { font-size: .8125rem; }
   .navbar {
-    flex-direction: column; flex-wrap: nowrap; min-height: 0; gap: .125rem;
+    min-height: 0; gap: .25rem .75rem;
     padding: .5rem clamp(.5rem, 2vw, .875rem) .25rem;
   }
   .logo img { width: clamp(9rem, 42vw, 11rem); height: auto; max-width: 100%; }
@@ -501,10 +517,6 @@ html.review-modal-open { overflow: hidden; }
 @media (max-height: 32rem) and (max-width: 48rem) {
   .navbar { padding-block: .25rem; }
   .logo img { width: 7rem; height: auto; }
-}
-@media (max-height: 32rem) and (min-width: 40rem) and (max-width: 48rem) {
-  .navbar { flex-direction: row; gap: .75rem; }
-  .nav-links { flex: 1 1 0; width: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

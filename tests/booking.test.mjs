@@ -1,9 +1,12 @@
+import { validateIntake } from "../server/intake.js";
 import test from "node:test";
 import assert from "node:assert/strict";
 import { appointment, phoneNumber, requestChange, adminDecision, publicBooking, HttpError } from "../server/domain.js";
 import { handle } from "../server/api.js";
 import { encode, decode } from "../server/firestore.js";
 
+const intake = { birthDate: "1990-05-12", gender: "female", referralSources: ["search", "friend"],
+  visitPurpose: "일상에서 편안하게 움직이기", treatmentHistory: ["manual"], exerciseHistory: ["pilates", "gym"], requests: "방문 전 안내 부탁드립니다." };
 const now = Date.parse("2026-10-20T10:00:00+09:00");
 const original = { id: "booking-test-00001", name: "테스트 고객", phone: "01012345678", phoneHash: "secret",
   date: "2026-10-21", time: "10:00", status: "confirmed", change: null };
@@ -34,7 +37,7 @@ test("변경·취소 요청으로 확정 일정을 즉시 바꾸지 않음", () 
   assert.throws(() => requestChange(changed, { type: "cancel" }, now));
 });
 test("고객 조회 결과에 이름·연락처·해시·관리자 이력 노출 없음", () => {
-  assert.deepEqual(Object.keys(publicBooking({ ...original, updatedBy: "admin" })).sort(), ["change","date","id","status","time"]);
+  assert.deepEqual(Object.keys(publicBooking({ ...original, intake, healthConsent: true, updatedBy: "admin" })).sort(), ["change","date","id","status","time"]);
 });
 test("Firestore 형식 왕복 변환", () => {
   const input = { ...original, count: 1, consent: true, items: ["a"], change: { type: "cancel" } };
@@ -72,7 +75,7 @@ function futureSlot() {
 }
 test("신청 → 조회 → 변경 요청 → 관리자 승인; 재시도는 중복 생성하지 않음", async () => {
   const db = new MemoryDb(), dependencies = { db, challenge: async () => {}, verifyAdmin: async () => "test-admin" };
-  const input = { ...futureSlot(), name: "테스트", phone: "010-1234-5678", consent: true, requestId: crypto.randomUUID(), productId: "sohn-stretch", price: 1 };
+  const input = { ...futureSlot(), intake, healthConsent: true, name: "테스트", phone: "010-1234-5678", consent: true, requestId: crypto.randomUUID(), productId: "sohn-stretch", price: 1 };
   assert.equal((await handle(req("create", input), env, dependencies)).status, 201);
   assert.equal((await handle(req("create", input), env, dependencies)).status, 200);
   const lookup = await (await handle(req("lookup", { phone: input.phone }), env, dependencies)).json();
@@ -82,6 +85,12 @@ test("신청 → 조회 → 변경 요청 → 관리자 승인; 재시도는 중
   assert.equal((await handle(req("change", { id, phone: "01099998888", type: "cancel" }), env, dependencies)).status, 404);
   assert.equal((await handle(req("change", { id, phone: input.phone, type: "cancel" }), env, dependencies)).status, 200);
   const record = await db.get("bookings", id);
+  assert.deepEqual(record.intake, intake);
+  assert.equal(record.healthConsent, true);
+  const adminList = await (await handle(req("admin/list", {}), env, dependencies)).json();
+  assert.deepEqual(adminList.records[0].intake, intake);
+  assert.ok(!JSON.stringify(lookup).includes("birthDate"));
+  assert.ok(!JSON.stringify(lookup).includes("visitPurpose"));
   assert.equal(record.price, 70000); assert.equal(record.productId, "sohn-stretch");
   assert.equal(record.status, "pending");
   assert.equal((await handle(req("admin/decide", { id, version: "stale", action: "approve-change" }), env, dependencies)).status, 409);
@@ -149,4 +158,26 @@ test("Firebase가 확인한 계정도 허용된 UID·프로젝트·유효기간�
     request.headers.set("Authorization", "Bearer invalid");
     assert.equal((await handle(request, env, { db: new MemoryDb() })).status, 401);
   } finally { globalThis.fetch = originalFetch; }
+});
+
+test("사전 상담 정보의 날짜·필수 질문·선택지·글자 수 검증", () => {
+  assert.deepEqual(validateIntake(intake, now), intake);
+  assert.equal(validateIntake({ ...intake, birthDate: "2000-02-29", requests: undefined }, now).requests, "");
+  for (const patch of [
+    { birthDate: "2026-02-30" }, { birthDate: "2027-01-01" }, { birthDate: "1899-12-31" },
+    { gender: "invalid" }, { referralSources: [] }, { referralSources: ["fake"] },
+    { referralSources: ["search", "search"] }, { treatmentHistory: ["none", "surgery"] },
+    { exerciseHistory: ["none", "pt"] }, { treatmentHistory: "manual" },
+    { visitPurpose: "   " }, { visitPurpose: "가".repeat(1001) }, { requests: "가".repeat(501) },
+  ]) assert.throws(() => validateIntake({ ...intake, ...patch }, now));
+  assert.throws(() => validateIntake(null, now));
+});
+test("추가 상담 정보 또는 건강 정보 동의가 없으면 저장하지 않음", async () => {
+  for (const patch of [{ intake: undefined }, { healthConsent: false }, { intake: { ...intake, exerciseHistory: [] } }]) {
+    const db = new MemoryDb();
+    const input = { ...futureSlot(), name: "테스트", phone: "01012345678", consent: true, healthConsent: true,
+      intake, productId: "sohn-stretch", requestId: crypto.randomUUID(), ...patch };
+    assert.equal((await handle(req("create", input), env, { db, challenge: async () => {} })).status, 400);
+    assert.equal((await db.query("bookings")).length, 0);
+  }
 });
