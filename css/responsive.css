@@ -213,7 +213,8 @@ a:focus-visible, button:focus-visible { outline: 3px solid #715c22; outline-offs
 .media-list-section > .news-section-title { max-width: 64rem; }
 .media-card { min-height: 0; padding: clamp(1.25rem, 3vw, 2rem); }
 .media-card-top { flex-direction: row; flex-wrap: wrap; align-items: center; gap: .5rem .75rem; }
-.media-topic, .media-date { max-width: 100%; white-space: normal; }
+.media-topic { max-width: 100%; white-space: normal; }
+.media-date { white-space: nowrap; flex-shrink: 0; }
 .media-date time { display: inline-block; }
 .media-date { font-size: .8125rem; color: #65705c; }
 .media-card-title { font-size: 1.125rem; line-height: 1.6; text-wrap: balance; }

@@ -151,3 +151,23 @@
   object-fit: cover; object-position: 50% 40%;
 }
 .nordic-story .conditioning-facts > div { grid-template-columns: 5rem minmax(0, 1fr); }
+
+/* 재능기부 봉사 사진은 운동 자세가 잘리지 않도록 전체 구도를 표시합니다. */
+.volunteer-story .conditioning-gallery img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+.volunteer-story .volunteer-portraits {
+  align-items: start;
+}
+.volunteer-story .volunteer-portraits img {
+  aspect-ratio: 3 / 4;
+  object-fit: contain;
+  background: #eef1e8;
+}
+.volunteer-story .conditioning-story-cover,
+.volunteer-story .conditioning-gallery {
+  max-width: 960px;
+}
