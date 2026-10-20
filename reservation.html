@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>예약 신청 · 조회 | 분당튼튼운동센터</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/booking.css">
+  <script src="js/reservation.js" type="module"></script>
+</head>
+<body class="booking-page">
+  <nav class="navbar" aria-label="주 메뉴">
+    <div class="logo"><a href="index.html"><img src="images/logo/logo.png" alt="분당튼튼운동센터 홈" width="6255" height="1823"></a></div>
+    <div class="nav-links"><a href="index.html">HOME</a><a href="index.html#director">원장 소개</a><a href="index.html#program">프로그램</a><a href="review.html">운동후기</a><a href="news.html">센터 소식</a></div>
+  </nav>
+  <main class="booking-main">
+    <header class="booking-heading">
+      <span class="eyebrow">RESERVATION</span>
+      <h1>나에게 맞는 운동,<br>상담부터 시작하세요.</h1>
+      <p>원하시는 시간을 남겨주시면<br class="small-break"> 센터에서 확인 후 직접 연락드립니다.</p>
+    </header>
+    <ol class="booking-steps" aria-label="예약 진행 순서">
+      <li><span>01</span> 예약 신청</li><li><span>02</span> 센터 확인 · 연락</li><li><span>03</span> 예약 확정</li>
+    </ol>
+    <div id="service-status" class="service-notice" role="status">예약 서비스를 확인하고 있습니다.</div>
+    <div class="booking-columns">
+      <section class="booking-panel" aria-label="예약 신청 및 조회">
+        <div class="booking-tabs" role="tablist" aria-label="예약 메뉴">
+          <button type="button" id="tab-create" role="tab" aria-selected="true" aria-controls="panel-create">예약 신청</button>
+          <button type="button" id="tab-lookup" role="tab" aria-selected="false" aria-controls="panel-lookup" tabindex="-1">내 예약 조회 · 변경</button>
+        </div>
+        <section id="panel-create" role="tabpanel" aria-labelledby="tab-create">
+          <h2>상담·체험 상품을 선택해 주세요</h2>
+          <p class="muted">선택하신 원장님과 1:1 상담·체험을 진행합니다.</p>
+          <form id="create-form">
+            <fieldset disabled>
+              <div id="booking-products" class="product-grid" role="radiogroup" aria-label="상담·체험 상품"></div>
+              <p class="field-help product-help">모든 상품은 상담·체험 50분입니다. 온라인 결제 없이 예약 신청만 접수합니다.</p>
+              <h3 class="form-section-heading">신청 정보와 희망 일시</h3>
+              <label for="customer-name">이름</label>
+              <input id="customer-name" name="name" autocomplete="name" required minlength="2" maxlength="40" placeholder="성함을 입력해 주세요">
+              <label for="customer-phone">휴대전화번호</label>
+              <input id="customer-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="20" placeholder="010-1234-5678">
+              <p class="field-help">센터에서 연락드릴 번호이며, 예약 조회에도 사용합니다.</p>
+              <div class="field-row">
+                <div><label for="request-date">희망 날짜</label><input id="request-date" name="date" type="date" required></div>
+                <div><label for="request-time">희망 시간</label><select id="request-time" name="time" required><option value="">날짜를 먼저 선택해 주세요</option></select></div>
+              </div>
+              <details class="privacy-details">
+                <summary>개인정보 수집·이용 안내</summary>
+                <p>분당튼튼운동센터는 예약 상담과 일정 관리를 위해 이름, 휴대전화번호, 선택 상품, 희망 일시와 예약 처리 이력을 수집합니다. 예약 처리 완료 후 관리자가 확인하여 삭제하며, 센터에 삭제를 요청할 수 있습니다.</p>
+                <p>동의를 거부할 수 있으나 온라인 예약 신청은 제한됩니다. 전화 상담은 031-778-6535로 문의해 주세요.</p>
+                <p>전화번호만으로 일정과 상태를 조회하므로 번호를 아는 다른 사람도 조회하거나 변경 요청을 남길 수 있습니다. 실제 변경은 센터 확인 후 처리합니다.</p>
+              </details>
+              <label class="checkbox-label"><input name="consent" type="checkbox" required> <span>개인정보 수집·이용에 동의합니다. <small>(필수)</small></span></label>
+              <div class="challenge-box" id="create-challenge"></div>
+              <button class="booking-button primary full" type="submit">예약 신청하기 <span aria-hidden="true">→</span></button>
+            </fieldset>
+            <p class="form-message" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+        <section id="panel-lookup" role="tabpanel" aria-labelledby="tab-lookup" hidden>
+          <h2>전화번호로 간편하게 조회</h2>
+          <p class="muted">신청하실 때 입력한 휴대전화번호를 입력해 주세요.</p>
+          <form id="lookup-form">
+            <fieldset disabled>
+              <label for="lookup-phone">휴대전화번호</label>
+              <input id="lookup-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="20" placeholder="010-1234-5678">
+              <div class="challenge-box" id="lookup-challenge"></div>
+              <button class="booking-button primary full" type="submit">내 예약 조회하기</button>
+            </fieldset>
+            <p class="form-message" role="status" aria-live="polite"></p>
+          </form>
+          <div id="lookup-results" aria-live="polite"></div>
+        </section>
+      </section>
+      <aside class="booking-aside">
+        <span class="eyebrow">VISIT GUIDE</span><h2>방문 전 확인해 주세요</h2>
+        <dl><dt>운영시간</dt><dd>평일 09:00–21:00<br>토요일 09:00–13:00<br><span class="muted">일요일 · 공휴일 휴무</span></dd>
+          <dt>오시는 길</dt><dd>경기도 성남시 분당구<br>불정로376번길 37<br>범한프라자 3층 302호</dd></dl>
+        <div class="aside-note"><strong>일정이 바뀌셨나요?</strong><p>조회 화면에서 변경·취소를 요청해 주세요. 센터 확인 전까지 기존 예약은 유지됩니다.</p></div>
+        <div class="aside-note"><strong>상담·체험 안내</strong><ul class="visit-notes"><li>움직임이 편한 복장으로 방문해 주세요.</li><li>당일 취소는 불가하므로 전날까지 연락해 주세요.</li><li>센터 운영 사정에 따라 희망 시간이 조정될 수 있습니다.</li></ul><p>모든 프로그램은 운동과 신체활동 지원을 목적으로 하며, 의학적 진단·처방·치료에 해당하지 않습니다.</p></div>
+        <a class="booking-button secondary full" href="tel:0317786535">전화 문의 · 031-778-6535</a>
+        <a class="plain-link" href="https://map.naver.com/p/entry/place/2026927539" target="_blank" rel="noopener noreferrer">네이버에서 센터 보기 ↗</a>
+      </aside>
+    </div>
+  </main>
+  <dialog id="change-dialog" aria-labelledby="change-title">
+    <div class="dialog-heading"><h2 id="change-title">일정 변경 요청</h2><button class="icon-button" type="button" id="close-dialog" aria-label="닫기">×</button></div>
+    <p>센터 확인 후 반영됩니다.<br>확인 전까지 기존 예약은 유지됩니다.</p>
+    <form id="change-form">
+      <fieldset>
+        <div id="change-schedule" class="field-row">
+          <div><label for="change-date">변경 희망 날짜</label><input id="change-date" name="date" type="date" required></div>
+          <div><label for="change-time">변경 희망 시간</label><select id="change-time" name="time" required><option value="">날짜를 먼저 선택해 주세요</option></select></div>
+        </div>
+        <div class="challenge-box" id="change-challenge"></div>
+        <button class="booking-button primary full" type="submit">요청 보내기</button>
+      </fieldset>
+      <p class="form-message" role="status" aria-live="polite"></p>
+    </form>
+  </dialog>
+  <footer class="booking-footer">© 분당튼튼운동센터 <a href="index.html">홈으로</a></footer>
+</body>
+</html>

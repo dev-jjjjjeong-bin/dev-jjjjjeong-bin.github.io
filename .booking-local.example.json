@@ -1,0 +1,8 @@
+{
+  "serviceAccountFile": "../your-service-account.json",
+  "phoneSecretFile": "booking-phone-secret.txt",
+  "apiKey": "",
+  "authDomain": "",
+  "appId": "",
+  "adminUids": ""
+}
