@@ -1,3 +1,4 @@
+import { notifyTelegram } from "./telegram.js";
 import { validateIntake } from "./intake.js";
 import { appointment, phoneNumber, publicBooking, requestChange, adminDecision, check, HttpError } from "./domain.js";
 import { Firestore, fingerprint } from "./firestore.js";
@@ -52,6 +53,13 @@ async function rateLimit(db, env, key, limit = 30, windowMs = 900000) {
       return;
     } catch (error) { if (error.status !== 409 || attempt === 3) throw error; }
   }
+}
+async function bookingNotification(event, env, dependencies) {
+  // Failures here must not turn an already-saved booking into an apparent failure.
+  const task = Promise.resolve().then(() => (dependencies.notify || notifyTelegram)(event, env))
+    .catch(() => console.warn(`telegram_notification_failed event=${event} code=unexpected`));
+  if (dependencies.waitUntil) dependencies.waitUntil(task);
+  else await task;
 }
 export async function handle(request, env, dependencies = {}) {
   try {
@@ -121,6 +129,7 @@ export async function handle(request, env, dependencies = {}) {
         phone, phoneHash, name: input.name.trim(), status: "pending", change: null,
         intake, healthConsent: true, healthConsentVersion: "2026-10-20-intake-v1",
         consentVersion: "2026-10-20-intake-v1", createdAt: new Date().toISOString() });
+      await bookingNotification("create", env, dependencies);
       return json({ ok: true }, 201);
     }
     check(typeof input.id === "string" && /^[\w-]{10,80}$/.test(input.id), "예약을 다시 조회해 주세요.");
@@ -128,6 +137,7 @@ export async function handle(request, env, dependencies = {}) {
     check(record && record.phoneHash === phoneHash, "예약을 다시 조회해 주세요.", 404);
     await rateLimit(db, env, `change:${phoneHash}`, 5, 86400000);
     await db.save("bookings", record.id, { ...requestChange(record, input), updatedAt: new Date().toISOString() }, record.version);
+    await bookingNotification(input.type, env, dependencies);
     return json({ ok: true });
   } catch (error) {
     // Never log request bodies, phone numbers, tokens or upstream credentials.

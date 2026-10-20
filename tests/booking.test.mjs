@@ -181,3 +181,66 @@ test("추가 상담 정보 또는 건강 정보 동의가 없으면 저장하지
     assert.equal((await db.query("bookings")).length, 0);
   }
 });
+
+test("저장된 신청·변경·취소만 알림; 중복·조회·관리자 처리·실패 요청은 제외", async () => {
+  const db = new MemoryDb(), events = [];
+  const dependencies = { db, challenge: async () => {}, verifyAdmin: async () => "admin",
+    notify: async event => {
+      assert.equal((await db.query("bookings")).length, 1, "알림 전 예약 저장");
+      events.push(event);
+    } };
+  const input = { ...futureSlot(), name: "테스트", phone: "01012345678", consent: true, healthConsent: true,
+    intake, productId: "sohn-stretch", requestId: crypto.randomUUID() };
+  assert.equal((await handle(req("create", { ...input, name: "" }), env, dependencies)).status, 400);
+  assert.deepEqual(events, []);
+  assert.equal((await handle(req("create", input), env, dependencies)).status, 201);
+  assert.equal((await handle(req("create", input), env, dependencies)).status, 200);
+  const lookup = await (await handle(req("lookup", { phone: input.phone }), env, dependencies)).json();
+  const id = lookup.records[0].id;
+  assert.deepEqual(events, ["create"]);
+  assert.equal((await handle(req("change", { id, phone: input.phone, type: "reschedule", date: input.date, time: "11:00" }), env, dependencies)).status, 200);
+  assert.equal((await handle(req("change", { id, phone: input.phone, type: "cancel" }), env, dependencies)).status, 409);
+  assert.deepEqual(events, ["create", "reschedule"]);
+  const record = await db.get("bookings", id);
+  assert.equal((await handle(req("admin/decide", { id, version: record.version, action: "approve-change" }), env, dependencies)).status, 200);
+  assert.equal((await handle(req("change", { id, phone: input.phone, type: "cancel" }), env, dependencies)).status, 200);
+  assert.deepEqual(events, ["create", "reschedule", "cancel"]);
+});
+
+test("저장 실패에는 알림이 없고 알림 실패에도 저장된 예약은 접수 성공", async () => {
+  const input = { ...futureSlot(), name: "테스트", phone: "01012345678", consent: true, healthConsent: true,
+    intake, productId: "sohn-stretch", requestId: crypto.randomUUID() };
+  const db = new MemoryDb(); let notified = false;
+  const save = db.save.bind(db);
+  db.save = async (collection, ...args) => {
+    if (collection === "bookings") throw new Error("write failed");
+    return save(collection, ...args);
+  };
+  assert.equal((await handle(req("create", input), env, { db, challenge: async () => {}, notify: async () => { notified = true; } })).status, 500);
+  assert.equal(notified, false);
+  db.save = save;
+  const logs = []; const warn = console.warn;
+  console.warn = message => logs.push(message);
+  try {
+    assert.equal((await handle(req("create", input), env, { db, challenge: async () => {},
+      notify: async () => { throw new Error("private upstream details"); } })).status, 201);
+    assert.equal((await db.query("bookings")).length, 1);
+    assert.deepEqual(logs, ["telegram_notification_failed event=create code=unexpected"]);
+  } finally { console.warn = warn; }
+});
+
+test("Cloudflare 백그라운드 발송 작업을 등록하고 설정 응답에는 텔레그램 비밀값 없음", async () => {
+  const db = new MemoryDb(), pending = [];
+  let finish;
+  const notification = new Promise(resolve => { finish = resolve; });
+  const input = { ...futureSlot(), name: "테스트", phone: "01012345678", consent: true, healthConsent: true,
+    intake, productId: "sohn-stretch", requestId: crypto.randomUUID() };
+  const response = await handle(req("create", input), env, { db, challenge: async () => {},
+    notify: () => notification, waitUntil: task => pending.push(task) });
+  assert.equal(response.status, 201); assert.equal(pending.length, 1);
+  finish(); await Promise.all(pending);
+  const config = await (await handle(new Request(`${env.SITE_ORIGIN}/api/booking/config`),
+    { ...env, TELEGRAM_BOT_TOKEN: "private-telegram-token", TELEGRAM_CHAT_ID: "private-chat-id" })).text();
+  assert.ok(!config.includes("private-telegram-token"));
+  assert.ok(!config.includes("private-chat-id"));
+});

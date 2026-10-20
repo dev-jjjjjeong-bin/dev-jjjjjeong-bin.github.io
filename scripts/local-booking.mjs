@@ -28,6 +28,8 @@ const env = {
   FIREBASE_AUTH_DOMAIN: config.authDomain,
   FIREBASE_APP_ID: config.appId,
   ADMIN_UIDS: config.adminUids,
+  TELEGRAM_BOT_TOKEN: config.telegramBotToken || "",
+  TELEGRAM_CHAT_ID: config.telegramChatId || "",
   TURNSTILE_SITE_KEY: "1x00000000000000000000AA",
   TURNSTILE_SECRET_KEY: "1x0000000000000000000000000000000AA",
 };
