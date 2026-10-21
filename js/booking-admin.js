@@ -1,6 +1,7 @@
 import { intakeRows } from "./booking-intake.js";
-import { api, node, message, statuses, scheduleLabel } from "./booking-shared.js";
-import { products, productLabel } from "./booking-products.js";
+import { api, node, message, statuses } from "./booking-shared.js";
+import { products } from "./booking-products.js";
+import { scheduleNode, productSummary, contactNode, requestNode, textUnit } from "./booking-display.js";
 const output = document.querySelector("#admin-records");
 const notice = document.querySelector("#admin-message");
 const login = document.querySelector("#login-button");
@@ -26,12 +27,15 @@ function render() {
   if (!visible.length) output.append(node("p", "해당하는 예약이 없습니다."));
   for (const record of visible) {
     const card = node("article", undefined, "booking-result");
-    card.append(node("span", statuses[record.status], `status-badge ${record.status}`), node("h3", scheduleLabel(record)));
+    card.append(node("span", statuses[record.status], `status-badge ${record.status}`), scheduleNode(record));
     const product = products.find(p => p.id === record.productId);
-    if (product) card.append(node("p", `${productLabel(product)} · ${record.price.toLocaleString("ko-KR")}원`));
-    const contact = node("p", `${record.name} · `);
-    const phone = node("a", record.phone); phone.href = `tel:${record.phone}`; contact.append(phone); card.append(contact);
-    card.append(node("p", `신청: ${new Date(record.createdAt).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })}`, "field-help"));
+    if (product) card.append(productSummary(product, record.price));
+    card.append(contactNode(record));
+    const submitted = new Date(record.createdAt);
+    const created = node("p", undefined, "field-help booking-meta-row");
+    created.append(textUnit(`신청: ${submitted.toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" })}`),
+      textUnit(submitted.toLocaleTimeString("ko-KR", { timeZone: "Asia/Seoul" })));
+    card.append(created);
     if (record.intake) {
       const details = node("details", undefined, "admin-intake");
       details.append(node("summary", "사전 상담 정보 보기"));
@@ -44,7 +48,7 @@ function render() {
     const actions = node("div", undefined, "button-row");
     let options = [];
     if (record.change) {
-      card.append(node("p", record.change.type === "cancel" ? "고객 요청: 예약 취소" : `고객 요청: ${scheduleLabel(record.change)}로 변경`, "request-note"));
+      card.append(requestNode(record.change, true));
       options = [["approve-change","요청 승인"],["reject-change","요청 거절"]];
     } else if (record.status === "pending") options = [["confirm","예약 확정"],["decline","예약 불가"]];
     else if (record.status === "confirmed") options = [["complete","이용 완료"]];

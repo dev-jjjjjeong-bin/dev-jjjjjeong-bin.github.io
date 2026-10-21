@@ -1,6 +1,9 @@
+import { setupBirthDate } from "./booking-birth-date.js";
+import { scrollToApplication } from "./booking-form-navigation.js";
 import { genders, intakeGroups } from "./booking-intake.js";
 import { setupPhone } from "./booking-phone.js";
-import { api, statuses, node, message, scheduleLabel, setupDates, loadChallenge } from "./booking-shared.js";
+import { api, statuses, node, message, setupDates, loadChallenge } from "./booking-shared.js";
+import { scheduleNode, priceNode, requestNode } from "./booking-display.js";
 import { products } from "./booking-products.js";
 const create = document.querySelector("#create-form");
 const lookup = document.querySelector("#lookup-form");
@@ -16,9 +19,12 @@ for (const product of products) {
   const label = node("label", undefined, "product-option");
   const radio = document.createElement("input");
   radio.type = "radio"; radio.name = "productId"; radio.value = product.id; radio.required = true;
+  radio.addEventListener("change", () => {
+    if (radio.checked) scrollToApplication(document.querySelector("#application-info"), document.querySelector(".navbar"));
+  });
   const copy = node("span", undefined, "product-copy");
   copy.append(node("span", product.trainer, "product-trainer"), node("strong", product.title, "product-title"),
-    node("span", product.description, "product-description"), node("span", `상담·체험 ${product.duration}분 · ${product.price.toLocaleString("ko-KR")}원`, "product-price"));
+    node("span", product.description, "product-description"), priceNode(product));
   label.append(radio, copy); document.querySelector("#booking-products").append(label);
 }
 
@@ -28,7 +34,7 @@ const validateGroup = group => {
   inputs[0].setCustomValidity(inputs.some(input => input.checked) ? "" : "한 가지 이상 선택해 주세요.");
 };
 for (const [value, label] of genders) create.elements.gender.add(new Option(label, value));
-create.elements.birthDate.max = new Date(Date.now() + 9 * 3600000).toISOString().slice(0, 10);
+setupBirthDate(create.elements.birthDate);
 for (const group of intakeGroups) {
   const options = document.querySelector(`#${group.name}-options`);
   for (const [value, text] of group.choices) {
@@ -103,7 +109,7 @@ create.addEventListener("submit", event => {
     name: formData.get("name"), phone: formData.get("phone"), productId: formData.get("productId"),
     date: formData.get("date"), time: formData.get("time"),
     intake: {
-      birthDate: formData.get("birthDate"), gender: formData.get("gender"),
+      birthDate: formData.get("birthDate").replaceAll(".", "-"), gender: formData.get("gender"),
       visitPurpose: formData.get("visitPurpose"), requests: formData.get("requests"),
       ...Object.fromEntries(intakeGroups.map(group => [group.name, formData.getAll(group.name)])),
     },
@@ -129,9 +135,8 @@ lookup.addEventListener("submit", event => {
     message(formMessage(lookup), data.records.length ? `${data.records.length === 100 ? "최근 " : ""}${data.records.length}건의 예약을 찾았습니다.` : "해당 번호로 접수된 예약이 없습니다.");
     for (const record of data.records) {
       const card = node("article", undefined, "booking-result");
-      card.append(node("span", statuses[record.status], `status-badge ${record.status}`), node("h3", scheduleLabel(record)));
-      if (record.change) card.append(node("p", record.change.type === "cancel" ? "취소 요청 확인 중 · 기존 예약은 유지됩니다."
-        : `변경 요청 확인 중: ${scheduleLabel(record.change)}`, "request-note"));
+      card.append(node("span", statuses[record.status], `status-badge ${record.status}`), scheduleNode(record));
+      if (record.change) card.append(requestNode(record.change));
       else if (["pending", "confirmed"].includes(record.status) && Date.parse(`${record.date}T${record.time}:00+09:00`) > Date.now()) {
         const actions = node("div", undefined, "button-row");
         for (const [type, text] of [["reschedule", "일정 변경 요청"], ["cancel", "취소 요청"]]) {

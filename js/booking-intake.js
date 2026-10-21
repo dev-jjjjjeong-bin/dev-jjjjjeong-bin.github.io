@@ -1,6 +1,6 @@
 // Shared choices keep the booking form, server validation and admin labels consistent.
 export const genders = [
-  ["male", "남성"], ["female", "여성"], ["other", "기타"],
+  ["male", "남성"], ["female", "여성"],
 ];
 export const intakeGroups = [
   { name: "referralSources", title: "어떤 경로로 알게 되셨나요?", choices: [
@@ -26,7 +26,7 @@ export function intakeRows(intake) {
   };
   return [
     ["생년월일", intake.birthDate?.replaceAll("-", ".")],
-    ["성별", genders.find(([id]) => id === intake.gender)?.[1]],
+    ["성별", genders.find(([id]) => id === intake.gender)?.[1] || (intake.gender === "other" ? "기타" : "미입력")],
     ["알게 된 경로", labels("referralSources", intake.referralSources)],
     ["방문 목적", intake.visitPurpose],
     ["치료 경험", labels("treatmentHistory", intake.treatmentHistory)],
