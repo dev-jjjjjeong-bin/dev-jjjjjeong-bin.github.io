@@ -1,9 +1,10 @@
+import { setReadingText } from "./reading-text.js";
 import { setupBirthDate } from "./booking-birth-date.js";
 import { scrollToApplication } from "./booking-form-navigation.js";
 import { genders, intakeGroups } from "./booking-intake.js";
 import { setupPhone } from "./booking-phone.js";
 import { api, statuses, node, message, setupDates, loadChallenge } from "./booking-shared.js";
-import { scheduleNode, priceNode, requestNode, lookupProductSummary } from "./booking-display.js";
+import { scheduleNode, priceNode, requestNode, lookupProductSummary, readingNode } from "./booking-display.js";
 import { products } from "./booking-products.js";
 const create = document.querySelector("#create-form");
 const lookup = document.querySelector("#lookup-form");
@@ -23,8 +24,8 @@ for (const product of products) {
     if (radio.checked) scrollToApplication(document.querySelector("#application-info"), document.querySelector(".navbar"));
   });
   const copy = node("span", undefined, "product-copy");
-  copy.append(node("span", product.trainer, "product-trainer"), node("strong", product.title, "product-title"),
-    node("span", product.description, "product-description"), priceNode(product));
+  copy.append(node("span", product.trainer, "product-trainer"), readingNode("strong", product.title, "product-title"),
+    readingNode("span", product.description, "product-description"), priceNode(product));
   label.append(radio, copy); document.querySelector("#booking-products").append(label);
 }
 
@@ -182,4 +183,4 @@ try {
   document.querySelector("#service-status").hidden = true;
   create.querySelector("fieldset").disabled = lookup.querySelector("fieldset").disabled = false;
   renderChallenge(document.querySelector("#tab-lookup").getAttribute("aria-selected") === "true" ? "lookup" : "create");
-} catch (error) { document.querySelector("#service-status").textContent = error.message; }
+} catch (error) { setReadingText(document.querySelector("#service-status"), error.message); }

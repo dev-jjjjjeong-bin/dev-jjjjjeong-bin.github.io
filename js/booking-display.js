@@ -1,7 +1,12 @@
+import { setReadingText } from "./reading-text.js";
 import { node } from "./booking-shared.js";
 import { formatPhone } from "./booking-phone.js";
 
 // Keep each date, time, amount and phone number intact while allowing rows to wrap.
+// Only short units stay together; the surrounding sentence keeps its natural wrapping.
+export function readingNode(tag, text, className) {
+  return setReadingText(node(tag, undefined, className), text);
+}
 export const textUnit = text => node("span", text, "booking-text-unit");
 export function scheduleNode(record, tag = "h3") {
   const result = node(tag, undefined, "booking-schedule");
@@ -18,7 +23,7 @@ export function productSummary(product, price) {
   result.append(node("p", product.trainer, "booking-trainer"));
   const description = node("p", undefined, "booking-meta-row");
   const title = node("span", undefined, "booking-product-label");
-  title.append(node("span", product.title), textUnit("(상담·체험)"));
+  title.append(readingNode("span", product.title), textUnit("(상담·체험)"));
   description.append(title, node("strong", Number.isFinite(price) ? `${price.toLocaleString("ko-KR")}원` : "금액 확인 필요", "booking-text-unit booking-amount"));
   result.append(description);
   return result;

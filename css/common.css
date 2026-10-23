@@ -269,3 +269,5 @@ body {
     }
   }
 }
+/* Ratios, phone numbers and numeric units wrap together, never character by character. */
+.reading-unit { display:inline-block; white-space:nowrap; word-break:normal; overflow-wrap:normal; }

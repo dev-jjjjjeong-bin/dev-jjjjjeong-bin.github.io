@@ -51,7 +51,7 @@ test('고객 조회 상품 표시: 서버의 최신 담당자·프로그램·약
   t.after(() => { globalThis.document = original; });
   const result = lookupProductSummary({ product: { trainer: '윤수진 원장', title: '산전/산후 산모운동', price: 45000, duration: 80 } });
   assert.match(text(result), /윤수진 원장/);
-  assert.match(text(result), /산전\/산후 산모운동/);
+  assert.match(text(result), /산전\/산후\s+산모운동/);
   assert.match(text(result), /45,000원/);
   assert.match(text(result), /80분/);
   assert.match(result.children[1].children[1].className, /booking-text-unit/);

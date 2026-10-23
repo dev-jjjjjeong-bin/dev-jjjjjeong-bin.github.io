@@ -1,3 +1,4 @@
+import { setReadingText } from "./reading-text.js";
 export async function api(path, data, token) {
   const response = await fetch(`/api/booking/${path}`, {
     method: data === undefined ? "GET" : "POST", cache: "no-store", credentials: "omit",
@@ -17,7 +18,7 @@ export function node(tag, text, className) {
   return element;
 }
 export function message(target, text, type = "") {
-  target.textContent = text;
+  setReadingText(target, text);
   target.className = `form-message ${type}`;
 }
 export function scheduleLabel(record) { return `${record.date.replaceAll("-", ".")} · ${record.time}`; }
