@@ -2,7 +2,7 @@ import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import { resolve, extname, sep } from "node:path";
 import { fileURLToPath } from "node:url";
-const root = fileURLToPath(new URL("../dist/", import.meta.url));
+const root = resolve(fileURLToPath(new URL("../dist/", import.meta.url)));
 const mime = { ".html":"text/html; charset=utf-8", ".css":"text/css", ".js":"text/javascript", ".png":"image/png", ".jpg":"image/jpeg", ".jpeg":"image/jpeg", ".svg":"image/svg+xml" };
 createServer(async (req, res) => {
   try {

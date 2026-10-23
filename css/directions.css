@@ -1,0 +1,54 @@
+/* Location and arrival guide: text remains readable independently of the map. */
+.directions { background:#fff; padding:var(--section-space,64px) var(--page-gutter,24px); color:#34432d; }
+.directions-inner { max-width:1200px; margin:auto; }
+.directions-heading { margin-bottom:32px; }
+.directions-heading .directions-eyebrow { font-size:12px; letter-spacing:.16em; font-weight:700; color:#65794e; margin:0 0 12px; }
+.directions-heading h2 { font-size:var(--section-title,32px); line-height:1.4; letter-spacing:-.04em; margin:0 0 14px; }
+.directions-heading > p:last-child { margin:0; font-size:clamp(16px,1.5vw,20px); line-height:1.8; }
+.directions-unit { display:inline-block; white-space:nowrap; }
+.directions-mobile-break { display:none; }
+.directions-grid { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:clamp(24px,4vw,48px); align-items:start; }
+.directions-grid > * { min-width:0; }
+.directions-map-panel { background:#fff; border:1px solid #dbe2d1; border-radius:24px; overflow:hidden; }
+.directions-map { margin:0; }
+.directions-map-frame { display:block; width:100%; height:420px; border:0; background:#f5f5f5; }
+.directions-map figcaption { padding:12px 24px 0; font-size:13px; color:#66715e; line-height:1.7; }
+.directions-address { padding:24px 24px 0; }
+.directions h3 { margin:0 0 12px; font-size:21px; line-height:1.6; letter-spacing:-.025em; }
+.directions-address p { margin:0; line-height:1.8; }
+.directions-features { display:flex; flex-wrap:wrap; gap:8px; list-style:none; padding:0; margin:18px 0 0; }
+.directions-features li { padding:5px 12px; border-radius:8px; background:#edf2e2; color:#42592b; font-size:14px; }
+.directions-actions { display:flex; flex-wrap:wrap; gap:10px; padding:24px; }
+.directions-button { display:flex; justify-content:center; align-items:center; gap:12px; flex:1 1 180px; min-height:48px; padding:10px 14px; border:1px solid #c8d3ba; border-radius:12px; text-decoration:none; color:#42592b; font-size:15px; font-weight:700; }
+.directions-button-naver { background:#03c75a; color:#102b1b; border-color:#03c75a; }
+.directions-button-kakao { background:#fee500; color:#191919; border-color:#fee500; }
+.directions-button:hover { filter:brightness(.95); }
+.directions-steps { list-style:none; counter-reset:arrival; padding:0; margin:22px 0 0; }
+.directions-steps li { counter-increment:arrival; position:relative; padding:0 0 24px 46px; }
+.directions-steps li::before { content:counter(arrival); position:absolute; left:0; top:0; width:30px; height:30px; border-radius:50%; background:#42592b; color:white; text-align:center; font-size:16px; font-weight:700; line-height:30px; }
+.directions-steps li:not(:last-child)::after { content:""; position:absolute; left:14px; top:37px; bottom:8px; width:2px; background:#d5dfc7; }
+.directions-steps strong { display:block; font-size:18px; line-height:1.7; }
+.directions-steps p { margin:8px 0 0; font-size:16px; line-height:1.8; color:#626d59; }
+.directions-bus { display:inline-block; padding:0 9px; border-radius:6px; background:#e4ecd7; color:#344b24; white-space:nowrap; }
+.directions-transit-note { margin:0; font-size:12px; line-height:1.7; color:#69745f; }
+.directions-arrival { margin-top:24px; padding:22px; border-radius:16px; background:#eaf0df; }
+.directions-arrival h3 { font-size:18px; margin-bottom:8px; }
+.directions-arrival p { margin:0; font-size:16px; line-height:1.8; }
+.directions-call { display:flex; align-items:center; flex-wrap:wrap; gap:6px 16px; margin-top:20px; min-height:48px; color:#42592b; text-decoration:none; }
+.directions-call span { font-size:14px; }
+.directions-call strong { font-size:21px; }
+.intro-directions-link { display:inline-flex; align-items:center; min-height:44px; margin-top:16px; color:#fff; font-weight:700; text-underline-offset:5px; }
+@media(max-width:900px) {
+  .directions-grid { grid-template-columns:1fr; }
+  .directions-map-panel { max-width:680px; width:100%; margin-inline:auto; }
+  .directions-guide { max-width:680px; width:100%; margin-inline:auto; }
+}
+@media(max-width:480px) {
+  .directions-mobile-break { display:block; }
+  .directions-map-panel { border-radius:18px; }
+  .directions-map-frame { height:360px; }
+  .directions-map figcaption { padding-inline:18px; }
+  .directions-address { padding:20px 18px 0; }
+  .directions-actions { padding:18px; }
+  .directions-steps li { padding-left:40px; }
+}
