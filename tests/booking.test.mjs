@@ -37,7 +37,7 @@ test("변경·취소 요청으로 확정 일정을 즉시 바꾸지 않음", () 
   assert.throws(() => requestChange(changed, { type: "cancel" }, now));
 });
 test("고객 조회 결과에 이름·연락처·해시·관리자 이력 노출 없음", () => {
-  assert.deepEqual(Object.keys(publicBooking({ ...original, intake, healthConsent: true, updatedBy: "admin" })).sort(), ["change","date","id","status","time"]);
+  assert.deepEqual(Object.keys(publicBooking({ ...original, intake, healthConsent: true, updatedBy: "admin" })).sort(), ["change","date","id","product","status","time"]);
 });
 test("Firestore 형식 왕복 변환", () => {
   const input = { ...original, count: 1, consent: true, items: ["a"], change: { type: "cancel" } };
@@ -243,4 +243,164 @@ test("Cloudflare 백그라운드 발송 작업을 등록하고 설정 응답에�
     { ...env, TELEGRAM_BOT_TOKEN: "private-telegram-token", TELEGRAM_CHAT_ID: "private-chat-id" })).text();
   assert.ok(!config.includes("private-telegram-token"));
   assert.ok(!config.includes("private-chat-id"));
+});
+
+test("관리자는 확인 대기·확정 예약의 일시를 직접 변경하고 상태·고객 정보는 유지", () => {
+  for (const status of ["pending", "confirmed"]) {
+    const record = { ...original, status, productId: "sohn-stretch", price: 70000, intake };
+    const changed = adminDecision(record, { action: "reschedule", date: "2026-10-22", time: "11:00",
+      status: "cancelled", phone: "01099999999", price: 1 }, now);
+    assert.deepEqual(changed, { ...record, date: "2026-10-22", time: "11:00" });
+    assert.equal(record.date, "2026-10-21", "입력 기록을 직접 변경하지 않음");
+  }
+});
+test("관리자 직접 변경은 종료 상태·고객 요청 처리 중·잘못된 일시를 거부", () => {
+  const input = { action: "reschedule", date: "2026-10-22", time: "11:00" };
+  for (const status of ["cancelled", "declined", "completed"]) {
+    assert.throws(() => adminDecision({ ...original, status }, input, now), error => error.status === 409);
+  }
+  for (const type of ["cancel", "reschedule"]) {
+    assert.throws(() => adminDecision({ ...original, change: { type } }, input, now), error => error.status === 409);
+  }
+  for (const slot of [
+    { date: original.date, time: original.time },
+    { date: "2026-10-20", time: "09:00" },
+    { date: "2026-10-25", time: "10:00" },
+    { date: "2026-10-24", time: "13:00" },
+    { date: "2026-10-22", time: "21:00" },
+    { date: "2026-11-31", time: "10:00" },
+    { date: "2027-10-22", time: "10:00" },
+    { date: "2026-10-22", time: "10:30" },
+  ]) assert.throws(() => adminDecision(original, { ...input, ...slot }, now), error => error.status === 400);
+});
+test("관리자 직접 변경 API: 인증·동시 수정 방지·고객 조회 반영·수정 관리자 기록", async () => {
+  const db = new MemoryDb();
+  const slot = futureSlot();
+  const source = { ...original, ...slot, intake, productId: "sohn-stretch", price: 70000 };
+  await db.save("bookings", original.id, source);
+  const saved = await db.get("bookings", original.id);
+  const input = { id: saved.id, version: saved.version, action: "reschedule", date: slot.date, time: "11:00" };
+  const deps = { db, verifyAdmin: async () => "schedule-admin", notify: async () => { assert.fail("관리자 변경은 요청 알림을 발송하지 않음"); } };
+  assert.equal((await handle(req("admin/decide", input), env, { db })).status, 401);
+  assert.equal((await handle(req("admin/decide", input), env, { db, verifyAdmin: async () => { throw new HttpError(403, "권한 없음"); } })).status, 403);
+  assert.equal((await handle(req("admin/decide", { ...input, version: "stale" }), env, deps)).status, 409);
+  assert.equal((await db.get("bookings", original.id)).time, "10:00");
+  const results = await Promise.all([handle(req("admin/decide", input), env, deps), handle(req("admin/decide", input), env, deps)]);
+  assert.deepEqual(results.map(r => r.status).sort(), [200, 409]);
+  const changed = await db.get("bookings", original.id);
+  assert.equal(changed.updatedBy, "schedule-admin");
+  assert.ok(Number.isFinite(Date.parse(changed.updatedAt)));
+  assert.equal(changed.status, "confirmed");
+  assert.equal(changed.price, 70000); assert.deepEqual(changed.intake, intake);
+  assert.equal(publicBooking(changed).time, "11:00");
+  assert.equal(publicBooking(changed).change, null);
+});
+
+test("관리자 프로그램 단독 변경은 담당 상품·금액·시간을 카탈로그로 갱신", () => {
+  for (const status of ["pending", "confirmed"]) {
+    const source = { ...original, status, productId: "sohn-stretch", price: 70000, duration: 50, intake };
+    const result = adminDecision(source, { action: "reschedule", date: source.date, time: source.time,
+      productId: "yun-exercise", price: 1, duration: 999, status: "cancelled" }, now);
+    assert.deepEqual(result, { ...source, productId: "yun-exercise", price: 50000, duration: 50 });
+    const simultaneous = adminDecision(source, { action: "reschedule", date: "2026-10-22", time: "11:00", productId: "yun-maternity" }, now);
+    assert.equal(simultaneous.date, "2026-10-22"); assert.equal(simultaneous.time, "11:00");
+    assert.equal(simultaneous.productId, "yun-maternity"); assert.equal(simultaneous.price, 50000);
+    const back = adminDecision(result, { action: "reschedule", date: result.date, time: result.time, productId: "sohn-exercise" }, now);
+    assert.equal(back.price, 70000); assert.equal(back.status, status);
+  }
+});
+test("동일 상품의 기존 약정 금액 유지; 미등록 상품·변경 없는 저장은 거부", () => {
+  const source = { ...original, productId: "sohn-stretch", price: 65000, duration: 80 };
+  const request = { action: "reschedule", date: source.date, time: "11:00", productId: source.productId, price: 1, duration: 1 };
+  const result = adminDecision(source, request, now);
+  assert.equal(result.price, 65000); assert.equal(result.duration, 80);
+  for (const productId of ["", "fake", null, {}, ["yun-exercise"]]) {
+    assert.throws(() => adminDecision(source, { ...request, productId }, now), error => error.status === 400);
+  }
+  assert.throws(() => adminDecision(source, { ...request, time: source.time }, now), error => error.status === 400);
+});
+test("관리자 프로그램 변경 API는 저장된 상품·금액을 반환하고 버전 충돌을 차단", async () => {
+  const db = new MemoryDb();
+  const source = { ...original, ...futureSlot(), productId: "sohn-stretch", price: 70000, duration: 50, intake };
+  await db.save("bookings", source.id, source);
+  const record = await db.get("bookings", source.id);
+  const input = { id: record.id, version: record.version, action: "reschedule", date: record.date, time: record.time,
+    productId: "yun-maternity", price: 1 };
+  const dependencies = { db, verifyAdmin: async () => "program-admin" };
+  assert.equal((await handle(req("admin/decide", { ...input, productId: "fake" }), env, dependencies)).status, 400);
+  assert.equal((await db.get("bookings", source.id)).productId, "sohn-stretch");
+  assert.equal((await handle(req("admin/decide", input), env, dependencies)).status, 200);
+  assert.equal((await handle(req("admin/decide", input), env, dependencies)).status, 409);
+  const list = await (await handle(req("admin/list", {}), env, dependencies)).json();
+  assert.equal(list.records[0].productId, "yun-maternity");
+  assert.equal(list.records[0].price, 50000); assert.equal(list.records[0].updatedBy, "program-admin");
+  assert.deepEqual(list.records[0].intake, intake);
+});
+
+
+test("고객 조회는 저장된 상품 금액·소요시간만 공개하고 상담 및 내부 정보는 제외", () => {
+  const record = { ...original, productId: "sohn-exercise", price: 65000, duration: 80,
+    intake, healthConsent: true, updatedBy: "private-admin", internalNote: "private-note" };
+  const result = publicBooking(record);
+  assert.deepEqual(result.product, { id: "sohn-exercise", trainer: "손진석 대표원장", title: "기능재활운동", price: 65000, duration: 80 });
+  assert.deepEqual(Object.keys(result).sort(), ["change", "date", "id", "product", "status", "time"]);
+  assert.equal(publicBooking({ ...record, price: 0 }).product.price, 0);
+  const legacy = publicBooking({ ...original, productId: "retired-product" });
+  assert.equal(legacy.product.price, null);
+  assert.equal(legacy.product.duration, null);
+  assert.equal(legacy.product.title, "프로그램 확인 필요");
+});
+
+test("관리자 변경·확정·요청 처리·종료·삭제 후 고객 재조회는 최신 저장 내용과 일치", async () => {
+  const db = new MemoryDb();
+  const dependencies = { db, challenge: async () => {}, verifyAdmin: async () => "lookup-test-admin", notify: async () => {} };
+  const input = { ...futureSlot(), name: "테스트", phone: "01012345678", consent: true, healthConsent: true,
+    intake, productId: "sohn-stretch", requestId: crypto.randomUUID() };
+  assert.equal((await handle(req("create", input), env, dependencies)).status, 201);
+  const lookup = async () => {
+    const response = await handle(req("lookup", { phone: input.phone }), env, dependencies);
+    assert.equal(response.status, 200);
+    assert.match(response.headers.get("Cache-Control"), /no-store/);
+    return (await response.json()).records;
+  };
+  const id = (await lookup())[0].id;
+  const checkLatest = async () => {
+    const admin = (await (await handle(req("admin/list", {}), env, dependencies)).json()).records.find(record => record.id === id);
+    const customer = (await lookup())[0];
+    assert.deepEqual(customer, publicBooking(admin));
+    assert.equal(customer.product.price, admin.price);
+    assert.equal(customer.product.duration, admin.duration);
+    assert.ok(!JSON.stringify(customer).includes("birthDate"));
+    assert.ok(!JSON.stringify(customer).includes("updatedBy"));
+    return customer;
+  };
+  const decide = async (action, changes = {}) => {
+    const record = await db.get("bookings", id);
+    assert.equal((await handle(req("admin/decide", { id, version: record.version, action, ...changes }), env, dependencies)).status, 200);
+    return checkLatest();
+  };
+  const changed = await decide("reschedule", { date: input.date, time: "11:00", productId: "yun-maternity" });
+  assert.equal(changed.time, "11:00");
+  assert.equal(changed.product.trainer, "윤수진 원장");
+  assert.equal(changed.product.title, "산전/산후 산모운동");
+  assert.equal(changed.product.price, 50000);
+  assert.equal((await decide("confirm")).status, "confirmed");
+  assert.equal((await handle(req("change", { id, phone: input.phone, type: "reschedule", date: input.date, time: "12:00" }), env, dependencies)).status, 200);
+  assert.equal((await checkLatest()).change.time, "12:00");
+  const approved = await decide("approve-change");
+  assert.equal(approved.time, "12:00"); assert.equal(approved.change, null);
+  assert.equal((await handle(req("change", { id, phone: input.phone, type: "cancel" }), env, dependencies)).status, 200);
+  assert.equal((await decide("reject-change")).change, null);
+  assert.equal((await handle(req("change", { id, phone: input.phone, type: "cancel" }), env, dependencies)).status, 200);
+  assert.equal((await decide("approve-change")).status, "cancelled");
+  // Exercise the remaining terminal states with isolated in-memory fixtures.
+  let record = await db.get("bookings", id);
+  await db.save("bookings", id, { ...record, status: "pending" }, record.version);
+  assert.equal((await decide("decline")).status, "declined");
+  record = await db.get("bookings", id);
+  await db.save("bookings", id, { ...record, status: "confirmed", date: "2020-01-01" }, record.version);
+  assert.equal((await decide("complete")).status, "completed");
+  record = await db.get("bookings", id);
+  assert.equal((await handle(req("admin/delete", { id, version: record.version }), env, dependencies)).status, 200);
+  assert.deepEqual(await lookup(), []);
 });

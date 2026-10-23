@@ -19,8 +19,15 @@ export function productSummary(product, price) {
   const description = node("p", undefined, "booking-meta-row");
   const title = node("span", undefined, "booking-product-label");
   title.append(node("span", product.title), textUnit("(상담·체험)"));
-  description.append(title, node("strong", `${price.toLocaleString("ko-KR")}원`, "booking-text-unit booking-amount"));
+  description.append(title, node("strong", Number.isFinite(price) ? `${price.toLocaleString("ko-KR")}원` : "금액 확인 필요", "booking-text-unit booking-amount"));
   result.append(description);
+  return result;
+}
+export function lookupProductSummary(record) {
+  const product = record.product ?? { trainer: "담당 원장 확인 필요", title: "프로그램 확인 필요" };
+  const result = productSummary(product, product.price);
+  result.append(node("p", Number.isFinite(product.duration) && product.duration > 0
+    ? `상담·체험 ${product.duration}분` : "소요시간 확인 필요", "field-help booking-text-unit"));
   return result;
 }
 export function contactNode(record) {

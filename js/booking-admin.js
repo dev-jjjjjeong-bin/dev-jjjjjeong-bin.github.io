@@ -1,3 +1,4 @@
+import { createRescheduleEditor } from "./booking-admin-reschedule.js";
 import { intakeRows } from "./booking-intake.js";
 import { api, node, message, statuses } from "./booking-shared.js";
 import { products } from "./booking-products.js";
@@ -63,15 +64,29 @@ function render() {
       }));
       actions.append(button);
     }
-    card.append(actions); output.append(card);
+    card.append(actions);
+    if (["pending", "confirmed"].includes(record.status)) {
+      if (record.change) {
+        card.append(node("p", "예약 일시나 프로그램을 직접 변경하려면 접수된 변경·취소 요청을 먼저 승인하거나 거절해 주세요.", "field-help"));
+      } else {
+        const editor = createRescheduleEditor(record, (changes, feedback) => perform(async () => {
+          await adminApi("decide", { id: record.id, version: record.version, action: "reschedule", ...changes });
+          await refresh();
+          message(notice, "예약 내용을 변경했습니다. 고객에게 변경된 프로그램·일시·금액을 안내해 주세요.", "success");
+        }, feedback));
+        actions.append(editor.button); card.append(editor.form);
+      }
+    }
+    output.append(card);
   }
 }
-async function perform(work) {
+async function perform(work, errorTarget = notice) {
   if (busy) return;
   busy = true;
+  document.querySelector("#status-filter").disabled = true;
   workspace.querySelectorAll("button").forEach(button => { button.disabled = true; });
-  try { await work(); } catch (error) { message(notice, error.message, "error"); }
-  finally { busy = false; workspace.querySelectorAll("button").forEach(button => { button.disabled = false; }); }
+  try { await work(); } catch (error) { message(errorTarget, error.message, "error"); }
+  finally { document.querySelector("#status-filter").disabled = false; busy = false; workspace.querySelectorAll("button").forEach(button => { button.disabled = false; }); }
 }
 document.querySelector("#status-filter").addEventListener("change", render);
 document.querySelector("#refresh-button").addEventListener("click", () => perform(() => refresh()));

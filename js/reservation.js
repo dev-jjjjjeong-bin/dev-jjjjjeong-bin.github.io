@@ -3,7 +3,7 @@ import { scrollToApplication } from "./booking-form-navigation.js";
 import { genders, intakeGroups } from "./booking-intake.js";
 import { setupPhone } from "./booking-phone.js";
 import { api, statuses, node, message, setupDates, loadChallenge } from "./booking-shared.js";
-import { scheduleNode, priceNode, requestNode } from "./booking-display.js";
+import { scheduleNode, priceNode, requestNode, lookupProductSummary } from "./booking-display.js";
 import { products } from "./booking-products.js";
 const create = document.querySelector("#create-form");
 const lookup = document.querySelector("#lookup-form");
@@ -135,7 +135,7 @@ lookup.addEventListener("submit", event => {
     message(formMessage(lookup), data.records.length ? `${data.records.length === 100 ? "최근 " : ""}${data.records.length}건의 예약을 찾았습니다.` : "해당 번호로 접수된 예약이 없습니다.");
     for (const record of data.records) {
       const card = node("article", undefined, "booking-result");
-      card.append(node("span", statuses[record.status], `status-badge ${record.status}`), scheduleNode(record));
+      card.append(node("span", statuses[record.status], `status-badge ${record.status}`), scheduleNode(record), lookupProductSummary(record));
       if (record.change) card.append(requestNode(record.change));
       else if (["pending", "confirmed"].includes(record.status) && Date.parse(`${record.date}T${record.time}:00+09:00`) > Date.now()) {
         const actions = node("div", undefined, "button-row");

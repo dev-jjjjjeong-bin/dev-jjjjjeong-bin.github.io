@@ -176,3 +176,17 @@
 @media (min-width:761px) and (max-width:1000px) {
   .booking-columns { grid-template-columns:1fr; }
 }
+
+/* Direct schedule editing in the administrator's booking card. */
+.admin-reschedule { margin-top:20px; padding:18px; border:1px solid #c6cfba; border-radius:12px; background:#f7f8f1; }
+.booking-page .admin-reschedule fieldset { margin-top:0; }
+.admin-reschedule-summary { font-size:14px; font-weight:700; line-height:1.7; word-break:keep-all; }
+.admin-reschedule .field-help { line-height:1.7; }
+@media (max-width:480px) {
+  .admin-reschedule { padding:14px; }
+  .admin-reschedule .field-row { grid-template-columns:1fr; gap:0; }
+}
+
+.admin-reschedule-product { margin-top:12px; padding:12px; background:#fff; border-radius:8px; }
+.admin-reschedule-product .booking-product-summary { margin:0; }
+.admin-reschedule-product:empty { display:none; }

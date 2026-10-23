@@ -1,3 +1,5 @@
+import { products } from "../js/booking-products.js";
+
 export class HttpError extends Error {
   constructor(status, message) { super(message); this.status = status; }
 }
@@ -25,8 +27,17 @@ export function appointment(input, now = Date.now()) {
 }
 export function publicBooking(record) {
   // Phone-only lookup must never serialize the complete stored document.
+  const product = products.find(product => product.id === record.productId);
   return {
     id: record.id, date: record.date, time: record.time, status: record.status,
+    product: {
+      id: record.productId ?? null,
+      trainer: product?.trainer ?? "담당 원장 확인 필요",
+      title: product?.title ?? "프로그램 확인 필요",
+      // Use the saved agreement, not the current catalog price or duration.
+      price: Number.isFinite(record.price) && record.price >= 0 ? record.price : null,
+      duration: Number.isFinite(record.duration) && record.duration > 0 ? record.duration : null,
+    },
     change: record.change ? {
       type: record.change.type, date: record.change.date ?? null, time: record.change.time ?? null,
     } : null,
@@ -49,6 +60,23 @@ export function requestChange(record, input, now = Date.now()) {
 export function adminDecision(record, input, now = Date.now()) {
   const next = { ...record };
   switch (input.action) {
+    case "reschedule": {
+      check(["pending", "confirmed"].includes(record.status), "확인 대기 또는 확정된 예약만 변경할 수 있습니다.", 409);
+      check(!record.change, "접수된 변경·취소 요청을 먼저 승인하거나 거절해 주세요.", 409);
+      Object.assign(next, appointment(input, now));
+      if (input.productId !== undefined) {
+        const product = products.find(product => product.id === input.productId);
+        check(product, "변경할 프로그램을 선택해 주세요.");
+        if (product.id !== record.productId) {
+          next.productId = product.id;
+          next.price = product.price;
+          next.duration = product.duration;
+        }
+      }
+      check(next.date !== record.date || next.time !== record.time || next.productId !== record.productId,
+        "변경할 일시 또는 프로그램을 선택해 주세요.");
+      break;
+    }
     case "confirm":
       check(record.status === "pending" && !record.change, "먼저 변경 요청을 처리해 주세요.", 409);
       appointment(record, now);

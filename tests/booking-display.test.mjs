@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { productSummary, priceNode, contactNode, scheduleNode, requestNode } from '../js/booking-display.js';
+import { lookupProductSummary, productSummary, priceNode, contactNode, scheduleNode, requestNode } from '../js/booking-display.js';
 
 // Tiny text-only DOM: rendering checks never connect to Firebase or send notifications.
 class Element {
@@ -42,4 +42,19 @@ test('예약 및 변경 일정·상품 가격은 의미 단위 사이에서 줄�
     assert.equal(text(request.children[1]), '2026.10.22 · 14:00');
     assert.match(text(requestNode({ type: 'cancel' }, admin)), /취소/);
   }
+});
+
+
+test('고객 조회 상품 표시: 서버의 최신 담당자·프로그램·약정 금액·시간 사용', t => {
+  const original = globalThis.document;
+  globalThis.document = { createElement: tag => new Element(tag) };
+  t.after(() => { globalThis.document = original; });
+  const result = lookupProductSummary({ product: { trainer: '윤수진 원장', title: '산전/산후 산모운동', price: 45000, duration: 80 } });
+  assert.match(text(result), /윤수진 원장/);
+  assert.match(text(result), /산전\/산후 산모운동/);
+  assert.match(text(result), /45,000원/);
+  assert.match(text(result), /80분/);
+  assert.match(result.children[1].children[1].className, /booking-text-unit/);
+  assert.match(text(lookupProductSummary({})), /확인 필요/);
+  assert.ok(!text(lookupProductSummary({})).includes('undefined'));
 });
